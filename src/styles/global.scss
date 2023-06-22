@@ -1,0 +1,8 @@
+@use "../../node_modules/normalize.css/normalize.css";
+@use "./layout.scss";
+@use "./typeset.scss";
+@use "./colors.scss";
+
+body {
+  background-color: var(--clr-background);
+}

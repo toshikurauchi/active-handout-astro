@@ -1,0 +1,8 @@
+.main-content {
+  width: min(100% - 2rem, 60ch);
+  margin: 0 auto;
+
+  * + * {
+    margin-top: 1.5em;
+  }
+}
