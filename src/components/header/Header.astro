@@ -1,0 +1,14 @@
+---
+import HeaderReact from "./HeaderReact";
+import { fetchNavEntries } from "./Navigation/nav-tree-server";
+
+const { projectName } = Astro.props;
+const entries = fetchNavEntries();
+---
+
+<HeaderReact
+  title={projectName}
+  homeUrl={import.meta.env.BASE_URL}
+  navEntries={entries}
+  client:load
+/>
