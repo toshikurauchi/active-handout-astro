@@ -1,4 +1,6 @@
-# Tabbed content
+---
+title: Tabbed content
+---
 
 To use [Tabbed Content](https://facelessuser.github.io/pymdown-extensions/extensions/tabbed/), enable the following extension in your `mkdocs.yml`:
 

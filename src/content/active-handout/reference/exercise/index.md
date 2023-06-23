@@ -1,4 +1,6 @@
-# Exercise
+---
+title: Exercise
+---
 
 With this plugin it is possible to create asynchronous activities / tasks allowing the student to mark the completion of the same.
 

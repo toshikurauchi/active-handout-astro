@@ -1,4 +1,6 @@
-# Simple code editor
+---
+title: Simple code editor
+---
 
 You can add a simple code editor such as this:
 

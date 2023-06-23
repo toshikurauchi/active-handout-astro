@@ -1,4 +1,6 @@
-# Terminal
+---
+title: Terminal
+---
 
 This plugin renders a nice terminal on the page. It is just a wrap to the opensouce [termynal](https://github.com/ines/termynal) using it default configuration.
 

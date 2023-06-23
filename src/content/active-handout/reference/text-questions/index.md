@@ -1,4 +1,6 @@
-# Text questions
+---
+title: Text questions
+---
 
 This plugin adds one line text questions (short) or multiple line (long) to a page. As with all plugins, it uses admonitions to indicate where the question should be placed.
 

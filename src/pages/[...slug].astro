@@ -1,12 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
 import "../styles/global.scss";
 import { getCollection } from "astro:content";
+import cfg from "../../active-handout.json";
 
 export async function getStaticPaths() {
   const entries = await getCollection("active-handout");
   return entries.map((entry) => ({
-    params: { slug: entry.slug === "index" ? undefined : entry.slug },
+    params: { slug: entry.slug === "index" ? undefined : `${entry.slug}` },
     props: { entry },
   }));
 }
@@ -17,7 +19,9 @@ const title = entry.data.title || headings[0].text;
 ---
 
 <BaseLayout title={title}>
+  <Header projectName={cfg?.project} />
   <main class="main-content">
+    <h1>{title}</h1>
     <Content />
   </main>
 </BaseLayout>

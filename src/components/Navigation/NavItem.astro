@@ -1,0 +1,21 @@
+---
+import type { INavItem } from "./utils";
+
+interface Props {
+  entry: INavItem;
+}
+
+const { entry } = Astro.props;
+---
+
+<li>
+  <a href={entry.url}>{entry.title}</a>
+  {
+    entry.children &&
+      entry.children.map((child) => (
+        <ul>
+          <Astro.self entry={child} />
+        </ul>
+      ))
+  }
+</li>

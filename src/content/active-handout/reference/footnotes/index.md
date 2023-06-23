@@ -1,4 +1,6 @@
-# Footnotes
+---
+title: Footnotes
+---
 
 You can add [footnotes]()[^1] using the following syntax:
 

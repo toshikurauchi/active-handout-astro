@@ -1,4 +1,6 @@
-# Dashboard
+---
+title: Dashboard
+---
 
 You can add a dashboard with `!!! dashboard`:
 

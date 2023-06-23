@@ -1,4 +1,6 @@
-# Basic text editing with markdown
+---
+title: Basic text editing with markdown
+---
 
 In this page we show examples of general text editing using Markdown, a plain text way used to write formmated text.
 
@@ -149,16 +151,16 @@ Lists can be made as follows:
 Images you insert as in plain markdown: `![](image_path)`, but you have the advantage of being able to change the dimensions with `{width=...}`.
 
 === "Result"
-    ![](icon-elementos.png)
+    ![](./icon-elementos.png)
 
-    ![](icon-elementos.png){width=200}
+    ![](./icon-elementos.png){width=200}
 
 === "Markdown"
     ```
-    ![](icon-elementos.png)
+    ![](./icon-elementos.png)
     ```
 
     ```
-    ![](icon-elementos.png){width=200}
+    ![](./icon-elementos.png){width=200}
     ```
 

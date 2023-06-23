@@ -1,4 +1,6 @@
-# Progress Check
+---
+title: Progress Check
+---
 
 This plugin adds Progress Check buttons to a page. As with all plugins, it uses admonitions to indicate where the question should be placed. 
 

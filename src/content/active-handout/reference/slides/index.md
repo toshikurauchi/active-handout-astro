@@ -1,4 +1,6 @@
-# Slides
+---
+title: Slides
+---
 
 The slides plugin adds pdf slides to handouts. 
 

@@ -1,4 +1,6 @@
-# Markdown extensions
+---
+title: Markdown extensions
+---
 
 Markdown supports many extensions that adds other visual elements to text. In this page we describe the ones supported by *Interactive Handouts*.
 

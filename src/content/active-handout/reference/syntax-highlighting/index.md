@@ -1,4 +1,6 @@
-# Syntax highlighting
+---
+title: Syntax highlighting
+---
 
 To use syntax highlighting you need to enable the following extensions in your `mkdocs.yml`:
 

@@ -1,4 +1,6 @@
-# Parsons problems
+---
+title: Parsons problems
+---
 
 !!! exercise parsons
     bla bla bla

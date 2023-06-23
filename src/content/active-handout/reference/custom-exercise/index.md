@@ -1,4 +1,6 @@
-# Custom Exercises
+---
+title: Custom Exercises
+---
 
 You can also create custom exercises. Start by creating a mkdocs hook file (e.g. `hooks/custom_exercise.py`). You need to register the hook in your `mkdocs.yml` with (path is relative to the `mkdocs.yml` file):
 

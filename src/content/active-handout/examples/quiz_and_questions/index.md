@@ -1,4 +1,6 @@
-# Quiz and Questions
+---
+title: Quiz and Questions
+---
 
 *Interactive handout* supports the creation of single choice quizzes and one line short answers. See examples below.
 

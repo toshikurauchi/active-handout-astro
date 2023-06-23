@@ -1,4 +1,6 @@
-# Multiple Choice Exercises
+---
+title: Multiple Choice Exercises
+---
 
 This plugin adds Multiple Choice Exercises to a page. As with all plugins, it uses admonitions to indicate where the exercise should be placed.
 

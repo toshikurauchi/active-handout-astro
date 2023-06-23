@@ -1,4 +1,6 @@
-# Custom Variables
+---
+title: Custom Variables
+---
 
 You can use custom {{var1}} to easy adjust informations shared across several pages or to easy ajust course offers without having to review all text {{var2}}. To use custom variables you must declare a variable and put it under two brackets {{ var_name }}, then declare the variables in the `mkdocs.yml`.
 
