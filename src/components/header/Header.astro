@@ -2,8 +2,8 @@
 import HeaderReact from "./HeaderReact";
 import { fetchNavEntries } from "./Navigation/nav-tree-server";
 
-const { projectName } = Astro.props;
-const entries = fetchNavEntries();
+const { projectName, slug } = Astro.props;
+const entries = fetchNavEntries(slug);
 ---
 
 <HeaderReact

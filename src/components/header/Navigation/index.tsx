@@ -75,7 +75,9 @@ function NavItem({ entry }: { entry: NavTreeItem }) {
         duration: 0.2,
       }}
     >
-      <a href={entry.url}>{entry.title}</a>
+      <a href={entry.url} className={entry.isCurrent ? styles.current : ""}>
+        {entry.title}
+      </a>
       {entry.children &&
         entry.children.map((child, idx) => (
           <ul key={`navchild--${idx}`}>

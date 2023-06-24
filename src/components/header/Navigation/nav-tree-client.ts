@@ -1,11 +1,11 @@
-import type { SerializableNavItem } from "./nav-tree-server"
-import type { NavTreeItem } from "./types";
+import type { NavTreeItem, SerializableNavItem } from "./types";
 
 export function buildNavTree(entries: SerializableNavItem[]) {
   const treeEntries: NavTreeItem[] = entries.map((entry) => ({
     title: entry.title,
     url: entry.url,
     order: entry.order,
+    isCurrent: entry.isCurrent,
   }))
   treeEntries.forEach((entry, idx) => {
     const parentIdx = entries[idx].parent;

@@ -13,13 +13,14 @@ export async function getStaticPaths() {
   }));
 }
 
+const { slug } = Astro.params;
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 const title = entry.data.title || headings[0].text;
 ---
 
 <BaseLayout title={title}>
-  <Header projectName={cfg?.project} />
+  <Header projectName={cfg?.project} slug={slug} />
   <main class="main-content">
     <h1>{title}</h1>
     <Content />

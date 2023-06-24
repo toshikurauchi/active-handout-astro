@@ -23,4 +23,35 @@
       padding-left: 1rem;
     }
   }
+
+  li {
+    display: flex;
+    flex-direction: column;
+  }
+
+  a {
+    position: relative;
+    text-decoration: none;
+    padding: 0.1em 0.5em;
+    border-radius: 0.2em;
+
+    &.current {
+      background-color: var(--clr-secondary);
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -0.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.25em;
+        background-color: var(--clr-accent);
+        border-radius: 0.5em;
+      }
+    }
+
+    &:hover {
+      background-color: var(--clr-secondary);
+    }
+  }
 }
