@@ -1,14 +1,38 @@
 ---
-import HeaderReact from "./HeaderReact";
-import { fetchNavEntries } from "./Navigation/nav-tree-server";
+import { fetchNavEntries } from "./nav-tree";
+import NavMenu from "./NavMenu.astro";
 
 const { projectName, slug } = Astro.props;
 const entries = fetchNavEntries(slug);
 ---
 
-<HeaderReact
-  title={projectName}
-  homeUrl={import.meta.env.BASE_URL}
-  navEntries={entries}
-  client:load
-/>
+<header class="main-header separate-nav-layer">
+  <button class="menu-btn">
+    <svg
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+    </svg>
+  </button>
+  <a href={import.meta.env.BASE_URL} class="home-btn">
+    {projectName}
+  </a>
+  <aside class="nav-container">
+    <div class="menu-overlay"></div>
+    <nav><NavMenu entries={entries} /></nav>
+  </aside>
+</header>
+
+<script src="./script.ts"></script>
+
+<style lang="scss">
+  @use "./styles.scss";
+</style>
