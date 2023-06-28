@@ -5,4 +5,8 @@
 
 body {
   background-color: var(--clr-background);
+
+  ::selection {
+    background-color: #aaa3;
+  }
 }

@@ -1,5 +1,6 @@
 $padding-left: 1rem;
 $transition-time: 0.2s;
+$menu-btn-size: 2rem;
 
 .main-header {
   display: flex;
@@ -18,8 +19,9 @@ $transition-time: 0.2s;
       }
 
       .menu-overlay {
+        overflow: hidden;
         background: #333a;
-        position: absolute;
+        position: fixed;
         top: 0;
         bottom: 0;
         left: 0;
@@ -57,17 +59,18 @@ $transition-time: 0.2s;
   cursor: pointer;
   padding: 0;
   margin: 0;
-  width: 2rem;
-  height: 2rem;
+  width: $menu-btn-size;
+  height: $menu-btn-size;
   z-index: 999999;
   color: var(--clr-text);
+  position: fixed;
 }
 
 .home-btn {
   font-weight: bold;
   text-decoration: none;
   color: var(--clr-primary);
-  margin-inline-start: 0.5em;
+  margin-inline-start: calc($menu-btn-size + 0.5rem);
 }
 
 .menu-overlay {

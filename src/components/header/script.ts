@@ -37,8 +37,11 @@ if (mainContent && navMenu) {
 
 recoverMenuState();
 
-// Enable after everything is done, so that the transition is not visible on page load
-mainHeader?.classList.add("with-transition");
+// We need the setTimeout so there is a delay between the page load and the transition
+setTimeout(() => {
+  // Enable after everything is done, so that the transition is not visible on page load
+  mainHeader?.classList.add("with-transition");
+});
 
 // FUNCTIONS
 

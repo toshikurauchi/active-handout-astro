@@ -1,8 +1,15 @@
 ---
+import type { MarkdownHeading } from "astro";
 import { fetchNavEntries } from "./nav-tree";
 import NavMenu from "./NavMenu.astro";
 
-const { projectName, slug } = Astro.props;
+interface Props {
+  projectName: string;
+  slug?: string;
+  headings?: MarkdownHeading[];
+}
+
+const { projectName, slug, headings } = Astro.props;
 const entries = fetchNavEntries(slug);
 ---
 
@@ -27,7 +34,7 @@ const entries = fetchNavEntries(slug);
   </a>
   <aside class="nav-container">
     <div class="menu-overlay"></div>
-    <nav><NavMenu entries={entries} /></nav>
+    <nav><NavMenu entries={entries} headings={headings} /></nav>
   </aside>
 </header>
 

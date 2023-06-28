@@ -21,9 +21,10 @@ function pathToUrl(path: string) {
   const cleanPath = path
   .substring(start, end)
   .replace(/\/index$/, '')
+  .replace(/index$/, '')
   .replace(/^\//, '')
 
-  return `${import.meta.env.BASE_URL}${cleanPath || '/'}`;
+  return `${import.meta.env.BASE_URL}${cleanPath}`;
 }
 
 function getOrder(page: Page) {
@@ -78,13 +79,13 @@ export function fetchPages() {
   })) as PageWithUrl[]
 }
 
-export function fetchNavEntries(slug: string) {
+export function fetchNavEntries(slug?: string) {
   const allPages = fetchPages().filter((page) => page.frontmatter?.navigation?.show !== false);
   const entries = allPages.map((page, idx) => ({id: idx,
     title: page.frontmatter?.navigation?.title || page.frontmatter.title || '',
     url: page.url,
     order: getOrder(page),
-    isCurrent: page.url === `${import.meta.env.BASE_URL}${slug}`,
+    isCurrent: page.url === `${import.meta.env.BASE_URL}${slug || ''}`,
     parent: undefined,
     children: undefined,
   }));
