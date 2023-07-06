@@ -1,0 +1,34 @@
+---
+import config from 'virtual:active-handout/user-config';
+import type { MarkdownHeading } from 'astro';
+import type { Route } from '../utils/routing';
+
+import "@fontsource-variable/open-sans";
+import "@fontsource-variable/oswald";
+import "@fontsource/fira-mono";
+import Header from '../components/Header/Header.astro';
+
+type Props = Route & { headings: MarkdownHeading[], title: string };
+
+const { entry, title, headings } = Astro.props;
+const isSplash = entry.data.template !== 'splash';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={config.description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header websiteTitle={config.title} headings={headings} />
+    <main class="main-content">
+      {!isSplash && <h1>{title}</h1>}
+      <slot />
+    </main>
+  </body>
+</html>

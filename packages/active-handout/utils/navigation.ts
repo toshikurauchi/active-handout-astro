@@ -1,5 +1,6 @@
 // Credits: a lot of the code in this page is based on https://github.com/tony-sull/astro-navigation/blob/main/src/utils.ts
-import type { Page } from "../../types/Page"
+
+import { Handout } from "../schema"
 
 export interface NavTreeItem {
   id: number
@@ -11,7 +12,7 @@ export interface NavTreeItem {
   children?: NavTreeItem[]
 }
 
-type PageWithUrl = Page & {url: string}
+type HandoutWithUrl = Handout & {url: string}
 
 function pathToUrl(path: string) {
   const basePath = '/src/content/active-handout/';
@@ -27,8 +28,8 @@ function pathToUrl(path: string) {
   return `${import.meta.env.BASE_URL}${cleanPath}`;
 }
 
-function getOrder(page: Page) {
-  const order = page.frontmatter?.navigation?.order;
+function getOrder(handout: Handout) {
+  const order = handout.navigation?.order;
   if (order === undefined) {
     return 99999;
   }
@@ -76,7 +77,7 @@ export function fetchPages() {
   return Object.values<Page>(results).map((page) => ({
     ...page,
     url: pathToUrl(page.file),
-  })) as PageWithUrl[]
+  })) as HandoutWithUrl[]
 }
 
 export function fetchNavEntries(slug?: string) {

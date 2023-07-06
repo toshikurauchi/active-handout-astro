@@ -3,7 +3,5 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
   }
 }

@@ -1,0 +1,9 @@
+import { defineCollection, z } from 'astro:content';
+import { HandoutSchema } from '@insperedu/active-handout/types';
+
+const handoutCollection = defineCollection({
+  schema: HandoutSchema,
+});
+export const collections = {
+  'handouts': handoutCollection,
+};

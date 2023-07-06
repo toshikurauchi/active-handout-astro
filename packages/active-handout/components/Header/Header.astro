@@ -1,16 +1,14 @@
 ---
 import type { MarkdownHeading } from "astro";
-import { fetchNavEntries } from "./nav-tree";
-import NavMenu from "./NavMenu.astro";
+import { navEntries } from "../../utils/routing";
+import NavMenu from "../NavMenu/NavMenu.astro";
 
 interface Props {
-  projectName: string;
-  slug?: string;
+  websiteTitle: string;
   headings?: MarkdownHeading[];
 }
 
-const { projectName, slug, headings } = Astro.props;
-const entries = fetchNavEntries(slug);
+const { websiteTitle, headings } = Astro.props;
 ---
 
 <header class="main-header separate-nav-layer">
@@ -30,11 +28,11 @@ const entries = fetchNavEntries(slug);
     </svg>
   </button>
   <a href={import.meta.env.BASE_URL} class="home-btn">
-    {projectName}
+    {websiteTitle}
   </a>
   <aside class="nav-container">
     <div class="menu-overlay"></div>
-    <nav><NavMenu entries={entries} headings={headings} /></nav>
+    <nav><NavMenu entries={navEntries} headings={headings} /></nav>
   </aside>
 </header>
 
