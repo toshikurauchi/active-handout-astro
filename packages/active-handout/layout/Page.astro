@@ -6,12 +6,14 @@ import type { Route } from '../utils/routing';
 import "@fontsource-variable/open-sans";
 import "@fontsource-variable/oswald";
 import "@fontsource/fira-mono";
+import "../styles/global.scss";
+
 import Header from '../components/Header/Header.astro';
 
 type Props = Route & { headings: MarkdownHeading[], title: string };
 
 const { entry, title, headings } = Astro.props;
-const isSplash = entry.data.template !== 'splash';
+const isSplash = entry.data.template === 'splash';
 ---
 
 <!DOCTYPE html>
