@@ -1,6 +1,6 @@
 ---
 import type { MarkdownHeading } from "astro";
-import { navEntries } from "../../utils/routing";
+import { getNavEntries } from "../../utils/routing";
 import NavMenu from "../NavMenu/NavMenu.astro";
 
 interface Props {
@@ -8,7 +8,9 @@ interface Props {
   headings?: MarkdownHeading[];
 }
 
+const { slug } = Astro.params;
 const { websiteTitle, headings } = Astro.props;
+const navEntries = getNavEntries(slug);
 ---
 
 <header class="main-header separate-nav-layer">

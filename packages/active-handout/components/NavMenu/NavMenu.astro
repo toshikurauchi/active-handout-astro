@@ -1,10 +1,10 @@
 ---
 import type { MarkdownHeading } from "astro";
-import { NavTreeItem } from "../../utils/routing";
+import type { NavTreeItem } from "../../utils/routing";
 
 interface Props {
   entries: NavTreeItem[];
-  headings?: MarkdownHeading[];
+  headings?: MarkdownHeading[] | undefined;
   nested?: boolean;
 }
 
@@ -68,6 +68,7 @@ const { entries, nested, headings } = Astro.props;
 <style lang="scss">
   summary {
     position: relative;
+    display: flex;
     list-style: none;
 
     &::marker,
@@ -82,16 +83,23 @@ const { entries, nested, headings } = Astro.props;
       padding: 0 0.5rem;
       position: absolute;
       transition: transform 0.1s ease-in-out;
+      cursor: pointer;
     }
 
-    a.current {
-      border-left: none;
-      margin-left: 0;
+    a{
+      flex-grow: 1;
+
+      .current {
+        border-left: none;
+        margin-left: 0;
+      }
     }
   }
 
-  details[open] summary::before {
-    transform: rotate(90deg);
+  details {
+    &[open] summary::before {
+      transform: rotate(90deg);
+    }
   }
 
   ul {

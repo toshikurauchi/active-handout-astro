@@ -6,9 +6,8 @@ import Page from './layout/Page.astro';
 import type { ActiveHandoutEntry } from './utils/routing';
 import { useTranslations } from './utils/translations';
 
-const { lang = 'en', dir = 'ltr', locale } = config.defaultLocale || {};
-const entryMeta = { dir, lang, locale };
-const t = useTranslations(locale);
+const lang = config.lang;
+const t = useTranslations(lang);
 
 const fallbackEntry: ActiveHandoutEntry = {
   slug: '404',
@@ -31,6 +30,6 @@ const entry = userEntry || fallbackEntry;
 const { Content, headings } = await entry.render();
 ---
 
-<Page {headings} entry={entry} id={entry.id} slug={entry.slug} {...entryMeta} {entryMeta}>
+<Page title={t("404.title")} {headings} entry={entry} id={entry.id} slug={entry.slug}>
   <Content />
 </Page>

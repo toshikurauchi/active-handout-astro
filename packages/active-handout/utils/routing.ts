@@ -9,8 +9,8 @@ export interface NavTreeItem {
   url: string | undefined
   order: number
   isCurrent: boolean
-  parent?: NavTreeItem
-  children?: NavTreeItem[]
+  parent?: NavTreeItem | undefined
+  children?: NavTreeItem[] | undefined
 }
 
 export type ActiveHandoutEntry = Omit<CollectionEntry<'handouts'>, 'slug'> & {
@@ -54,6 +54,8 @@ function findEntryParent(entry: NavTreeItem, entryMap: Map<string | undefined, N
       return parent;
     }
   }
+
+  return undefined;
 }
 function setEntryRelationships(entries: NavTreeItem[]) {
   const entryMap = new Map(entries.map((entry) => [entry.url, entry]));
@@ -75,12 +77,12 @@ function sortChildren(entries: NavTreeItem[]) {
     }
   });
 }
-function getNavEntries(): NavTreeItem[] {
+export function getNavEntries(currentSlug?: string): NavTreeItem[] {
   const entries = handouts.map((entry) => ({
     title: entry.data.navigation?.title || entry.data.title || '',
-    url: slugToParam(entry.slug),
+    url: slugToParam(entry.slug) || '/',
     order: getOrder(entry),
-    isCurrent: false, //entry.url === `${import.meta.env.BASE_URL}${slug || ''}`, // TODO 
+    isCurrent: (entry.slug || undefined) === currentSlug,
     parent: undefined,
     children: undefined,
   }));
@@ -91,7 +93,6 @@ function getNavEntries(): NavTreeItem[] {
 
   return entries.filter((entry) => !entry.parent).sort((entryA, entryB) => entryA.order - entryB.order);
 }
-export const navEntries = getNavEntries();
 
 function getOrder(entry: ActiveHandoutEntry) {
   const order = entry.data.navigation?.order;

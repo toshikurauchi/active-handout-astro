@@ -68,6 +68,7 @@ a {
   text-underline-offset: 0.25em;
   word-break: break-word;
   transition: all 0.1s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     text-decoration-thickness: 0.2em;

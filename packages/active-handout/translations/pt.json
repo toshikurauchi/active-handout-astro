@@ -1,4 +1,5 @@
 {
   "skipLink.label": "Pular para o conteúdo",
-  "404.text": "Página não encontrada. Verifique o URL ou tente usar a barra de pesquisa."
+  "404.title": "Página não encontrada",
+  "404.text": "Verifique o URL ou tente usar a barra de pesquisa."
 }
