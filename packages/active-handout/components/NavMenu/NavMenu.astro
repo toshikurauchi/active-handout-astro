@@ -1,6 +1,7 @@
 ---
 import type { MarkdownHeading } from "astro";
 import type { NavTreeItem } from "../../utils/routing";
+import { pathWithBase } from "../../utils/base";
 
 interface Props {
   entries: NavTreeItem[];
@@ -29,7 +30,15 @@ const { entries, nested, headings } = Astro.props;
       <li>
         {!entry.children && (
           <>
-            <a href={entry.url} class:list={[entry.isCurrent ? "current" : ""]}>
+            <a
+              href={pathWithBase(entry.url || "")}
+              class:list={[
+                entry.isCurrent ? "current" : "",
+                entry.isCurrent && headings && headings.length > 0
+                  ? "with-headings"
+                  : "",
+              ]}
+            >
               {entry.title}
             </a>
             {entry.isCurrent && headings && headings.length > 0 && (
@@ -47,7 +56,7 @@ const { entries, nested, headings } = Astro.props;
           <details open={hasCurrent(entry)}>
             <summary>
               <a
-                href={entry.url}
+                href={pathWithBase(entry.url || "")}
                 class:list={[entry.isCurrent ? "current" : ""]}
               >
                 {entry.title}
@@ -78,7 +87,7 @@ const { entries, nested, headings } = Astro.props;
 
     &::before {
       content: "▸";
-      left: -1em;
+      left: -1.5em;
       color: var(--clr-accent);
       padding: 0 0.5rem;
       position: absolute;
@@ -86,13 +95,8 @@ const { entries, nested, headings } = Astro.props;
       cursor: pointer;
     }
 
-    a{
+    a {
       flex-grow: 1;
-
-      .current {
-        border-left: none;
-        margin-left: 0;
-      }
     }
   }
 
@@ -104,14 +108,17 @@ const { entries, nested, headings } = Astro.props;
 
   ul {
     list-style: none;
-    margin: 0 0 0.5rem -0.4rem;
-    height: 100%;
+    margin: 0 0 0.5rem;
     padding: 0 0 0 1rem;
-    border-left: 1px solid #3332;
+    height: 100%;
 
     &.top-level {
-      margin-left: 0;
-      padding-left: 0;
+      overflow-x: visible;
+      overflow-y: auto;
+      // We need this so that the arrows that show/hide the
+      // details are not hidden by overflow
+      margin-left: -2rem;
+      padding-left: 2rem;
       border-left: none;
     }
 
@@ -121,9 +128,12 @@ const { entries, nested, headings } = Astro.props;
       padding: 0.5rem;
       border-left: none;
       margin-left: 0;
+      border-radius: 0 0 0.5em 0.5em;
 
       li {
         display: list-item;
+        line-height: 1;
+        margin-bottom: 0.5em;
 
         &::marker {
           color: var(--clr-accent);
@@ -149,16 +159,22 @@ const { entries, nested, headings } = Astro.props;
   a {
     position: relative;
     text-decoration: none;
-    padding: 0.1em 0.5rem;
-    border-radius: 0.2em;
+    padding: 0.5em 0.5rem;
+    border-radius: 0.5em;
+    line-height: 1;
 
     &.current {
       font-weight: bold;
       background: var(--clr-secondary);
+
+      &.with-headings {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
     }
 
     &:hover {
-      background-color: var(--clr-secondary);
+      transform: scale(1.02);
     }
   }
 

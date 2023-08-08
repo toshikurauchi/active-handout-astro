@@ -20,15 +20,12 @@ menuOverlay?.addEventListener("click", () => {
 
 const navMenu = mainHeader?.querySelector("nav");
 if (navMenu) {
-  mainHeader?.style.setProperty(
-    "--nav-menu-width",
-    navMenu.clientWidth + "px"
-  );
+  mainHeader?.style.setProperty("--nav-menu-width", navMenu.clientWidth + "px");
 }
 
 if (mainContent && navMenu) {
   updateNavFitsPage();
-  
+
   const resizeObserver = new ResizeObserver(updateNavFitsPage);
   resizeObserver.observe(navMenu);
   resizeObserver.observe(mainContent);
@@ -41,7 +38,7 @@ recoverMenuState();
 setTimeout(() => {
   // Enable after everything is done, so that the transition is not visible on page load
   mainHeader?.classList.add("with-transition");
-});
+}, 1000);
 
 // FUNCTIONS
 
@@ -75,15 +72,11 @@ function updateNavFitsPage() {
   const menuWidth = navMenu?.clientWidth || 0;
 
   if (menuWidth) {
-    mainHeader?.style.setProperty(
-      "--nav-menu-width",
-      menuWidth + "px"
-    );
+    mainHeader?.style.setProperty("--nav-menu-width", menuWidth + "px");
 
     if (navFitsPage()) {
       mainHeader?.classList.remove("separate-nav-layer");
-    }
-    else {
+    } else {
       mainHeader?.classList.add("separate-nav-layer");
     }
   }

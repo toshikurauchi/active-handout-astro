@@ -88,10 +88,10 @@ nav {
   position: fixed;
   left: calc(var(--nav-menu-width, 100rem) * -1);
   margin: 0;
+  padding: var(--header-height, 3rem) 1rem 1rem $padding-left;
   top: 0;
   bottom: 0;
   font-size: var(--fnt-sz--1);
   background-color: transparent;
-  padding: var(--header-height, 3rem) 1rem 1rem $padding-left;
   width: min(80vw, 20rem);
 }
