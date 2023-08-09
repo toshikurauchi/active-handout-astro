@@ -1,19 +1,17 @@
-import type { GetStaticPathsItem } from 'astro';
-import { CollectionEntry, getCollection } from 'astro:content';
-import {
-  slugToParam,
-} from './slugs';
+import type { GetStaticPathsItem } from "astro";
+import { CollectionEntry, getCollection } from "astro:content";
+import { slugToParam } from "./slugs";
 
 export interface NavTreeItem {
-  title: string
-  url: string | undefined
-  order: number
-  isCurrent: boolean
-  parent?: NavTreeItem | undefined
-  children?: NavTreeItem[] | undefined
+  title: string;
+  url: string | undefined;
+  order: number;
+  isCurrent: boolean;
+  parent?: NavTreeItem | undefined;
+  children?: NavTreeItem[] | undefined;
 }
 
-export type ActiveHandoutEntry = Omit<CollectionEntry<'handouts'>, 'slug'> & {
+export type ActiveHandoutEntry = Omit<CollectionEntry<"handouts">, "slug"> & {
   slug: string;
 };
 
@@ -35,20 +33,23 @@ interface Path extends GetStaticPathsItem {
  * `index` is stripped, but in the root of a collection, we get a slug of `index`.
  * We map that to an empty string for consistent behaviour.
  */
-const normalizeIndexSlug = (slug: string) => (slug === 'index' ? '' : slug);
+const normalizeIndexSlug = (slug: string) => (slug === "index" ? "" : slug);
 
 /** All entries in the handouts content collection. */
-const handouts: ActiveHandoutEntry[] = (await getCollection('handouts')).map(
-  ({ slug, ...entry }) => ({ ...entry, slug: normalizeIndexSlug(slug) })
-).filter((entry) => entry.data.navigation?.show !== false);;
+const handouts: ActiveHandoutEntry[] = (await getCollection("handouts"))
+  .map(({ slug, ...entry }) => ({ ...entry, slug: normalizeIndexSlug(slug) }))
+  .filter((entry) => entry.data.navigation?.show !== false);
 
-function findEntryParent(entry: NavTreeItem, entryMap: Map<string | undefined, NavTreeItem>) {
+function findEntryParent(
+  entry: NavTreeItem,
+  entryMap: Map<string | undefined, NavTreeItem>
+) {
   let url = entry.url;
 
   if (!url) return;
 
   while (url.length > 0) {
-    url = url.split('/').slice(0, -1).join('/');
+    url = url.split("/").slice(0, -1).join("/");
     const parent = entryMap.get(url);
     if (parent) {
       return parent;
@@ -77,10 +78,10 @@ function sortChildren(entries: NavTreeItem[]) {
     }
   });
 }
-export function getNavEntries(currentSlug?: string): NavTreeItem[] {
+function listAllNavEntries(currentSlug?: string): NavTreeItem[] {
   const entries = handouts.map((entry) => ({
-    title: entry.data.navigation?.title || entry.data.title || '',
-    url: slugToParam(entry.slug) || '/',
+    title: entry.data.navigation?.title || entry.data.title || "",
+    url: slugToParam(entry.slug) || "/",
     order: getOrder(entry),
     isCurrent: (entry.slug || undefined) === currentSlug,
     parent: undefined,
@@ -88,10 +89,40 @@ export function getNavEntries(currentSlug?: string): NavTreeItem[] {
   }));
 
   setEntryRelationships(entries);
-
   sortChildren(entries);
 
-  return entries.filter((entry) => !entry.parent).sort((entryA, entryB) => entryA.order - entryB.order);
+  return entries;
+}
+export function getNavEntries(currentSlug?: string): NavTreeItem[] {
+  const entries = listAllNavEntries(currentSlug);
+
+  return entries
+    .filter((entry) => !entry.parent)
+    .sort((entryA, entryB) => entryA.order - entryB.order);
+}
+
+function getCurrentEntry(currentSlug?: string): NavTreeItem | undefined {
+  const allEntries = listAllNavEntries(currentSlug);
+  let currentEntry;
+  for (let entry of allEntries) {
+    if (entry.isCurrent) {
+      currentEntry = entry;
+      break;
+    }
+  }
+  return currentEntry;
+}
+
+export function getBreadcrumbEntries(currentSlug?: string): NavTreeItem[] {
+  let entry = getCurrentEntry(currentSlug)?.parent;
+  const breadcrumbs: NavTreeItem[] = [];
+
+  while (entry) {
+    breadcrumbs.push(entry);
+    entry = entry.parent;
+  }
+
+  return breadcrumbs.reverse();
 }
 
 function getOrder(entry: ActiveHandoutEntry) {
