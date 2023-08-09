@@ -1,0 +1,52 @@
+---
+import { getBreadcrumbEntries } from "../../utils/routing";
+import { pathWithBase } from "../../utils/base";
+
+const { slug } = Astro.params;
+const breadcrumbs = getBreadcrumbEntries(slug);
+---
+
+<ul class="breadcrumbs">
+  {
+    breadcrumbs.map((breadcrumb) => (
+      <li class="breadcrumb">
+        <a href={pathWithBase(breadcrumb.url || "")}>{breadcrumb.title}</a>
+      </li>
+    ))
+  }
+</ul>
+
+<style lang="scss">
+  .breadcrumbs {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--clr-text-light);
+    font-weight: 400;
+  }
+
+  .breadcrumb {
+    display: inline;
+
+    & + .breadcrumb {
+      margin-top: 0;
+
+      &::before {
+        content: "»";
+        color: inherit;
+        margin: 0 0.5em;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+</style>
