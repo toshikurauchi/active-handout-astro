@@ -1,24 +1,12 @@
 ---
 import type { MarkdownHeading } from "astro";
-import type { NavTreeItem } from "../../utils/routing";
+import { hasCurrent, type NavTreeItem } from "../../utils/routing";
 import { pathWithBase } from "../../utils/base";
 
 interface Props {
   entries: NavTreeItem[];
   headings?: MarkdownHeading[] | undefined;
   nested?: boolean;
-}
-
-function hasCurrent(entry: NavTreeItem) {
-  if (entry.isCurrent) {
-    return true;
-  }
-
-  if (entry.children) {
-    return entry.children.some(hasCurrent);
-  }
-
-  return false;
 }
 
 const { entries, nested, headings } = Astro.props;
@@ -29,7 +17,7 @@ const { entries, nested, headings } = Astro.props;
     entries.map((entry) => (
       <li>
         {!entry.children && (
-          <>
+          <summary class="no-children">
             <a
               href={pathWithBase(entry.url || "")}
               class:list={[
@@ -50,7 +38,7 @@ const { entries, nested, headings } = Astro.props;
                 ))}
               </ul>
             )}
-          </>
+          </summary>
         )}
         {entry.children && (
           <details open={hasCurrent(entry)}>
@@ -76,7 +64,6 @@ const { entries, nested, headings } = Astro.props;
 
 <style lang="scss">
   summary {
-    position: relative;
     display: flex;
     list-style: none;
 
@@ -87,12 +74,26 @@ const { entries, nested, headings } = Astro.props;
 
     &::before {
       content: "▸";
+      display: grid;
+      place-items: center;
       left: -1.5em;
       color: var(--clr-accent);
-      padding: 0 0.5rem;
-      position: absolute;
       transition: transform 0.1s ease-in-out;
+      transform-origin: center center;
       cursor: pointer;
+    }
+
+    &.no-children {
+      display: grid;
+      grid-template-columns: min-content auto;
+
+      ul {
+        grid-area: 2 / 2 / 3 / 3;
+      }
+
+      &::before {
+        color: transparent;
+      }
     }
 
     a {
@@ -101,7 +102,7 @@ const { entries, nested, headings } = Astro.props;
   }
 
   details {
-    &[open] summary::before {
+    &[open] > summary::before {
       transform: rotate(90deg);
     }
   }
@@ -113,26 +114,19 @@ const { entries, nested, headings } = Astro.props;
     height: 100%;
 
     &.top-level {
-      overflow-x: visible;
       overflow-y: auto;
-      // We need this so that the arrows that show/hide the
-      // details are not hidden by overflow
-      margin-left: -2rem;
-      padding-left: 2rem;
-      border-left: none;
     }
 
     &.headings {
       list-style: disc;
       background-color: #eee6;
       padding: 0.5rem;
-      border-left: none;
       margin-left: 0;
       border-radius: 0 0 0.5em 0.5em;
 
       li {
         display: list-item;
-        line-height: 1;
+        line-height: 1.1;
         margin-bottom: 0.5em;
 
         &::marker {
@@ -161,7 +155,7 @@ const { entries, nested, headings } = Astro.props;
     text-decoration: none;
     padding: 0.5em 0.5rem;
     border-radius: 0.5em;
-    line-height: 1;
+    line-height: 1.1;
 
     &.current {
       font-weight: bold;

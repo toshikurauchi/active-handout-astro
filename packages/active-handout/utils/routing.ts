@@ -113,6 +113,18 @@ function getCurrentEntry(currentSlug?: string): NavTreeItem | undefined {
   return currentEntry;
 }
 
+export function hasCurrent(entry: NavTreeItem) {
+  if (entry.isCurrent) {
+    return true;
+  }
+
+  if (entry.children) {
+    return entry.children.some(hasCurrent);
+  }
+
+  return false;
+}
+
 export function getBreadcrumbEntries(currentSlug?: string): NavTreeItem[] {
   let entry = getCurrentEntry(currentSlug)?.parent;
   const breadcrumbs: NavTreeItem[] = [];
