@@ -37,6 +37,7 @@ export default function ActiveHandoutIntegration(
         });
         const newConfig: AstroUserConfig = {
           markdown: {
+            syntaxHighlight: "prism",
             remarkPlugins: [emoji],
           },
           vite: {
