@@ -1,5 +1,6 @@
 import mdx from "@astrojs/mdx";
 import lit from "@astrojs/lit";
+import emoji from "remark-emoji";
 import type { AstroIntegration, AstroUserConfig, ViteUserConfig } from "astro";
 import {
   ActiveHandoutConfig,
@@ -35,6 +36,9 @@ export default function ActiveHandoutIntegration(
           entryPoint: "@insperedu/active-handout/index.astro",
         });
         const newConfig: AstroUserConfig = {
+          markdown: {
+            remarkPlugins: [emoji],
+          },
           vite: {
             plugins: [vitePluginActiveHandoutUserConfig(userConfig)],
             ssr: {
