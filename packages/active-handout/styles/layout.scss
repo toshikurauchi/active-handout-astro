@@ -1,12 +1,16 @@
+:root {
+  --content-top-padding: 1.5rem;
+  --default-block-padding: 0.5rem;
+  --default-inline-padding: 0.8rem;
+  --default-top-margin: 1.2em;
+}
+
 .main-content {
+  padding-top: var(--content-top-padding);
   width: min(100% - 2rem, 60ch);
   margin: 0 auto;
+}
 
-  * + * {
-    margin-top: 1.2em;
-  }
-
-  h1 {
-    margin-top: 0;
-  }
+p:not(:first-child) {
+  margin-top: 1.2em;
 }

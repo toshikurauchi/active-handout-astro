@@ -8,17 +8,28 @@ Markdown supports many extensions that adds other visual elements to text. In th
 
 You can use emojis from the list https://github.com/caiyongji/emoji-list.
 
-=== "Result"
-:two_hearts: :star:
-=== "Markdown"
-:two_hearts: :star:
+<ah-tabbed>
+  <label slot="label" for="emoji-result">Result</label>
+  <div slot="content" id="emoji-result">
+  :two_hearts: :star: :grin: :alien: :notes: :v: :hamster: :globe_with_meridians: :alarm_clock:
+  </div>
+
+  <label slot="label" for="emoji-markdown">Markdown</label>
+  <div slot="content" id="emoji-markdown">
+  ```md
+  :two_hearts: :star: :grin: :alien: :notes: :v: :hamster: :globe_with_meridians: :alarm_clock:
+  ```
+  </div>
+</ah-tabbed>
 
 ## Box elements
 
 Box elements can be use to emphasize text and add interactivity to a handout. All follow the same syntax:
 
-    !!! TYPE
-        content goes here
+```
+!!! TYPE
+    content goes here
+```
 
 See examples of static box elements below.
 
