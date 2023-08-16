@@ -1,0 +1,3 @@
+[submodule "packages/active-handout/web-components"]
+	path = packages/active-handout/web-components
+	url = git@github.com:active-handout/web-components.git

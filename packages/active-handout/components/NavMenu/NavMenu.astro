@@ -64,7 +64,9 @@ const { entries, nested, headings } = Astro.props;
 
 <style lang="scss">
   summary {
-    display: flex;
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-template-rows: 1fr;
     list-style: none;
 
     &::marker,
@@ -84,9 +86,6 @@ const { entries, nested, headings } = Astro.props;
     }
 
     &.no-children {
-      display: grid;
-      grid-template-columns: min-content auto;
-
       ul {
         grid-area: 2 / 2 / 3 / 3;
       }

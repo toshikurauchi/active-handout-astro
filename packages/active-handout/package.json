@@ -17,16 +17,19 @@
   },
   "exports": {
     ".": "./index.ts",
+    "./components/external-components": "./components/external-components.ts",
     "./schema": "./schema.ts",
     "./types": "./types.ts",
     "./index.astro": "./index.astro",
     "./404.astro": "./404.astro"
   },
   "dependencies": {
+    "@astrojs/lit": "^2.1.1",
     "@astrojs/mdx": "^0.19.7",
     "@fontsource-variable/open-sans": "^5.0.4",
     "@fontsource-variable/oswald": "^5.0.3",
     "@fontsource/fira-mono": "^5.0.3",
+    "@webcomponents/template-shadowroot": "^0.2.1",
     "astro": "^2.6.6",
     "autoprefixer": "^10.4.14",
     "cssnano": "^6.0.1",

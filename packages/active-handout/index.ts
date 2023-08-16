@@ -1,42 +1,49 @@
-import mdx from '@astrojs/mdx';
-import type {
-  AstroIntegration,
-  AstroUserConfig,
-  ViteUserConfig,
-} from 'astro';
-import { ActiveHandoutConfig, ActiveHandoutConfigSchema, ActiveHandoutUserConfig } from './utils/user-config';
-import { errorMap } from './utils/error-map';
+import mdx from "@astrojs/mdx";
+import lit from "@astrojs/lit";
+import type { AstroIntegration, AstroUserConfig, ViteUserConfig } from "astro";
+import {
+  ActiveHandoutConfig,
+  ActiveHandoutConfigSchema,
+  ActiveHandoutUserConfig,
+} from "./utils/user-config";
+import { errorMap } from "./utils/error-map";
 
-export default function ActiveHandoutIntegration(opts: ActiveHandoutUserConfig): AstroIntegration[] {
+export default function ActiveHandoutIntegration(
+  opts: ActiveHandoutUserConfig
+): AstroIntegration[] {
   const parsedConfig = ActiveHandoutConfigSchema.safeParse(opts, { errorMap });
-  
+
   if (!parsedConfig.success) {
     throw new Error(
-      'Invalid config passed to active-handout integration\n' +
-        parsedConfig.error.issues.map((i) => i.message).join('\n')
+      "Invalid config passed to active-handout integration\n" +
+        parsedConfig.error.issues.map((i) => i.message).join("\n")
     );
   }
 
   const userConfig = parsedConfig.data;
 
   const ActiveHandout: AstroIntegration = {
-    name: '@insperedu/active-handout',
+    name: "@insperedu/active-handout",
     hooks: {
-      'astro:config:setup': ({ injectRoute, updateConfig }) => {
+      "astro:config:setup": ({ injectRoute, updateConfig }) => {
         injectRoute({
-          pattern: '404',
-          entryPoint: '@insperedu/active-handout/404.astro',
+          pattern: "404",
+          entryPoint: "@insperedu/active-handout/404.astro",
         });
         injectRoute({
-          pattern: '[...slug]',
-          entryPoint: '@insperedu/active-handout/index.astro',
+          pattern: "[...slug]",
+          entryPoint: "@insperedu/active-handout/index.astro",
         });
         const newConfig: AstroUserConfig = {
           vite: {
             plugins: [vitePluginActiveHandoutUserConfig(userConfig)],
             ssr: {
-              noExternal: ['@fontsource-variable/open-sans', '@fontsource-variable/oswald', '@fontsource/fira-mono'],
-            }
+              noExternal: [
+                "@fontsource-variable/open-sans",
+                "@fontsource-variable/oswald",
+                "@fontsource/fira-mono",
+              ],
+            },
           },
           experimental: { assets: true },
         };
@@ -45,17 +52,21 @@ export default function ActiveHandoutIntegration(opts: ActiveHandoutUserConfig):
     },
   };
 
-  return [ActiveHandout, mdx()];
+  return [ActiveHandout, mdx(), lit()];
 }
 
 function resolveVirtualModuleId(id: string) {
-  return '\0' + id;
+  return "\0" + id;
 }
 
 /** Expose the Active Handout user config object via a virtual module. */
-function vitePluginActiveHandoutUserConfig(opts: ActiveHandoutConfig): NonNullable<ViteUserConfig['plugins']>[number] {
+function vitePluginActiveHandoutUserConfig(
+  opts: ActiveHandoutConfig
+): NonNullable<ViteUserConfig["plugins"]>[number] {
   const modules = {
-    'virtual:active-handout/user-config': `export default ${JSON.stringify(opts)}`,
+    "virtual:active-handout/user-config": `export default ${JSON.stringify(
+      opts
+    )}`,
   };
   const resolutionMap = Object.fromEntries(
     (Object.keys(modules) as (keyof typeof modules)[]).map((key) => [
@@ -65,7 +76,7 @@ function vitePluginActiveHandoutUserConfig(opts: ActiveHandoutConfig): NonNullab
   );
 
   return {
-    name: 'vite-plugin-active-handout-user-config',
+    name: "vite-plugin-active-handout-user-config",
     resolveId(id): string | void {
       if (id in modules) return resolveVirtualModuleId(id);
     },
