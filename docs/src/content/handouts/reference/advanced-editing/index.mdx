@@ -26,171 +26,206 @@ You can use emojis from the list https://github.com/caiyongji/emoji-list.
 
 Box elements can be use to emphasize text and add interactivity to a handout. All follow the same syntax:
 
-```
-!!! TYPE
-    content goes here
+```html
+<ah-admonition title="Title goes here">
+  Content goes here
+</ah-admonition>
 ```
 
 See examples of static box elements below.
 
-=== "Result"
-!!! note
-You can create different types of box:
+<ah-tabbed>
+  <label slot="label">Result</label>
+  <div slot="content">
+    <ah-admonition title="Note" type="note">
+      You can create different types of box:
+      
+      - note, example, warning, info, tip, danger
 
-        - note, example, warning, info, tip, danger
+      You only need to change `type` property.
+    </ah-admonition>
 
-        You only need to change `!!! TYPE`
+    <ah-admonition title="Set the title" type="example">
+      You can set the box title using the `title` property.
 
-    !!! example "Modify the title"
-        It is possible to modify the box title.
+      <ah-admonition title="Nested boxes" type="warning">
+        A box inside a box is also possible.
+      </ah-admonition>
+    </ah-admonition>
 
-        !!! warning
-            A box inside a box is also possible.
+    <ah-admonition type="danger">
+      This is a box without title.
+    </ah-admonition>
 
-    !!! danger ""
-        This is a box without title.
+    <ah-admonition title="Collapsible boxes" type="info" collapsible collapsed>
+      Collapsible boxes are also possible.
+    </ah-admonition>
+  </div>
 
-    ??? info
-        Collapsible boxes are also possible.
+  <label slot="label">Markdown</label>
+  <div slot="content">
+    ```html
+    <ah-admonition title="Note" type="note">
+      You can create different types of box:
+      
+      - note, example, warning, info, tip, danger
 
-=== "Markdown"
-!!! note
-You can create different types of box:
+      You only need to change `type` property.
+    </ah-admonition>
 
-            - note, example, warning, info, tip, danger
+    <ah-admonition title="Set the title" type="example">
+      You can set the box title using the `title` property.
 
-            You only need to change `!!! TYPE`
+      <ah-admonition title="Nested boxes" type="warning">
+        A box inside a box is also possible.
+      </ah-admonition>
+    </ah-admonition>
 
-        !!! example "Modify the title"
-            It is possible to modify the box title.
+    <ah-admonition type="danger">
+      This is a box without title.
+    </ah-admonition>
 
-            !!! warning
-                A box inside a box is also possible.
-
-        !!! danger ""
-            This is a box without title.
-
-        ??? info
-            Collapsible boxes are also possible.
+    <ah-admonition title="Collapsible boxes" type="info" collapsible collapsed>
+      Collapsible boxes are also possible.
+    </ah-admonition>
+    ```
+  </div>
+</ah-tabbed>
 
 ## Code and Syntax Highlighting
 
 ### Inline code
 
-=== "Result"
-Text surrounded by backticks (the character `` `) is shown in monospaced font, `like this`.
+<ah-tabbed>
+  <label slot="label">Result</label>
+  <div slot="content">
+  Text surrounded by backticks (the character) is shown in monospaced font, `like this`.
+  </div>
 
-=== "Markdown"
-``   Text surrounded by backticks (the character` `) is shown in monospaced font, `like this`.
-
-````
+  <label slot="label">Markdown</label>
+  <div slot="content">
+  ```md
+  Text surrounded by backticks (the character) is shown in monospaced font, `like this`.
+  ```
+  </div>
+</ah-tabbed>
 
 ### Code blocks
 
 Code blocks are started and ended by a line with three backticks. See examples below.
 
-=== "Result"
-No highlight
-`    Emp      ty spaces
- paragraph
-`
+<ah-tabbed>
+  <label slot="label">Result</label>
+  <div slot="content">
+  No highlight:
 
- Code highlight:
+  ```
+  #include <stdio.h>
+  int main(void) {
+    printf("Hello world!\n");
+    return 0;
+  }
+  ```
 
- ```c
- #include <stdio.h>
- int main(void) {
- printf("Hello world!\n");
- return 0;
- }
- ```
+  Code highlight:
 
- Block diagram:
+  ```c
+  #include <stdio.h>
+  int main(void) {
+    printf("Hello world!\n");
+    return 0;
+  }
+  ```
+  </div>
 
- ```
- x---------x           x---------x
- |         |           |         |
- | uc      |           | LCD     |
- |   ------|    spi    |-------  |
- |   | spi | <---/---> | ili  |  |
- x---------x           x---------x
- ```
+  <label slot="label">Markdown</label>
+  <div slot="content">
+  ````md
+  No highlight:
 
-=== "Markdown"
+  ```
+  #include <stdio.h>
+  int main(void) {
+    printf("Hello world!\n");
+    return 0;
+  }
+  ```
 
- No highlight:
+  Code highlight:
 
-     ```
-     Emp      ty spaces
-     paragraph
-     ```
-
- Code highlight:
-
-     ```c
-     #include <stdio.h>
-
-     int main(void) {
-     printf("Hello world!\n");
-     return 0;
-     }
-     ```
-
- Block diagram:
-
-     ```
-     x---------x           x---------x
-     |         |           |         |
-     | uc      |           | LCD     |
-     |   ------|    spi    |-------  |
-     |   | spi | <---/---> | ili  |  |
-     x---------x           x---------x
-     ```
+  ```c
+  #include <stdio.h>
+  int main(void) {
+    printf("Hello world!\n");
+    return 0;
+  }
+  ```
+  ````
+  </div>
+</ah-tabbed>
 
 ## Tabs
 
 Tabs can be used to provide another version of the same content.
 
-=== "Result"
-=== "C"
-``` c
-#include <stdio.h>
+<ah-tabbed>
+  <label slot="label">Result</label>
+  <div slot="content">
+    <ah-tabbed>
+      <label slot="label">C</label>
+      <div slot="content">
+      ```c
+      #include <stdio.h>
 
-     int main(void) {
-         printf("Hello world!\n");
-         return 0;
-     }
-     ```
+      int main(void) {
+        printf("Hello world!\n");
+        return 0;
+      }
+      ```
+      </div>
+    
+      <label slot="label">C++</label>
+      <div slot="content">
+      ```cpp
+      #include <iostream>
 
- === "C++"
-     ``` c++
-     #include <iostream>
+      int main(void) {
+        std::cout << "Hello world!" << std::endl;
+        return 0;
+      }
+      ```
+      </div>
+    </ah-tabbed>
+  </div>
 
-     int main(void) {
-         std::cout << "Hello world!" << std::endl;
-         return 0;
-     }
-     ```
+  <label slot="label">Markdown</label>
+  <div slot="content">
+    ````html
+    <ah-tabbed>
+      <label slot="label">C</label>
+      <div slot="content">
+      ```c
+      #include <stdio.h>
 
-=== "Markdown"
-`    === "C"
-    ` c
-#include <stdio.h>
+      int main(void) {
+        printf("Hello world!\n");
+        return 0;
+      }
+      ```
+      </div>
+    
+      <label slot="label">C++</label>
+      <div slot="content">
+      ```cpp
+      #include <iostream>
 
-     int main(void) {
-         printf("Hello world!\n");
-         return 0;
-     }
-     ```
-
- === "C++"
-     ``` c++
-     #include <iostream>
-
-     int main(void) {
-         std::cout << "Hello world!" << std::endl;
-         return 0;
-     }
-     ```
- ```
-````
+      int main(void) {
+        std::cout << "Hello world!" << std::endl;
+        return 0;
+      }
+      ```
+      </div>
+    </ah-tabbed>
+    ````
+  </div>
+</ah-tabbed>
