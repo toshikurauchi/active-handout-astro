@@ -1,12 +1,10 @@
 let isMenuOpened = false;
 
+const body = document.querySelector("body");
 const mainContent = document.querySelector(".main-content");
-
 const mainHeader = document.querySelector<HTMLElement>(".main-header");
-mainHeader?.style.setProperty(
-  "--header-height",
-  mainHeader.clientHeight + "px"
-);
+
+body?.style.setProperty("--header-height", mainHeader?.clientHeight + "px");
 
 const menuBtn = mainHeader?.querySelector(".menu-btn");
 menuBtn?.addEventListener("click", () => {

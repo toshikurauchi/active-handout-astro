@@ -2,7 +2,7 @@
 title: Basic text editing with markdown
 ---
 
-In this page we show examples of general text editing using Markdown, a plain text way used to write formmated text.
+In this page we show examples of general text editing using Markdown, a plain text way used to write formatted text, or MDX, a Markdown extension that accepts JSX components.
 
 Other references:
 
@@ -10,9 +10,10 @@ Other references:
     - https://commonmark.org/help/
     - https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
     - https://www.markdownguide.org/basic-syntax/
-
+- MDX:
+    - https://mdxjs.com/
 - Specific:
-    - https://squidfunk.github.io/mkdocs-material/reference/abbreviations/
+    - https://astro.build/
 
 ## Headers
 

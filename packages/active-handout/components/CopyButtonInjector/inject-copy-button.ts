@@ -1,6 +1,6 @@
 // https://clipboardjs.com/
 import ClipboardJS from "clipboard";
-import icon from "./copy-icon.svg";
+import icon from "../../assets/icon/copy-icon.svg";
 
 function createCopyButton() {
   const button = document.createElement("button");
