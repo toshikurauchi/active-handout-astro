@@ -12,6 +12,7 @@ import "../styles/prism/prism-one-light.css";
 
 import Header from "../components/Header/Header.astro";
 import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs.astro";
+import CopyButtonInjector from "../components/CopyButtonInjector/CopyButtonInjector.astro";
 
 type Props = Route & { headings: MarkdownHeading[]; title: string };
 
@@ -45,5 +46,6 @@ const isSplash = entry.data.template === "splash";
       }
       <slot />
     </main>
+    <CopyButtonInjector />
   </body>
 </html>
