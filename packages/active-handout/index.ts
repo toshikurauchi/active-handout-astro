@@ -1,11 +1,10 @@
 import mdx from "@astrojs/mdx";
 import lit from "@astrojs/lit";
-import linkSVG from "./assets/icon/link.svg";
 import emoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
-import { h } from "hastscript";
+import linkIcon from "./utils/hastSVGLinkIcon";
 import type { AstroIntegration, AstroUserConfig, ViteUserConfig } from "astro";
 import {
   ActiveHandoutConfig,
@@ -51,12 +50,7 @@ export default function ActiveHandoutIntegration(
                 rehypeAutolinkHeadings,
                 {
                   content() {
-                    return [
-                      h("img.anchor-icon", {
-                        ariaHidden: true,
-                        src: linkSVG.toString(),
-                      }),
-                    ];
+                    return [linkIcon];
                   },
                 },
               ],
