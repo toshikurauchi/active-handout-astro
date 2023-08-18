@@ -3,10 +3,16 @@ $transition-time: 0.2s;
 $menu-btn-size: 2rem;
 
 .main-header {
+  width: max(100% - 2rem, 100% - 2 * $padding-left);
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  background-color: var(--clr-background);
+  z-index: 1000;
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  padding: 0.5rem $padding-left;
+  padding-top: 0.5rem;
 
   &.opened {
     .menu-btn svg path {
