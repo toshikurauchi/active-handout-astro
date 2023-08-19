@@ -2,6 +2,7 @@ import mdx from "@astrojs/mdx";
 import lit from "@astrojs/lit";
 import emoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
+import vercel from "@astrojs/vercel/serverless";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import linkIcon from "./utils/hastSVGLinkIcon";
@@ -40,6 +41,10 @@ export default function ActiveHandoutIntegration(
           entryPoint: "@insperedu/active-handout/index.astro",
         });
         const newConfig: AstroUserConfig = {
+          // Setup the Vercel integration if we will be using auth
+          output: userConfig.auth ? "server" : "static",
+          adapter: userConfig.auth ? vercel() : undefined,
+
           markdown: {
             syntaxHighlight: "prism",
             remarkPlugins: [emoji],
