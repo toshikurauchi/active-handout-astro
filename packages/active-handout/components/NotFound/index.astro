@@ -1,0 +1,23 @@
+---
+import config from 'virtual:active-handout/user-config';
+import notFoundImg from '../../assets/img/meme.gif'
+import { useTranslations } from '../../utils/translations';
+
+const t = useTranslations(config.lang);
+
+const {src, width, height} = notFoundImg;
+---
+
+<h1>{t("404.title")}</h1>
+
+<p>{t("404.text")}</p>
+
+<img src={src} alt="Not found" width={width} height={height} />
+
+<style lang="scss">
+  img {
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+  }
+</style>

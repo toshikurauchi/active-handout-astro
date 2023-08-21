@@ -1,1 +1,1 @@
-import "../web-components/src";
+import "@insperedu/active-handout-webcomponents";

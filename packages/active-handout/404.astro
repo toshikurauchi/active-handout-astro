@@ -1,35 +1,26 @@
 ---
-import { getEntry } from 'astro:content';
 import config from 'virtual:active-handout/user-config';
-import EmptyContent from './components/EmptyMarkdown.md';
 import Page from './layout/Page.astro';
-import type { ActiveHandoutEntry } from './utils/routing';
+import NotFound from "./components/NotFound/index.astro";
 import { useTranslations } from './utils/translations';
+import { get404Entry } from "./utils/not-found";
+import { AstroComponentFactory } from 'astro/dist/runtime/server';
+import { Handout } from './schema';
 
-const lang = config.lang;
-const t = useTranslations(lang);
+const t = useTranslations(config.lang);
 
-const fallbackEntry: ActiveHandoutEntry = {
-  slug: '404',
-  id: '404.md' as ActiveHandoutEntry['id'],
-  body: '',
-  collection: 'handouts',
-  data: {
-    title: '404',
-    template: 'splash',
-  },
-  render: async () => ({
-    Content: EmptyContent,
-    headings: [],
-    remarkPluginFrontmatter: {},
-  }),
-};
-
-const userEntry = await getEntry('handouts', '404');
-const entry = userEntry || fallbackEntry;
-const { Content, headings } = await entry.render();
+let template: Handout["template"] = "splash";
+let Content: AstroComponentFactory = NotFound;
+let headings = [];
+const entry = await get404Entry();
+if (entry) {
+  const renderedEntry = await entry.render();
+  Content = renderedEntry.Content;
+  headings = renderedEntry.headings;
+  template = entry.data.template;
+}
 ---
 
-<Page title={t("404.title")} {headings} entry={entry} id={entry.id} slug={entry.slug}>
+<Page title={t("404.title")} {headings} template={template}>
   <Content />
 </Page>

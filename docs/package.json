@@ -10,8 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/lit": "^2.1.1",
     "@insperedu/active-handout": "0.0.1",
     "astro": "^2.6.6"
-  },
-  "devDependencies": {}
+  }
 }

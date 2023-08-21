@@ -23,6 +23,9 @@
     "./index.astro": "./index.astro",
     "./404.astro": "./404.astro"
   },
+  "files": [
+    "./assets/**/*"
+  ],
   "dependencies": {
     "@astrojs/lit": "^2.1.1",
     "@astrojs/mdx": "^0.19.7",
@@ -30,11 +33,14 @@
     "@fontsource-variable/open-sans": "^5.0.9",
     "@fontsource-variable/oswald": "^5.0.8",
     "@fontsource/fira-mono": "^5.0.8",
+    "@insperedu/active-handout-webcomponents": "github:toshikurauchi/active-handout-webcomponents",
     "@webcomponents/template-shadowroot": "^0.2.1",
     "astro": "^2.10.10",
     "autoprefixer": "^10.4.15",
     "clipboard": "^2.0.11",
     "cssnano": "^6.0.1",
+    "hastscript": "^8.0.0",
+    "lit": "^2.8.0",
     "mermaid": "^10.3.1",
     "rehype-accessible-emojis": "^0.3.2",
     "rehype-autolink-headings": "^6.1.1",

@@ -1,7 +1,7 @@
 ---
 import config from "virtual:active-handout/user-config";
 import type { MarkdownHeading } from "astro";
-import type { Route } from "../utils/routing";
+import type { Handout } from "../schema";
 
 import "@fontsource-variable/open-sans";
 import "@fontsource-variable/oswald";
@@ -14,10 +14,10 @@ import Header from "../components/Header/Header.astro";
 import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs.astro";
 import CopyButtonInjector from "../components/CopyButtonInjector/CopyButtonInjector.astro";
 
-type Props = Route & { headings: MarkdownHeading[]; title: string };
+type Props = { headings: MarkdownHeading[]; title: string; template: Handout["template"] };
 
-const { entry, title, headings } = Astro.props;
-const isSplash = entry.data.template === "splash";
+const { template, title, headings } = Astro.props;
+const isSplash = template === "splash";
 ---
 
 <!DOCTYPE html>
