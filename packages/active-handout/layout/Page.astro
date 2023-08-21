@@ -34,7 +34,7 @@ const isSplash = template === "splash";
     <title>{title}</title>
   </head>
   <body>
-    <Header websiteTitle={config.title} headings={headings} />
+    {!isSplash && <Header websiteTitle={config.title} headings={headings} />}
     <main class="main-content">
       {
         !isSplash && (
