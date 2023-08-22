@@ -3,7 +3,7 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false
-  }
+    "types": ["astro/client.d.ts"]
+  },
+  "exclude": ["**/*.cjs"]
 }

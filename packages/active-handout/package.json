@@ -17,15 +17,14 @@
   },
   "exports": {
     ".": "./index.ts",
+    "./pages/*": "./pages/*",
+    "./firebase/*": "./firebase/*",
     "./components/external-components": "./components/external-components.ts",
     "./schema": "./schema.ts",
     "./types": "./types.ts",
     "./index.astro": "./index.astro",
     "./404.astro": "./404.astro"
   },
-  "files": [
-    "./assets/**/*"
-  ],
   "dependencies": {
     "@astrojs/lit": "^2.1.1",
     "@astrojs/mdx": "^0.19.7",
@@ -39,6 +38,8 @@
     "autoprefixer": "^10.4.15",
     "clipboard": "^2.0.11",
     "cssnano": "^6.0.1",
+    "firebase": "^10.2.0",
+    "firebase-admin": "^11.10.1",
     "hastscript": "^8.0.0",
     "lit": "^2.8.0",
     "mermaid": "^10.3.1",
@@ -46,7 +47,8 @@
     "rehype-autolink-headings": "^6.1.1",
     "rehype-slug": "^5.1.0",
     "remark-emoji": "^4.0.0",
-    "sass": "^1.66.1"
+    "sass": "^1.66.1",
+    "vite": "^4.4.9"
   },
   "devDependencies": {
     "eslint": "^8.47.0",

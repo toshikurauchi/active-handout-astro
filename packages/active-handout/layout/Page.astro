@@ -14,7 +14,7 @@ import Header from "../components/Header/Header.astro";
 import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs.astro";
 import CopyButtonInjector from "../components/CopyButtonInjector/CopyButtonInjector.astro";
 
-type Props = { headings: MarkdownHeading[]; title: string; template: Handout["template"] };
+type Props = { headings?: MarkdownHeading[]; title: string; template: Handout["template"] };
 
 const { template, title, headings } = Astro.props;
 const isSplash = template === "splash";

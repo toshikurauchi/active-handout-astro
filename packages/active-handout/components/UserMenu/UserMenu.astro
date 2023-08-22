@@ -1,0 +1,28 @@
+---
+import type { DecodedIdToken } from 'firebase-admin/auth';
+import defaultProfileIcon from "./default-profile-icon.svg";
+
+interface Props {
+  user: DecodedIdToken;
+}
+
+const {user} = Astro.props;
+---
+
+<div class="user">
+  <button class="toggle-user-menu-btn">
+    <img src={user.avatar || defaultProfileIcon.src} alt="avatar" />
+  </button>
+  <dialog>
+    <span class="user-name">{user.name}</span>
+    <button class="sign-out-btn">Sign out</button>
+  </dialog>
+</div>
+
+<script>
+  import "./script.ts";
+</script>
+
+<style lang="scss">
+  @use './styles.scss';
+</style>

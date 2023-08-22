@@ -2,12 +2,15 @@
 import type { MarkdownHeading } from "astro";
 import { getNavEntries } from "../../utils/routing";
 import NavMenu from "../NavMenu/NavMenu.astro";
+import {getUserFromCookie} from "../../utils/auth";
+import UserMenu from "../UserMenu/UserMenu.astro";
 
 interface Props {
   websiteTitle: string;
-  headings?: MarkdownHeading[];
+  headings?: MarkdownHeading[] | undefined;
 }
 
+const user = await getUserFromCookie(Astro.cookies.get("session").value);
 const { slug } = Astro.params;
 const { websiteTitle, headings } = Astro.props;
 const navEntries = getNavEntries(slug);
@@ -32,6 +35,12 @@ const navEntries = getNavEntries(slug);
   <a href={import.meta.env.BASE_URL} class="home-btn">
     {websiteTitle}
   </a>
+  {
+    user &&
+    <div class="user-menu">
+      <UserMenu user={user} />
+    </div>
+  }
   <aside class="nav-container">
     <div class="menu-overlay"></div>
     <nav><NavMenu entries={navEntries} headings={headings} /></nav>

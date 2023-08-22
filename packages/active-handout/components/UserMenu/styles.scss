@@ -1,0 +1,52 @@
+$img-width: 2rem;
+$menu-width: 10rem;
+
+.user {
+  position: relative;
+}
+
+.toggle-user-menu-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+}
+
+img {
+  width: $img-width;
+  height: $img-width;
+  border-radius: 50%;
+}
+
+dialog {
+  position: absolute;
+  left: -($menu-width - $img-width);
+  width: $menu-width;
+  background-color: inherit;
+  border-radius: 0.5rem;
+  color: var(--clr-text);
+  font-size: var(--fnt-sz--1);
+  padding: 0.5em 1em;
+  box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.26);
+  border: none;
+
+  .user-name {
+    display: block;
+    border-bottom: 1px solid var(--clr-text-light);
+    margin-bottom: 0.5em;
+    font-weight: bold;
+  }
+
+  .sign-out-btn {
+    width: 100%;
+    padding: 0;
+    text-align: left;
+    background: none;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+  }
+}

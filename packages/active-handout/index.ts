@@ -40,6 +40,26 @@ export default function ActiveHandoutIntegration(
           pattern: "[...slug]",
           entryPoint: "@insperedu/active-handout/index.astro",
         });
+        injectRoute({
+          pattern: "api/auth/signin",
+          entryPoint: "@insperedu/active-handout/pages/api/auth/signin.ts",
+        });
+        injectRoute({
+          pattern: "api/auth/signout",
+          entryPoint: "@insperedu/active-handout/pages/api/auth/signout.ts",
+        });
+        injectRoute({
+          pattern: "api/auth/register",
+          entryPoint: "@insperedu/active-handout/pages/api/auth/register.ts",
+        });
+        injectRoute({
+          pattern: "register",
+          entryPoint: "@insperedu/active-handout/pages/register.astro",
+        });
+        injectRoute({
+          pattern: "signin",
+          entryPoint: "@insperedu/active-handout/pages/signin.astro",
+        });
         const newConfig: AstroUserConfig = {
           // Setup the Vercel integration if we will be using auth
           output: userConfig.auth ? "server" : "static",
