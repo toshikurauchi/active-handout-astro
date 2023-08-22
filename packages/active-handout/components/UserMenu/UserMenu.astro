@@ -11,9 +11,9 @@ const {user} = Astro.props;
 
 <div class="user">
   <button class="toggle-user-menu-btn">
-    <img src={user.avatar || defaultProfileIcon.src} alt="avatar" />
+    <img src={user.avatar || defaultProfileIcon.src} alt="avatar" class="avatar" />
   </button>
-  <dialog>
+  <dialog class="user-menu-dialog">
     <span class="user-name">{user.name}</span>
     <button class="sign-out-btn">Sign out</button>
   </dialog>

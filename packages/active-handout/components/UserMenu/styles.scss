@@ -15,13 +15,13 @@ $menu-width: 10rem;
   border-radius: 50%;
 }
 
-img {
+.avatar {
   width: $img-width;
   height: $img-width;
   border-radius: 50%;
 }
 
-dialog {
+.user-menu-dialog {
   position: absolute;
   left: -($menu-width - $img-width);
   width: $menu-width;

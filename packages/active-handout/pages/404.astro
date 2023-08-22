@@ -1,11 +1,11 @@
 ---
 import config from 'virtual:active-handout/user-config';
-import Page from './layout/Page.astro';
-import NotFound from "./components/NotFound/index.astro";
-import { useTranslations } from './utils/translations';
-import { get404Entry } from "./utils/not-found";
-import { AstroComponentFactory } from 'astro/dist/runtime/server';
-import { Handout } from './schema';
+import Page from '../layout/Page.astro';
+import NotFound from "../components/NotFound/index.astro";
+import { useTranslations } from '../utils/translations';
+import { get404Entry } from "../utils/not-found";
+import type { AstroComponentFactory } from 'astro/dist/runtime/server';
+import type { Handout } from '../schema';
 
 const t = useTranslations(config.lang);
 

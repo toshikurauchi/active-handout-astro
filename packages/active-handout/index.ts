@@ -34,11 +34,11 @@ export default function ActiveHandoutIntegration(
       "astro:config:setup": ({ injectRoute, updateConfig }) => {
         injectRoute({
           pattern: "404",
-          entryPoint: "@insperedu/active-handout/404.astro",
+          entryPoint: "@insperedu/active-handout/pages/404.astro",
         });
         injectRoute({
           pattern: "[...slug]",
-          entryPoint: "@insperedu/active-handout/index.astro",
+          entryPoint: "@insperedu/active-handout/pages/index.astro",
         });
         injectRoute({
           pattern: "api/auth/signin",

@@ -1,10 +1,11 @@
 ---
 import Page from "../layout/Page.astro";
-import {getUserFromCookie} from "../utils/auth";
+import { getUserFromCookie } from "../utils/auth";
 
 const user = await getUserFromCookie(Astro.cookies.get("session").value);
+const nextUrl = Astro.url.searchParams.get("next") || "/";
 if (user) {
-  return Astro.redirect("/");
+  return Astro.redirect(nextUrl);
 }
 ---
 
@@ -19,6 +20,7 @@ if (user) {
     <button type="submit">Login</button>
   </form>
 </Page>
+
 <script>
   import {
     getAuth,
@@ -47,7 +49,10 @@ if (user) {
       password
     );
     const idToken = await userCredential.user.getIdToken();
-    const response = await fetch("/api/auth/signin", {
+
+    const searchParams = new URLSearchParams(document.location.search);
+    const nextUrl = searchParams.get("next") || "/";
+    const response = await fetch(`/api/auth/signin?next=${nextUrl}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${idToken}`,

@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { app } from "../../../firebase/server";
 import { getAuth } from "firebase-admin/auth";
 
-export const get: APIRoute = async ({ request, cookies, redirect }) => {
+export const get: APIRoute = async ({ url, request, cookies, redirect }) => {
   const auth = getAuth(app);
 
   /* Get token from request headers */
@@ -19,14 +19,15 @@ export const get: APIRoute = async ({ request, cookies, redirect }) => {
   }
 
   /* Create and set session cookie */
-  const fiveDays = 60 * 60 * 24 * 5 * 1000;
+  const oneYear = 1000 * 60 * 60 * 24 * 5;
   const sessionCookie = await auth.createSessionCookie(idToken, {
-    expiresIn: fiveDays,
+    expiresIn: oneYear,
   });
 
   cookies.set("session", sessionCookie, {
     path: "/",
   });
 
-  return redirect("/dashboard");
+  const nextUrl = url.searchParams.get("next") || "/";
+  return redirect(nextUrl);
 };

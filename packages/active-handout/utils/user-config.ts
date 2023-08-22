@@ -28,6 +28,13 @@ export const ActiveHandoutConfigSchema = z.object({
     .describe(
       "Enable authentication for your website. If true, we will enable SSR, so you need to DEPLOY ON VERCEL (which is the only adapter we have implemented so far)."
     ),
+
+  defaultRequireLogin: z
+    .boolean()
+    .default(true)
+    .describe(
+      "Default value for requireLogin in handouts. If auth is false, this value will be ignored."
+    ),
 });
 
 export type ActiveHandoutConfig = z.infer<typeof ActiveHandoutConfigSchema>;
