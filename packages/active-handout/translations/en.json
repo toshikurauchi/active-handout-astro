@@ -1,5 +1,9 @@
 {
   "skipLink.label": "Skip to content",
   "404.title": "Page not found",
-  "404.text": "Sorry, we couldn't find the page you've requested. If you think this is an error, please, let us know."
+  "404.text": "Sorry, we couldn't find the page you've requested. If you think this is an error, please, let us know.",
+  "signin.title": "Sign in",
+  "signin.no-account": "Don't have an account?",
+  "signin.create-account": "Create an account",
+  "signin.error": "Invalid email or password"
 }

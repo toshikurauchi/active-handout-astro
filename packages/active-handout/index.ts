@@ -3,6 +3,7 @@ import lit from "@astrojs/lit";
 import emoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import vercel from "@astrojs/vercel/serverless";
+import AutoImport from "astro-auto-import";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import linkIcon from "./utils/hastSVGLinkIcon";
@@ -98,7 +99,20 @@ export default function ActiveHandoutIntegration(
     },
   };
 
-  return [ActiveHandout, mdx(), lit()];
+  return [
+    ActiveHandout,
+    AutoImport({
+      // Add the components we want to be auto-imported in .mdx files here
+      imports: [
+        "@insperedu/active-handout/components/admonition/Admonition.astro",
+        "@insperedu/active-handout/components/button/Button.astro",
+        "@insperedu/active-handout/components/tabs/TabGroup.astro",
+        "@insperedu/active-handout/components/tabs/TabItem.astro",
+      ],
+    }),
+    mdx(),
+    lit(),
+  ];
 }
 
 function resolveVirtualModuleId(id: string) {

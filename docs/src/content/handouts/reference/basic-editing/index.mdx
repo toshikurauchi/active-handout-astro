@@ -29,119 +29,113 @@ In _Interactive Handouts_ headers are used to create the _Table of contents_ sho
 
 Text is added by... just writing text. Paragraphs are separated by an empty line.
 
-<ah-tabbed>
-  <label slot="label">Result</label>
-  <div slot="content">
+<TabGroup>
+  <TabItem label="Result">
   This is a single paragraph
   even though it is split in three
   lines.
-  </div>
+  </TabItem>
 
-  <label slot="label">Markdown</label>
-  <div slot="content">
+  <TabItem label="Markdown">
   ```md
   This is a single paragraph
   even though it is split in three
   lines.
   ```
-  </div>
-</ah-tabbed>
+  </TabItem>
+</TabGroup>
 
 ## Bold, italics and other text emphasis
 
 Basic formatting can be done using simple text annotations. See the example below for some common text formatting.
 
-<ah-tabbed>
-  <label slot="label">Result</label>
-  <div slot="content">
+<TabGroup>
+  <TabItem label="Result">
   It is very easy to type **bold**, _italic_ and `monospaced` text. We can also ==highlight==, ~~strikethrough~~ and ^^underline^^ text. All these **can _be applied_ ==together and may span== ^^many words^^.**. We can also put type ^superscript^ and ~subscript~ text.
-  </div>
+  </TabItem>
 
-  <label slot="label">Markdown</label>
-  <div slot="content">
+  <TabItem label="Markdown">
   ```md
   It is very easy to type **bold**, _italic_ and `monospaced` text. We can also ==highlight==, ~~strikethrough~~ and ^^underline^^ text. All these **can _be applied_ ==together and may span== ^^many words^^.**. We can also put type ^superscript^ and ~subscript~ text.
   ```
-  </div>
-</ah-tabbed>
+  </TabItem>
+</TabGroup>
 
 ## Lists
 
 Lists can be made as follows:
 
-<ah-tabbed>
-  <label slot="label">Unordered list</label>
-  <div slot="content">
+<TabGroup>
+  <TabItem label="Unordered list">
   *Result:*
 
-  - First item
-  - Second item
-  - Third item
-      - Sub item 1
-      - Sub item 2
+- First item
+- Second item
+- Third item
+  - Sub item 1
+  - Sub item 2
 
-  *Markdown:*
+_Markdown:_
 
-  ```md
-  - First item
-  - Second item
-  - Third item
-      - Sub item 1
-      - Sub item 2
-  ```
-  </div>
+```md
+- First item
+- Second item
+- Third item
+  - Sub item 1
+  - Sub item 2
+```
 
-  <label slot="label">Ordered list</label>
-  <div slot="content">
+  </TabItem>
+
+  <TabItem label="Ordered list">
   _Result:_
 
-  1. First item
-  1. Second item
-  1. Third item
-      1. Sub item 1
-      1. Sub item 2
+1. First item
+1. Second item
+1. Third item
+   1. Sub item 1
+   1. Sub item 2
 
-  *Markdown:*
+_Markdown:_
 
-  ```md
-  1. First item
-  1. Second item
-  1. Third item
-      1. Sub item 1
-      1. Sub item 2
-  ```
-  </div>
+```md
+1. First item
+1. Second item
+1. Third item
+   1. Sub item 1
+   1. Sub item 2
+```
 
-  <label slot="label">Check list</label>
-  <div slot="content">
+  </TabItem>
+
+  <TabItem label="Check list">
   _Result:_
 
-  - [ ] No checked
-  - [x] Checked item
+- [ ] No checked
+- [x] Checked item
 
-  *Markdown:*
+_Markdown:_
 
-  ```md
-  - [ ] No checked
-  - [x] Checked item
-  ```
-  </div>
-</ah-tabbed>
+```md
+- [ ] No checked
+- [x] Checked item
+```
+
+  </TabItem>
+</TabGroup>
 
 ## Images
 
 You can add images with `![](image_path)`.
 
-<ah-tabbed>
-  <label slot="label">Result</label>
-  <div slot="content">
+<TabGroup>
+  <TabItem label="Result">
   ![](./icon-elementos.png)
-  </div>
+  </TabItem>
 
-  <label slot="label">Markdown</label>
-  <div slot="content">
+  <TabItem label="Markdown">
   ```md
   ![](./icon-elementos.png)
   ```
-  </div>
-</ah-tabbed>
+  </TabItem>
+</TabGroup>

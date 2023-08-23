@@ -1,9 +1,9 @@
 ---
 import type { MarkdownHeading } from "astro";
 import { getNavEntries } from "../../utils/routing";
-import NavMenu from "../NavMenu/NavMenu.astro";
-import {getUserFromCookie} from "../../utils/auth";
-import UserMenu from "../UserMenu/UserMenu.astro";
+import NavMenu from "../nav-menu/NavMenu.astro";
+import UserMenu from "../user-menu/UserMenu.astro";
+import { getUserFromCookie } from "../../utils/auth";
 
 interface Props {
   websiteTitle: string;
@@ -36,10 +36,11 @@ const navEntries = getNavEntries(slug);
     {websiteTitle}
   </a>
   {
-    user &&
-    <div class="user-menu">
-      <UserMenu user={user} />
-    </div>
+    user && (
+      <div class="user-menu">
+        <UserMenu user={user} />
+      </div>
+    )
   }
   <aside class="nav-container">
     <div class="menu-overlay"></div>

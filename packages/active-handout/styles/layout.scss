@@ -10,6 +10,12 @@
   width: min(100% - 2rem, 60ch);
   margin: 0 auto;
 
+  &.is-splash {
+    padding-top: 0;
+    width: auto;
+    min-height: 100vh;
+  }
+
   * {
     scroll-margin-top: var(--header-height, 0);
   }

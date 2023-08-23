@@ -1,25 +1,39 @@
 ---
-import Page from "../layout/Page.astro";
+import config from "virtual:active-handout/user-config";
+import AuthPage from "../layout/AuthPage.astro";
+import FormInput from "../components/form-input/FormInput.astro";
+import Button from "../components/button/Button.astro";
 import { getUserFromCookie } from "../utils/auth";
+import { useTranslations } from "../utils/translations";
 
-const user = await getUserFromCookie(Astro.cookies.get("session").value);
-const nextUrl = Astro.url.searchParams.get("next") || "/";
-if (user) {
-  return Astro.redirect(nextUrl);
+const t = useTranslations(config.lang);
+
+if (config.auth) {
+  const user = await getUserFromCookie(Astro.cookies.get("session").value);
+  if (user) {
+    return Astro.redirect(Astro.url.searchParams.get("next") || "/");
+  }
 }
 ---
 
-<Page title="Sign in" template="splash">
-  <h1>Sign in</h1>
-  <p>New here? <a href="/register">Create an account</a></p>
-  <form action="/api/auth/signin" method="post">
-    <label for="email" for="email">Email</label>
-    <input type="email" name="email" id="email" />
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-    <button type="submit">Login</button>
-  </form>
-</Page>
+<AuthPage title={t("signin.title")}>
+  <div class="form-container">
+    <h1>{t("signin.title")}</h1>
+
+    <form action="/api/auth/signin" method="post">
+      <FormInput id="email" labelText="Email" />
+      <FormInput id="password" labelText="Password" type="password" />
+
+      <Button type="submit" primary>Login</Button>
+      <p class="error-msg hidden">{t("signin.error")}</p>
+    </form>
+
+    <p class="no-account">
+      {t("signin.no-account")}
+      <a href="/register">{t("signin.create-account")}</a>
+    </p>
+  </div>
+</AuthPage>
 
 <script>
   import {
@@ -35,10 +49,14 @@ if (user) {
 
   const form = document.querySelector("form") as HTMLFormElement;
   form.addEventListener("submit", async (e) => {
+    console.log("SUBMIT");
     e.preventDefault();
     const formData = new FormData(form);
     const email = formData.get("email")?.toString();
     const password = formData.get("password")?.toString();
+
+    const errorMsg = document.querySelector(".error-msg") as HTMLElement;
+    errorMsg.classList.add("hidden");
 
     if (!email || !password) {
       return;
@@ -61,6 +79,32 @@ if (user) {
 
     if (response.redirected) {
       window.location.assign(response.url);
+    } else {
+      errorMsg.classList.remove("hidden");
     }
   });
 </script>
+
+<style>
+  form {
+    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  p.no-account {
+    font-size: var(--fnt-sz--1);
+    margin-top: 3em;
+  }
+
+  p.error-msg {
+    margin-top: 0;
+    color: var(--clr-error);
+    font-size: var(--fnt-sz--1);
+
+    &.hidden {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+interface Props {
+  title?: string;
+  collapsible?: boolean;
+  collapsed?: boolean;
+  type?:
+    | "default"
+    | "note"
+    | "abstract"
+    | "info"
+    | "tip"
+    | "success"
+    | "question"
+    | "warning"
+    | "failure"
+    | "danger"
+    | "bug"
+    | "example"
+    | "quote";
+}
+
+const {title, collapsible, collapsed, type="default"} = Astro.props;
+---
+
+{collapsible &&
+  <details
+    class:list={["admonition", type]}
+    open?={collapsed}
+  >
+    <summary class="admonition-title">{title}</summary>
+    <div class="admonition-content">
+      <slot></slot>
+    </div>
+  </details>
+}
+{!collapsible &&
+  <div class:list={["admonition", type]}>
+    {title &&
+      <div class="admonition-title">{title}</div>
+    }
+    <div class="admonition-content">
+      <slot></slot>
+    </div>
+  </div>
+}
+
+<style lang="scss">
+  @use "./styles";
+</style>

@@ -1,0 +1,74 @@
+@use "sass:list";
+@use "sass:color";
+
+.admonition {
+  --admonition-background-color: var(--clr-background, transparent);
+  --admonition-title-background-color: var(--clr-background-secondary);
+  --admonition-border-color: var(--clr-border-secondary);
+  --top-margin: var(--default-top-margin, 0);
+  --block-padding: var(--default-block-padding, 0.5rem);
+  --inline-padding: var(--default-inline-padding, 0.8rem);
+  --top-margin: var(--default-top-margin, 0);
+
+  border: 1px solid var(--admonition-border-color);
+  border-radius: 0.2em;
+  margin: var(--top-margin) 0;
+  background-color: var(--admonition-background-color);
+
+  &-title {
+    background-color: var(--admonition-title-background-color);
+    font-weight: bold;
+    border-bottom: 1px solid var(--admonition-border-color);
+  }
+
+  &-title,
+  &-content {
+    padding: var(--block-padding) var(--inline-padding);
+  }
+}
+
+details {
+  summary {
+    cursor: pointer;
+  }
+
+  &:not(open) .admonition-title {
+    border-bottom: none;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Rules: flavours
+// ----------------------------------------------------------------------------
+// from mkdocs material
+// Admonition flavours
+
+$admonitions: (
+  "note": #00b0ff,
+  "abstract": #ffab40,
+  "info": #00b8d4,
+  "tip": #00bfa5,
+  "success": #00c853,
+  "question": #64dd17,
+  "warning": #ff9100,
+  "failure": #f48fb1,
+  "danger": #e91e63,
+  "bug": #f48fb1,
+  "example": #ce93d8,
+  "quote": #9e9e9e,
+) !default;
+
+@each $name, $props in $admonitions {
+  $tint: list.nth($props, 1);
+
+  // Admonition flavour
+  .admonition.#{$name} {
+    border-color: $tint;
+  }
+
+  // Admonition flavour title
+  .#{$name} > .admonition-title {
+    border-color: $tint;
+    background-color: color.adjust($tint, $alpha: -0.7);
+  }
+}

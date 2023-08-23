@@ -8,224 +8,213 @@ Markdown supports many extensions that adds other visual elements to text. In th
 
 You can use emojis from the list https://github.com/caiyongji/emoji-list.
 
-<ah-tabbed>
-  <label slot="label" for="emoji-result">Result</label>
-  <div slot="content" id="emoji-result">
+<TabGroup>
+  <TabItem label="Result">
   :two_hearts: :star: :grin: :alien: :notes: :v: :hamster: :globe_with_meridians: :alarm_clock:
-  </div>
+  </TabItem>
 
-  <label slot="label" for="emoji-markdown">Markdown</label>
-  <div slot="content" id="emoji-markdown">
+  <TabItem label="Markdown">
   ```md
   :two_hearts: :star: :grin: :alien: :notes: :v: :hamster: :globe_with_meridians: :alarm_clock:
   ```
-  </div>
-</ah-tabbed>
+  </TabItem>
+</TabGroup>
 
 ## Box elements
 
 Box elements can be use to emphasize text and add interactivity to a handout. All follow the same syntax:
 
 ```html
-<ah-admonition title="Title goes here">
-  Content goes here
-</ah-admonition>
+<Admonition title="Title goes here"> Content goes here </Admonition>
 ```
 
 See examples of static box elements below.
 
-<ah-tabbed>
-  <label slot="label">Result</label>
-  <div slot="content">
-    <ah-admonition title="Note" type="note">
+<TabGroup>
+  <TabItem label="Result">
+    <Admonition title="Note" type="note">
       You can create different types of box:
-      
+
       - note, example, warning, info, tip, danger
 
       You only need to change `type` property.
-    </ah-admonition>
+    </Admonition>
 
-    <ah-admonition title="Set the title" type="example">
+    <Admonition title="Set the title" type="example">
       You can set the box title using the `title` property.
 
-      <ah-admonition title="Nested boxes" type="warning">
+      <Admonition title="Nested boxes" type="warning">
         A box inside a box is also possible.
-      </ah-admonition>
-    </ah-admonition>
+      </Admonition>
+    </Admonition>
 
-    <ah-admonition type="danger">
+    <Admonition type="danger">
       This is a box without title.
-    </ah-admonition>
+    </Admonition>
 
-    <ah-admonition title="Collapsible boxes" type="info" collapsible collapsed>
+    <Admonition title="Collapsible boxes" type="info" collapsible collapsed>
       Collapsible boxes are also possible.
-    </ah-admonition>
-  </div>
+    </Admonition>
 
-  <label slot="label">Markdown</label>
-  <div slot="content">
+  </TabItem>
+
+  <TabItem label="Markdown">
     ```html
-    <ah-admonition title="Note" type="note">
+    <Admonition title="Note" type="note">
       You can create different types of box:
-      
+
       - note, example, warning, info, tip, danger
 
       You only need to change `type` property.
-    </ah-admonition>
+    </Admonition>
 
-    <ah-admonition title="Set the title" type="example">
+    <Admonition title="Set the title" type="example">
       You can set the box title using the `title` property.
 
-      <ah-admonition title="Nested boxes" type="warning">
+      <Admonition title="Nested boxes" type="warning">
         A box inside a box is also possible.
-      </ah-admonition>
-    </ah-admonition>
+      </Admonition>
+    </Admonition>
 
-    <ah-admonition type="danger">
+    <Admonition type="danger">
       This is a box without title.
-    </ah-admonition>
+    </Admonition>
 
-    <ah-admonition title="Collapsible boxes" type="info" collapsible collapsed>
+    <Admonition title="Collapsible boxes" type="info" collapsible collapsed>
       Collapsible boxes are also possible.
-    </ah-admonition>
+    </Admonition>
     ```
-  </div>
-</ah-tabbed>
+
+  </TabItem>
+</TabGroup>
 
 ## Code and Syntax Highlighting
 
 ### Inline code
 
-<ah-tabbed>
-  <label slot="label">Result</label>
-  <div slot="content">
+<TabGroup>
+  <TabItem label="Result">
   Text surrounded by backticks (the character) is shown in monospaced font, `like this`.
-  </div>
+  </TabItem>
 
-  <label slot="label">Markdown</label>
-  <div slot="content">
+  <TabItem label="Markdown">
   ```md
   Text surrounded by backticks (the character) is shown in monospaced font, `like this`.
   ```
-  </div>
-</ah-tabbed>
+  </TabItem>
+</TabGroup>
 
 ### Code blocks
 
 Code blocks are started and ended by a line with three backticks. See examples below.
 
-<ah-tabbed>
-  <label slot="label">Result</label>
-  <div slot="content">
+<TabGroup>
+  <TabItem label="Result">
   No highlight:
 
-  ```
-  #include <stdio.h>
-  int main(void) {
-    printf("Hello world!\n");
-    return 0;
-  }
-  ```
+```
+#include <stdio.h>
+int main(void) {
+  printf("Hello world!\n");
+  return 0;
+}
+```
 
-  Code highlight:
+Code highlight:
 
-  ```c
-  #include <stdio.h>
-  int main(void) {
-    printf("Hello world!\n");
-    return 0;
-  }
-  ```
-  </div>
+```c
+#include <stdio.h>
+int main(void) {
+  printf("Hello world!\n");
+  return 0;
+}
+```
 
-  <label slot="label">Markdown</label>
-  <div slot="content">
+  </TabItem>
+
+  <TabItem label="Markdown">
   ````md
   No highlight:
 
-  ```
-  #include <stdio.h>
-  int main(void) {
-    printf("Hello world!\n");
-    return 0;
-  }
-  ```
+```
+#include <stdio.h>
+int main(void) {
+  printf("Hello world!\n");
+  return 0;
+}
+```
 
-  Code highlight:
+Code highlight:
 
-  ```c
-  #include <stdio.h>
-  int main(void) {
-    printf("Hello world!\n");
-    return 0;
-  }
-  ```
-  ````
-  </div>
-</ah-tabbed>
+```c
+#include <stdio.h>
+int main(void) {
+  printf("Hello world!\n");
+  return 0;
+}
+```
+
+`````
+</TabItem>
+</TabGroup>
 
 ## Tabs
 
 Tabs can be used to provide another version of the same content.
 
-<ah-tabbed>
-  <label slot="label">Result</label>
-  <div slot="content">
-    <ah-tabbed>
-      <label slot="label">C</label>
-      <div slot="content">
-      ```c
-      #include <stdio.h>
+<TabGroup>
+<TabItem label="Result">
+  <TabGroup>
+    <TabItem label="C">
+    ```c
+    #include <stdio.h>
 
-      int main(void) {
-        printf("Hello world!\n");
-        return 0;
-      }
-      ```
-      </div>
-    
-      <label slot="label">C++</label>
-      <div slot="content">
-      ```cpp
-      #include <iostream>
+    int main(void) {
+      printf("Hello world!\n");
+      return 0;
+    }
+    ```
+    </TabItem>
 
-      int main(void) {
-        std::cout << "Hello world!" << std::endl;
-        return 0;
-      }
-      ```
-      </div>
-    </ah-tabbed>
-  </div>
+    <TabItem label="C++">
+    ```cpp
+    #include <iostream>
 
-  <label slot="label">Markdown</label>
-  <div slot="content">
-    ````html
-    <ah-tabbed>
-      <label slot="label">C</label>
-      <div slot="content">
-      ```c
-      #include <stdio.h>
+    int main(void) {
+      std::cout << "Hello world!" <<TabItem std::endl;
+      return 0;
+    }
+    ```
+    </TabItem>
+  </TabGroup>
+</TabItem>
 
-      int main(void) {
-        printf("Hello world!\n");
-        return 0;
-      }
-      ```
-      </div>
-    
-      <label slot="label">C++</label>
-      <div slot="content">
-      ```cpp
-      #include <iostream>
+<TabItem label="Markdown">
+````md
+<TabGroup>
+  <TabItem label="C">
+  ```c
+  #include <stdio.h>
 
-      int main(void) {
-        std::cout << "Hello world!" << std::endl;
-        return 0;
-      }
-      ```
-      </div>
-    </ah-tabbed>
-    ````
-  </div>
-</ah-tabbed>
+  int main(void) {
+    printf("Hello world!\n");
+    return 0;
+  }
+  ```
+  </TabItem>
+
+  <TabItem label="C++">
+  ```cpp
+  #include <iostream>
+
+  int main(void) {
+    std::cout << "Hello world!" <<TabItem std::endl;
+    return 0;
+  }
+  ```
+  </TabItem>
+</TabGroup>
+`````
+
+  </TabItem>
+</TabGroup>

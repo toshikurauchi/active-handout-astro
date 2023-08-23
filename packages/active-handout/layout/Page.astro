@@ -10,11 +10,15 @@ import "../styles/global.scss";
 
 import "../styles/prism/prism-one-light.css";
 
-import Header from "../components/Header/Header.astro";
-import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs.astro";
-import CopyButtonInjector from "../components/CopyButtonInjector/CopyButtonInjector.astro";
+import Header from "../components/header/Header.astro";
+import Breadcrumbs from "../components/breadcrumbs/Breadcrumbs.astro";
+import CopyButtonInjector from "../components/copy-button-injector/CopyButtonInjector.astro";
 
-type Props = { headings?: MarkdownHeading[]; title: string; template: Handout["template"] };
+type Props = {
+  headings?: MarkdownHeading[];
+  title: string;
+  template: Handout["template"];
+};
 
 const { template, title, headings } = Astro.props;
 const isSplash = template === "splash";
@@ -35,7 +39,7 @@ const isSplash = template === "splash";
   </head>
   <body>
     {!isSplash && <Header websiteTitle={config.title} headings={headings} />}
-    <main class="main-content">
+    <main class:list={["main-content", { "is-splash": isSplash }]}>
       {
         !isSplash && (
           <>

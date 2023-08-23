@@ -1,0 +1,34 @@
+---
+import { processPanels } from "./rehype-tabs";
+
+const panelHtml = await Astro.slots.render("default");
+const { html, labels } = processPanels(panelHtml);
+---
+
+<div class="tabgroup">
+  <div class="tabgroup--labels">
+    {
+      labels &&
+        labels.map((label, index) => (
+          <label
+            class="tab--label"
+            role="tab"
+            class:list={[{ active: index === 0 }]}
+          >
+            {label}
+          </label>
+        ))
+    }
+  </div>
+  <div class="tabgroup--contents">
+    <Fragment set:html={html} />
+  </div>
+</div>
+
+<script>
+  import "./script.ts";
+</script>
+
+<style lang="scss">
+  @use "./styles";
+</style>

@@ -1,0 +1,45 @@
+button {
+  --btn-background-color: var(--clr-secondary);
+  --btn-background-hover-color: var(--clr-secondary-hover);
+  --btn-text-color: var(--clr-secondary-contrast);
+
+  display: block;
+  text-align: center;
+
+  text-decoration: none;
+  font-weight: normal;
+
+  padding: 0.2em 0.6em;
+  border-radius: 0.2em;
+  border: none;
+
+  background: var(--btn-background-color);
+  color: var(--btn-text-color);
+
+  transition: background 0.2s ease-in-out;
+
+  &:not(:disabled) {
+    &:hover,
+    &:active,
+    &:focus {
+      --btn-background-color: var(--btn-background-hover-color);
+
+      cursor: pointer;
+    }
+
+    &:active {
+      transform: scale(0.99);
+    }
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &.primary {
+    --btn-background-color: var(--clr-accent);
+    --btn-background-hover-color: var(--clr-accent-hover);
+    --btn-text-color: var(--clr-accent-contrast);
+    --btn-text-hover-color: var(--clr-accent-contrast);
+  }
+}

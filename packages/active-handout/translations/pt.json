@@ -1,5 +1,9 @@
 {
   "skipLink.label": "Pular para o conteúdo",
   "404.title": "Página não encontrada",
-  "404.text": "Desculpe, não encontramos esta página. Se você acha que isso não deveria ter acontecido, por favor, nos avise."
+  "404.text": "Desculpe, não encontramos esta página. Se você acha que isso não deveria ter acontecido, por favor, nos avise.",
+  "signin.title": "Login",
+  "signin.no-account": "Não possui uma conta?",
+  "signin.create-account": "Crie uma conta",
+  "signin.error": "Email ou senha inválidos"
 }

@@ -1,0 +1,72 @@
+$label-block-padding: 0.2em;
+$border-width: 1px;
+
+.tabgroup {
+  --tabbed-background-color: var(--clr-background-secondary);
+  --tabbed-border-color: var(--clr-border-secondary);
+  --tabbed-background-color-inactive: var(--clr-background-disabled);
+  --tabbed-border-color-inactive: var(--clr-border-disabled);
+  --block-padding: var(--default-block-padding, 0.5rem);
+  --inline-padding: var(--default-inline-padding, 0.8rem);
+  --border-radius: 0.2em;
+  --top-margin: var(--default-top-margin, 0);
+
+  max-width: 100%;
+  display: grid;
+  margin: var(--top-margin) 0;
+  isolation: isolate;
+
+  // LABELS
+  &--labels {
+    display: flex;
+    gap: 0.2rem;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  // CONTENTS
+  &--contents {
+    display: flex;
+    margin-top: -$border-width;
+    border: 1px solid var(--tabbed-border-color);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    background-color: var(--tabbed-background-color);
+    padding: calc(2 * var(--block-padding)) var(--inline-padding);
+    overflow: auto;
+
+    &--wider-than-labels {
+      border-top-right-radius: var(--border-radius);
+    }
+  }
+}
+
+.tab {
+  &--label {
+    border: $border-width solid var(--tabbed-border-color-inactive);
+    color: var(--clr-text);
+    border-bottom: none;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    background-color: var(--tabbed-background-color-inactive);
+    padding: $label-block-padding var(--inline-padding)
+      calc($label-block-padding + $border-width);
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+
+    &.active {
+      background-color: var(--tabbed-background-color);
+      border-color: var(--tabbed-border-color);
+      z-index: 999;
+      cursor: default;
+    }
+  }
+
+  &--content {
+    display: none;
+    max-width: 100%;
+    flex-grow: 1;
+
+    &.active {
+      display: block;
+    }
+  }
+}
