@@ -1,5 +1,4 @@
 import mdx from "@astrojs/mdx";
-import lit from "@astrojs/lit";
 import emoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import vercel from "@astrojs/vercel/serverless";
@@ -111,7 +110,6 @@ export default function ActiveHandoutIntegration(
       ],
     }),
     mdx(),
-    lit(),
   ];
 }
 
