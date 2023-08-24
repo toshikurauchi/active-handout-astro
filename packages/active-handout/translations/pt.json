@@ -1,9 +1,16 @@
 {
+  "field.required": "Não pode ser vazio",
   "skipLink.label": "Pular para o conteúdo",
   "404.title": "Página não encontrada",
   "404.text": "Desculpe, não encontramos esta página. Se você acha que isso não deveria ter acontecido, por favor, nos avise.",
   "signin.title": "Login",
   "signin.no-account": "Não possui uma conta?",
   "signin.create-account": "Crie uma conta",
-  "signin.error": "Email ou senha inválidos"
+  "signin.error": "Email ou senha inválidos",
+  "signin.email": "Email",
+  "signin.password": "Senha",
+  "signin.submit": "Entrar",
+  "signin.invalid-email": "Email inválido",
+  "signin.invalid-password": "Senha incorreta",
+  "signin.too-many-requests": "Muitas tentativas de login. Tente novamente mais tarde."
 }

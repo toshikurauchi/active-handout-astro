@@ -9,7 +9,7 @@ import type { Handout } from "../schema";
 
 const t = useTranslations(config.lang);
 
-let template: Handout["template"] = "splash";
+let template: Handout["template"] = "handout";
 let Content: AstroComponentFactory = NotFound;
 let headings = [];
 const entry = await get404Entry();

@@ -3,7 +3,9 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
-    "types": ["astro/client.d.ts"]
+    "types": ["astro/client.d.ts"],
+    "jsx": "react",
+    "allowImportingTsExtensions": true
   },
   "exclude": ["**/*.cjs"]
 }

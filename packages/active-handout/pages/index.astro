@@ -9,7 +9,7 @@ import NotFound from "../components/not-found/NotFound.astro";
 import Page from "../layout/Page.astro";
 import type { AstroComponentFactory } from "astro/dist/runtime/server";
 import type { Handout } from "../schema";
-import { getUserFromCookie } from "../utils/auth";
+import { getUserFromCookie } from "../utils/server-auth";
 
 export async function getStaticPaths() {
   return paths;
@@ -22,7 +22,6 @@ let { entry } = Astro.props;
 let requireLogin = config.auth && config.defaultRequireLogin;
 let title: string = "";
 let template: Handout["template"] = "splash";
-let isNotFound = false;
 
 // This may happen if we are using SSR instead of SSG, so getStaticProps is not called
 if (!entry) {
@@ -39,11 +38,10 @@ if (!entry) {
     entry = await get404Entry();
     title = t("404.title");
     Astro.response.status = 404;
-    isNotFound = true;
   }
 }
 
-if (!isNotFound && requireLogin) {
+if (requireLogin) {
   const user = await getUserFromCookie(Astro.cookies.get("session").value);
   if (!user) {
     return Astro.redirect("/signin?next=" + Astro.url.pathname);

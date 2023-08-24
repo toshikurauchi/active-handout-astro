@@ -1,0 +1,22 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: var(--fnt-sz--1);
+  }
+
+  // This is only cosmetic, so it's fine if
+  // the browser doesn't support :has()
+  &:has(:focus-within) label {
+    font-weight: bold;
+  }
+
+  input {
+    background-color: var(--clr-bg);
+    border: 1px solid var(--clr-text-light);
+    border-radius: 0.2em;
+    color: inherit;
+    padding: 0 0.5em;
+  }
+}

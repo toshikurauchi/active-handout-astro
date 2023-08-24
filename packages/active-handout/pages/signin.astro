@@ -1,9 +1,8 @@
 ---
 import config from "virtual:active-handout/user-config";
 import AuthPage from "../layout/AuthPage.astro";
-import FormInput from "../components/form-input/FormInput.astro";
-import Button from "../components/button/Button.astro";
-import { getUserFromCookie } from "../utils/auth";
+import LoginForm from "../react/fragments/login/LoginForm.tsx";
+import { getUserFromCookie } from "../utils/server-auth.ts";
 import { useTranslations } from "../utils/translations";
 
 const t = useTranslations(config.lang);
@@ -20,13 +19,7 @@ if (config.auth) {
   <div class="form-container">
     <h1>{t("signin.title")}</h1>
 
-    <form action="/api/auth/signin" method="post">
-      <FormInput id="email" labelText="Email" />
-      <FormInput id="password" labelText="Password" type="password" />
-
-      <Button type="submit" primary>Login</Button>
-      <p class="error-msg hidden">{t("signin.error")}</p>
-    </form>
+    <LoginForm action="/api/auth/signin" client:visible />
 
     <p class="no-account">
       {t("signin.no-account")}
@@ -35,64 +28,7 @@ if (config.auth) {
   </div>
 </AuthPage>
 
-<script>
-  import {
-    getAuth,
-    inMemoryPersistence,
-    signInWithEmailAndPassword,
-  } from "firebase/auth";
-  import { app } from "../firebase/client";
-
-  const auth = getAuth(app);
-  // This will prevent the browser from storing session data
-  auth.setPersistence(inMemoryPersistence);
-
-  const form = document.querySelector("form") as HTMLFormElement;
-  form.addEventListener("submit", async (e) => {
-    console.log("SUBMIT");
-    e.preventDefault();
-    const formData = new FormData(form);
-    const email = formData.get("email")?.toString();
-    const password = formData.get("password")?.toString();
-
-    const errorMsg = document.querySelector(".error-msg") as HTMLElement;
-    errorMsg.classList.add("hidden");
-
-    if (!email || !password) {
-      return;
-    }
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const idToken = await userCredential.user.getIdToken();
-
-    const searchParams = new URLSearchParams(document.location.search);
-    const nextUrl = searchParams.get("next") || "/";
-    const response = await fetch(`/api/auth/signin?next=${nextUrl}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-
-    if (response.redirected) {
-      window.location.assign(response.url);
-    } else {
-      errorMsg.classList.remove("hidden");
-    }
-  });
-</script>
-
 <style>
-  form {
-    margin: 1em 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-  }
-
   p.no-account {
     font-size: var(--fnt-sz--1);
     margin-top: 3em;

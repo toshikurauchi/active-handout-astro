@@ -3,7 +3,7 @@ import type { MarkdownHeading } from "astro";
 import { getNavEntries } from "../../utils/routing";
 import NavMenu from "../nav-menu/NavMenu.astro";
 import UserMenu from "../user-menu/UserMenu.astro";
-import { getUserFromCookie } from "../../utils/auth";
+import { getUserFromCookie } from "../../utils/server-auth";
 
 interface Props {
   websiteTitle: string;

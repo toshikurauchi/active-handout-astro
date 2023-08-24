@@ -1,4 +1,4 @@
-button {
+.button {
   --btn-background-color: var(--clr-secondary);
   --btn-background-hover-color: var(--clr-secondary-hover);
   --btn-text-color: var(--clr-secondary-contrast);
@@ -17,14 +17,13 @@ button {
   color: var(--btn-text-color);
 
   transition: background 0.2s ease-in-out;
+  cursor: pointer;
 
   &:not(:disabled) {
     &:hover,
     &:active,
     &:focus {
       --btn-background-color: var(--btn-background-hover-color);
-
-      cursor: pointer;
     }
 
     &:active {
@@ -32,14 +31,15 @@ button {
     }
   }
 
-  &:disabled {
-    cursor: default;
-  }
-
   &.primary {
     --btn-background-color: var(--clr-accent);
     --btn-background-hover-color: var(--clr-accent-hover);
     --btn-text-color: var(--clr-accent-contrast);
     --btn-text-hover-color: var(--clr-accent-contrast);
+  }
+
+  &:disabled {
+    cursor: default;
+    --btn-background-color: hsl(0, 0%, 90%);
   }
 }

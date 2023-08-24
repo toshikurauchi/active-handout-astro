@@ -1,4 +1,5 @@
 import mdx from "@astrojs/mdx";
+import react from "@astrojs/react";
 import emoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import vercel from "@astrojs/vercel/serverless";
@@ -109,6 +110,7 @@ export default function ActiveHandoutIntegration(
         "@insperedu/active-handout/components/tabs/TabItem.astro",
       ],
     }),
+    react(),
     mdx(),
   ];
 }
