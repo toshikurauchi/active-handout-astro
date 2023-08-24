@@ -35,6 +35,13 @@ export const ActiveHandoutConfigSchema = z.object({
     .describe(
       "Default value for requireLogin in handouts. If auth is false, this value will be ignored."
     ),
+
+  authPageImage: z
+    .string()
+    .optional()
+    .describe(
+      "Image to be used in the authentication page. If auth is false, this value will be ignored."
+    ),
 });
 
 export type ActiveHandoutConfig = z.infer<typeof ActiveHandoutConfigSchema>;

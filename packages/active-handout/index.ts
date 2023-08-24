@@ -105,7 +105,6 @@ export default function ActiveHandoutIntegration(
       // Add the components we want to be auto-imported in .mdx files here
       imports: [
         "@insperedu/active-handout/components/admonition/Admonition.astro",
-        "@insperedu/active-handout/components/button/Button.astro",
         "@insperedu/active-handout/components/tabs/TabGroup.astro",
         "@insperedu/active-handout/components/tabs/TabItem.astro",
       ],

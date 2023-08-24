@@ -1,23 +1,29 @@
 ---
+import config from "virtual:active-handout/user-config";
 import Page from "../layout/Page.astro";
 
 interface Props {
   title: string;
 }
 
+const bgUrl = `url(${config.authPageImage})`;
+
 const { title } = Astro.props;
 ---
 
 <Page title={title} template="splash">
   <div class="auth-page-container">
-    <div class="img-container"></div>
+    <div class="img-container">
+      <div class="img-overlay"></div>
+      <h1>{config.title}</h1>
+    </div>
     <div class="form-container">
       <slot />
     </div>
   </div>
 </Page>
 
-<style lang="scss">
+<style lang="scss" define:vars={{ "bg-img": bgUrl }}>
   .auth-page-container {
     display: grid;
     min-height: 100vh;
@@ -25,7 +31,32 @@ const { title } = Astro.props;
   }
 
   .img-container {
-    background-color: var(--clr-primary);
+    display: grid;
+    grid-template-columns: 1fr;
+    background: linear-gradient(
+      to bottom left,
+      var(--clr-primary),
+      var(--clr-accent)
+    );
+
+    .img-overlay {
+      background: var(--bg-img);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 100%;
+      grid-area: 1 / 1;
+    }
+
+    h1 {
+      color: var(--clr-primary-contrast);
+      -webkit-text-stroke: 3px var(--clr-primary);
+      font-size: 5em;
+      text-align: center;
+      padding: 1em;
+      grid-area: 1 / 1;
+    }
   }
 
   .form-container {

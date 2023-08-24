@@ -66,6 +66,7 @@ export default function LoginForm({ action }: LoginFormProps) {
       if (error.hasOwnProperty("code")) {
         code = error.code;
       }
+      // More error codes here: https://firebase.google.com/docs/auth/admin/errors
       if (code.includes("email")) {
         setEmailErrorMsg(t("signin.invalid-email"));
         setPasswordErrorMsg("");
