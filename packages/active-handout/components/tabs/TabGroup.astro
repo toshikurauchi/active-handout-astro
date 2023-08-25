@@ -32,3 +32,16 @@ const { html, labels } = processPanels(panelHtml);
 <style lang="scss">
   @use "./styles";
 </style>
+
+<style lang="scss" is:global>
+  // The rendered HTML is not including Astro's CSS, so we need to include it here
+  .tab--content {
+    display: none;
+    max-width: 100%;
+    flex-grow: 1;
+
+    &.active {
+      display: block;
+    }
+  }
+</style>
