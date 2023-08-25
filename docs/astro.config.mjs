@@ -3,6 +3,8 @@ import activeHandout from "@toshikurauchi/active-handout";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://toshikurauchi.github.io",
+  base: "/active-handout-astro",
   experimental: {
     assets: true,
   },
