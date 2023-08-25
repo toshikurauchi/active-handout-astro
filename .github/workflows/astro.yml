@@ -24,9 +24,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-env:
-  BUILD_PATH: "docs"
-
 jobs:
   build:
     name: Build
@@ -74,12 +71,12 @@ jobs:
           pnpm astro build \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
-        working-directory: ${{ env.BUILD_PATH }}
+        working-directory: ./docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ${{ env.BUILD_PATH }}/dist
+          path: ./docs/dist
 
   deploy:
     environment:

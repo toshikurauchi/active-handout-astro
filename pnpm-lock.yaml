@@ -12,7 +12,7 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
       '@toshikurauchi/active-handout':
-        specifier: https://gitpkg.now.sh/toshikurauchi/active-handout-astro/packages/active-handout?main
+        specifier: ^0.0.4
         version: link:../packages/active-handout
       astro:
         specifier: ^2.6.6
