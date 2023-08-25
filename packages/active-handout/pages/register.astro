@@ -1,17 +1,28 @@
 ---
-import Page from "../layout/Page.astro";
+import config from "virtual:active-handout/user-config";
+import AuthPage from "../layout/AuthPage.astro";
+import RegistrationForm from "../react/fragments/registration/RegistrationForm.tsx";
+import { useTranslations } from "../utils/translations";
+
+const t = useTranslations(config.lang);
 ---
 
-<Page title="Register" template="splash">
-  <h1>Register</h1>
-  <p>Already have an account? <a href="/signin">Sign in</a></p>
-  <form action="/api/auth/register" method="post">
-    <label for="name">Name</label>
-    <input type="text" name="name" id="name" />
-    <label for="email" for="email">Email</label>
-    <input type="email" name="email" id="email" />
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-    <button type="submit">Login</button>
-  </form>
-</Page>
+<AuthPage title={t("auth.register-title")}>
+  <div class="form-container">
+    <h1>{t("auth.register-title")}</h1>
+
+    <RegistrationForm action="/api/auth/register" client:visible />
+
+    <p class="has-account">
+      {t("auth.has-account")}
+      <a href="/signin">{t("auth.signin")}</a>
+    </p>
+  </div>
+</AuthPage>
+
+<style>
+  p.has-account {
+    font-size: var(--fnt-sz--1);
+    margin-top: 3em;
+  }
+</style>

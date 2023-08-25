@@ -11,10 +11,6 @@ export function builtinI18nSchema() {
 function activeHandoutI18nSchema() {
   return z
     .object({
-      "field.required": z
-        .string()
-        .describe("Error message shown when a required field is empty"),
-
       "skipLink.label": z
         .string()
         .describe(
@@ -29,45 +25,77 @@ function activeHandoutI18nSchema() {
         .string()
         .describe("Title shown on Active Handout’s default 404 page"),
 
-      "signin.title": z.string().describe("Title shown on the sign-in page"),
+      "auth.signin-title": z
+        .string()
+        .describe("Title shown on the sign-in page"),
 
-      "signin.no-account": z
+      "auth.no-account": z
         .string()
         .describe(
           "Text shown on the sign-in page when the user has no account"
         ),
 
-      "signin.create-account": z
+      "auth.create-account": z
         .string()
         .describe("Text shown on create account button on the sign-in page"),
 
-      "signin.error": z.string().describe("Error message on the sign-in page"),
-
-      "signin.email": z
+      "auth.signin-error": z
         .string()
-        .describe("Label for the email input on the sign-in page"),
+        .describe("Error message on the sign-in page"),
 
-      "signin.password": z
+      "auth.name-label": z.string().describe("Label for the name input"),
+
+      "auth.email-label": z.string().describe("Label for the email input"),
+
+      "auth.password-label": z
         .string()
-        .describe("Label for the password input on the sign-in page"),
+        .describe("Label for the password input"),
 
-      "signin.submit": z
+      "auth.signin-submit": z
         .string()
         .describe("Label for the submit button on the sign-in page"),
 
-      "signin.invalid-email": z
+      "auth.invalid-name": z
+        .string()
+        .describe("Error message shown when the name is invalid"),
+
+      "auth.invalid-email": z
         .string()
         .describe("Error message shown when the email is invalid"),
 
-      "signin.invalid-password": z
+      "auth.invalid-password": z
         .string()
         .describe("Error message shown when the password is invalid"),
 
-      "signin.too-many-requests": z
+      "auth.too-many-requests": z
         .string()
         .describe(
           "Error message shown when the user has made too many unsuccessful sign-in attempts"
         ),
+
+      "auth.register-title": z
+        .string()
+        .describe("Title shown on the registration page"),
+
+      "auth.has-account": z
+        .string()
+        .describe(
+          "Text shown on the registration page when the user already has an account"
+        ),
+
+      "auth.signin": z
+        .string()
+        .describe(
+          "Text shown on the link to the signin page on the registration page"
+        ),
+
+      "auth.register-submit": z
+        .string()
+        .describe("Label for the submit button on the registration page"),
+
+      "field.required": z
+        .string()
+        .describe("Error message shown when a required field is empty"),
     })
     .partial();
 }

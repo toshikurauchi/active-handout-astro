@@ -15,15 +15,15 @@ if (config.auth) {
 }
 ---
 
-<AuthPage title={t("signin.title")}>
+<AuthPage title={t("auth.signin-title")}>
   <div class="form-container">
-    <h1>{t("signin.title")}</h1>
+    <h1>{t("auth.signin-title")}</h1>
 
     <LoginForm action="/api/auth/signin" client:visible />
 
     <p class="no-account">
-      {t("signin.no-account")}
-      <a href="/register">{t("signin.create-account")}</a>
+      {t("auth.no-account")}
+      <a href="/register">{t("auth.create-account")}</a>
     </p>
   </div>
 </AuthPage>
@@ -32,15 +32,5 @@ if (config.auth) {
   p.no-account {
     font-size: var(--fnt-sz--1);
     margin-top: 3em;
-  }
-
-  p.error-msg {
-    margin-top: 0;
-    color: var(--clr-error);
-    font-size: var(--fnt-sz--1);
-
-    &.hidden {
-      display: none;
-    }
   }
 </style>
