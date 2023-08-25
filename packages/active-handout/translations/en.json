@@ -19,6 +19,7 @@
   "auth.has-account": "Already have an account?",
   "auth.signin": "Sign in",
   "auth.signin-google": "Sign in with Google",
+  "auth.signin-github": "Sign in with GitHub",
   "auth.register-submit": "Register",
   "field.required": "Can't be empty"
 }

@@ -1,6 +1,6 @@
 ---
 import Button from "../../../react/components/button/Button.tsx";
-import googleLogo from "./google-logo.svg";
+import gitHubLogo from "./github-logo.svg";
 import config from "virtual:active-handout/user-config";
 import { useTranslations } from "../../../utils/translations";
 import SigninButtonContainer from "../SigninButtonContainer.astro";
@@ -10,23 +10,24 @@ const t = useTranslations(config.lang);
 
 <SigninButtonContainer>
   <Button
-    id="google-signin"
-    colorScheme="google"
-    leftImg={googleLogo.src}
+    id="github-signin"
+    colorScheme="github"
+    leftImg={gitHubLogo.src}
     client:visible
   >
-    {t("auth.signin-google")}
+    {t("auth.signin-github")}
   </Button>
 </SigninButtonContainer>
 
 <script>
-  import { GoogleAuthProvider } from "firebase/auth";
+  // More info here: https://firebase.google.com/docs/auth/web/github-auth?authuser=0&hl=en
+  import { GithubAuthProvider } from "firebase/auth";
   import { signinToFirebaseWithProvider } from "../../../utils/client-auth";
 
   const googleSignin = document.querySelector(
-    "#google-signin"
+    "#github-signin"
   ) as HTMLButtonElement;
   googleSignin.addEventListener("click", async () => {
-    await signinToFirebaseWithProvider(GoogleAuthProvider);
+    await signinToFirebaseWithProvider(GithubAuthProvider);
   });
 </script>

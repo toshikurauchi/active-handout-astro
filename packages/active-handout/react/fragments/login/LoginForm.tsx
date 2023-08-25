@@ -5,8 +5,6 @@ import FormInput from "../../components/form-input/FormInput.tsx";
 import Button from "../../components/button/Button.tsx";
 import { useTranslations } from "../../../utils/translations";
 import ErrorMsg from "../../components/error-msg/ErrorMsg.tsx";
-import { Auth, getAuth, inMemoryPersistence } from "firebase/auth";
-import { app } from "../../../firebase/client";
 import {
   login,
   signinToFirebaseWithCredentials,
@@ -23,14 +21,6 @@ export default function LoginForm({ action }: LoginFormProps) {
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   const [loginErrorMsg, setLoginErrorMsg] = useState("");
-  const authRef = useRef<Auth | null>(null);
-  if (authRef.current === null) {
-    authRef.current = getAuth(app);
-  }
-
-  const auth = authRef.current;
-  // This will prevent the browser from storing session data
-  auth.setPersistence(inMemoryPersistence);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,11 +39,7 @@ export default function LoginForm({ action }: LoginFormProps) {
     }
 
     try {
-      const idToken = await signinToFirebaseWithCredentials(
-        auth,
-        email,
-        password
-      );
+      const idToken = await signinToFirebaseWithCredentials(email, password);
 
       const response = await login(idToken);
       if (response.redirected) {

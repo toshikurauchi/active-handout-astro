@@ -40,6 +40,11 @@ export const ActiveHandoutConfigSchema = z
       .default(false)
       .describe("Use Google OAuth authentication."),
 
+    useGitHubAuth: z
+      .boolean()
+      .default(false)
+      .describe("Use GitHub OAuth authentication."),
+
     defaultRequireLogin: z
       .boolean()
       .default(true)
@@ -56,7 +61,9 @@ export const ActiveHandoutConfigSchema = z
   })
   .refine((config) => {
     if (config.auth) {
-      return config.useEmailAuth || config.useGoogleAuth;
+      return (
+        config.useEmailAuth || config.useGoogleAuth || config.useGitHubAuth
+      );
     }
     return true;
   }, "If auth is true, you need to enable at least one authentication method.");

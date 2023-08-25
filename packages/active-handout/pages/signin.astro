@@ -6,6 +6,7 @@ import GoogleSigninButton from "../components/signin-buttons/google/GoogleSignin
 import { getUserFromCookie } from "../utils/server-auth.ts";
 import { useTranslations } from "../utils/translations";
 import Or from "../components/Or.astro";
+import GitHubSigninButton from "../components/signin-buttons/github/GitHubSigninButton.astro";
 
 const t = useTranslations(config.lang);
 
@@ -15,6 +16,9 @@ if (config.auth) {
     return Astro.redirect(Astro.url.searchParams.get("next") || "/");
   }
 }
+
+const showExternalAuth = config.useGoogleAuth || config.useGitHubAuth;
+const showOr = config.useEmailAuth && showExternalAuth;
 ---
 
 <AuthPage title={t("auth.signin-title")}>
@@ -27,14 +31,25 @@ if (config.auth) {
       )
     }
 
-    {config.useEmailAuth && config.useGoogleAuth && <Or />}
+    {showOr && <Or />}
 
-    {config.useGoogleAuth && <GoogleSigninButton />}
+    {
+      showExternalAuth && (
+        <div class="external-auth">
+          {config.useGoogleAuth && <GoogleSigninButton />}
+          {config.useGitHubAuth && <GitHubSigninButton />}
+        </div>
+      )
+    }
 
-    <p class="no-account">
-      {t("auth.no-account")}
-      <a href="/register">{t("auth.create-account")}</a>
-    </p>
+    {
+      config.useEmailAuth && (
+        <p class="no-account">
+          {t("auth.no-account")}
+          <a href="/register">{t("auth.create-account")}</a>
+        </p>
+      )
+    }
   </div>
 </AuthPage>
 
@@ -42,5 +57,9 @@ if (config.auth) {
   p.no-account {
     font-size: var(--fnt-sz--1);
     margin-top: 3em;
+  }
+
+  .external-auth {
+    margin-top: 2em;
   }
 </style>

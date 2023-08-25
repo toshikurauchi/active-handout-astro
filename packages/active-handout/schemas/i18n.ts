@@ -95,6 +95,10 @@ function activeHandoutI18nSchema() {
         .string()
         .describe("Text shown on the Google signin button"),
 
+      "auth.signin-github": z
+        .string()
+        .describe("Text shown on the GitHub signin button"),
+
       "auth.register-submit": z
         .string()
         .describe("Label for the submit button on the registration page"),

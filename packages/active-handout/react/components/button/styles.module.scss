@@ -51,20 +51,28 @@ $border-radius: 0.2em;
     --btn-text-hover-color: var(--clr-google-contrast);
   }
 
+  &.github {
+    --btn-background-color: var(--clr-github);
+    --btn-background-hover-color: var(--clr-github-hover);
+    --btn-text-color: var(--clr-github-contrast);
+    --btn-text-hover-color: var(--clr-github-contrast);
+  }
+
   &:disabled {
     cursor: default;
     --btn-background-color: hsl(0, 0%, 90%);
   }
 
   img {
+    width: 2em;
+    height: 2em;
+
     &.leftImg {
-      margin: (-$block-padding) $inline-padding (-$block-padding)
-        (-$inline-padding);
+      margin: 0 $inline-padding 0 ($block-padding - $inline-padding);
     }
 
     &.rightImg {
-      margin: (-$block-padding) (-$inline-padding) (-$block-padding)
-        $inline-padding;
+      margin: 0 ($block-padding - $inline-padding) 0 $inline-padding;
     }
   }
 }
