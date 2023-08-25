@@ -40,9 +40,15 @@ if (config.auth) {
     );
   }
 
-  app = initializeApp({
-    credential: cert(serviceAccount as ServiceAccount),
-  });
+  try {
+    if (config.auth) {
+      app = initializeApp({
+        credential: cert(serviceAccount as ServiceAccount),
+      });
+    }
+  } catch (e) {
+    app = getApp();
+  }
 }
 
 export { app };
