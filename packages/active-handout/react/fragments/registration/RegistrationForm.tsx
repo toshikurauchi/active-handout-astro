@@ -4,10 +4,6 @@ import config from "virtual:active-handout/user-config";
 import FormInput from "../../components/form-input/FormInput.tsx";
 import Button from "../../components/button/Button.tsx";
 import { useTranslations } from "../../../utils/translations.ts";
-import {
-  login,
-  signinToFirebaseWithCredentials,
-} from "../../../utils/client-auth.ts";
 
 type LoginFormProps = {
   action: string;

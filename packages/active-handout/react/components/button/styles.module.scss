@@ -1,16 +1,22 @@
+$block-padding: 0.2em;
+$inline-padding: 0.6em;
+$border-radius: 0.2em;
+
 .button {
   --btn-background-color: var(--clr-secondary);
   --btn-background-hover-color: var(--clr-secondary-hover);
   --btn-text-color: var(--clr-secondary-contrast);
 
-  display: block;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
 
   text-decoration: none;
   font-weight: normal;
 
-  padding: 0.2em 0.6em;
-  border-radius: 0.2em;
+  padding: $block-padding $inline-padding;
+  border-radius: $border-radius;
   border: none;
 
   background: var(--btn-background-color);
@@ -38,8 +44,31 @@
     --btn-text-hover-color: var(--clr-accent-contrast);
   }
 
+  &.google {
+    --btn-background-color: var(--clr-google);
+    --btn-background-hover-color: var(--clr-google-hover);
+    --btn-text-color: var(--clr-google-contrast);
+    --btn-text-hover-color: var(--clr-google-contrast);
+  }
+
   &:disabled {
     cursor: default;
     --btn-background-color: hsl(0, 0%, 90%);
   }
+
+  img {
+    &.leftImg {
+      margin: (-$block-padding) $inline-padding (-$block-padding)
+        (-$inline-padding);
+    }
+
+    &.rightImg {
+      margin: (-$block-padding) (-$inline-padding) (-$block-padding)
+        $inline-padding;
+    }
+  }
+}
+
+.buttonContent {
+  margin: 0 auto;
 }

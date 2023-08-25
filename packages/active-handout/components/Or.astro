@@ -1,0 +1,33 @@
+---
+import config from "virtual:active-handout/user-config";
+import { useTranslations } from "../utils/translations";
+
+const t = useTranslations(config.lang);
+---
+
+<div class="or-container">
+  <span>{t("msg.or")}</span>
+</div>
+
+<style lang="scss">
+  .or-container {
+    display: grid;
+    place-items: center;
+    margin: 2em 0;
+    background: linear-gradient(
+      to bottom,
+      var(--clr-background) 45%,
+      var(--clr-secondary) 45%,
+      var(--clr-secondary) 55%,
+      var(--clr-background) 55%
+    );
+
+    span {
+      font-size: var(--fnt-sz-0);
+      text-transform: capitalize;
+      background-color: var(--clr-background);
+      color: var(--clr-primary);
+      padding: 0 0.5em;
+    }
+  }
+</style>

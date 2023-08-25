@@ -11,6 +11,8 @@ export function builtinI18nSchema() {
 function activeHandoutI18nSchema() {
   return z
     .object({
+      "msg.or": z.string().describe("Text for the word “or”"),
+
       "skipLink.label": z
         .string()
         .describe(
@@ -88,6 +90,10 @@ function activeHandoutI18nSchema() {
         .describe(
           "Text shown on the link to the signin page on the registration page"
         ),
+
+      "auth.signin-google": z
+        .string()
+        .describe("Text shown on the Google signin button"),
 
       "auth.register-submit": z
         .string()

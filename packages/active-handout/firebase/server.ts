@@ -1,6 +1,6 @@
 import config from "virtual:active-handout/user-config";
 import type { ServiceAccount } from "firebase-admin";
-import { initializeApp, cert, App } from "firebase-admin/app";
+import { initializeApp, cert, App, getApp } from "firebase-admin/app";
 import { getAppName } from "./utils";
 
 const serviceAccount = {
@@ -17,13 +17,17 @@ const serviceAccount = {
 };
 
 let app: App | undefined;
-if (config.auth) {
-  app = initializeApp(
-    {
-      credential: cert(serviceAccount as ServiceAccount),
-    },
-    getAppName()
-  );
+try {
+  if (config.auth) {
+    app = initializeApp(
+      {
+        credential: cert(serviceAccount as ServiceAccount),
+      },
+      getAppName()
+    );
+  }
+} catch (e) {
+  app = getApp(getAppName());
 }
 
 export { app };
