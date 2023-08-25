@@ -2,7 +2,6 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import emoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
-import vercel from "@astrojs/vercel/serverless";
 import AutoImport from "astro-auto-import";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
@@ -67,9 +66,10 @@ export default function ActiveHandoutIntegration(
           });
         }
         const newConfig: AstroUserConfig = {
-          // Setup the Vercel integration if we will be using auth
+          // Setup auth
+          // IMPORTANT: if you are using auth, you must set an adapter in the configurations
+          // see more at https://docs.astro.build/en/guides/server-side-rendering/
           output: userConfig.auth ? "server" : "static",
-          adapter: userConfig.auth ? vercel() : undefined,
 
           markdown: {
             syntaxHighlight: "prism",
