@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAppName } from "./utils";
 
 const firebaseConfig = {
   apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
@@ -10,4 +9,4 @@ const firebaseConfig = {
   appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
 };
 
-export const app = initializeApp(firebaseConfig, getAppName());
+export const app = initializeApp(firebaseConfig);

@@ -1,7 +1,6 @@
 import config from "virtual:active-handout/user-config";
 import type { ServiceAccount } from "firebase-admin";
 import { initializeApp, cert, App, getApp } from "firebase-admin/app";
-import { getAppName } from "./utils";
 
 const serviceAccount = {
   type: "service_account",
@@ -16,6 +15,7 @@ const serviceAccount = {
   client_x509_cert_url: import.meta.env.FIREBASE_CLIENT_CERT_URL,
 };
 
+let app: App | undefined;
 if (config.auth) {
   const missingVars = [];
   if (!serviceAccount.project_id)
@@ -39,20 +39,10 @@ if (config.auth) {
       )}`
     );
   }
-}
 
-let app: App | undefined;
-try {
-  if (config.auth) {
-    app = initializeApp(
-      {
-        credential: cert(serviceAccount as ServiceAccount),
-      },
-      getAppName()
-    );
-  }
-} catch (e) {
-  app = getApp(getAppName());
+  app = initializeApp({
+    credential: cert(serviceAccount as ServiceAccount),
+  });
 }
 
 export { app };
