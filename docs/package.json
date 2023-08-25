@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^2.3.2",
-    "@toshikurauchi/active-handout": "^0.0.4",
+    "@toshikurauchi/active-handout": "^0.0.5",
     "astro": "^2.6.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
