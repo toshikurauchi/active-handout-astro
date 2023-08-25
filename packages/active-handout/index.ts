@@ -30,37 +30,40 @@ export default function ActiveHandoutIntegration(
   const userConfig = parsedConfig.data;
 
   const ActiveHandout: AstroIntegration = {
-    name: "@insperedu/active-handout",
+    name: "@toshikurauchi/active-handout",
     hooks: {
       "astro:config:setup": ({ injectRoute, updateConfig }) => {
         injectRoute({
           pattern: "404",
-          entryPoint: "@insperedu/active-handout/pages/404.astro",
+          entryPoint: "@toshikurauchi/active-handout/pages/404.astro",
         });
         injectRoute({
           pattern: "[...slug]",
-          entryPoint: "@insperedu/active-handout/pages/index.astro",
+          entryPoint: "@toshikurauchi/active-handout/pages/index.astro",
         });
         if (userConfig.auth) {
           injectRoute({
             pattern: "api/auth/signin",
-            entryPoint: "@insperedu/active-handout/pages/api/auth/signin.ts",
+            entryPoint:
+              "@toshikurauchi/active-handout/pages/api/auth/signin.ts",
           });
           injectRoute({
             pattern: "api/auth/signout",
-            entryPoint: "@insperedu/active-handout/pages/api/auth/signout.ts",
+            entryPoint:
+              "@toshikurauchi/active-handout/pages/api/auth/signout.ts",
           });
           injectRoute({
             pattern: "api/auth/register",
-            entryPoint: "@insperedu/active-handout/pages/api/auth/register.ts",
+            entryPoint:
+              "@toshikurauchi/active-handout/pages/api/auth/register.ts",
           });
           injectRoute({
             pattern: "register",
-            entryPoint: "@insperedu/active-handout/pages/register.astro",
+            entryPoint: "@toshikurauchi/active-handout/pages/register.astro",
           });
           injectRoute({
             pattern: "signin",
-            entryPoint: "@insperedu/active-handout/pages/signin.astro",
+            entryPoint: "@toshikurauchi/active-handout/pages/signin.astro",
           });
         }
         const newConfig: AstroUserConfig = {
@@ -106,9 +109,9 @@ export default function ActiveHandoutIntegration(
     AutoImport({
       // Add the components we want to be auto-imported in .mdx files here
       imports: [
-        "@insperedu/active-handout/components/admonition/Admonition.astro",
-        "@insperedu/active-handout/components/tabs/TabGroup.astro",
-        "@insperedu/active-handout/components/tabs/TabItem.astro",
+        "@toshikurauchi/active-handout/components/admonition/Admonition.astro",
+        "@toshikurauchi/active-handout/components/tabs/TabGroup.astro",
+        "@toshikurauchi/active-handout/components/tabs/TabItem.astro",
       ],
     }),
     react(),

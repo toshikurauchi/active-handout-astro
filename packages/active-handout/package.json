@@ -1,5 +1,5 @@
 {
-  "name": "@insperedu/active-handout",
+  "name": "@toshikurauchi/active-handout",
   "type": "module",
   "version": "0.0.1",
   "scripts": {},
@@ -32,7 +32,6 @@
     "@fontsource-variable/open-sans": "^5.0.9",
     "@fontsource-variable/oswald": "^5.0.8",
     "@fontsource/fira-mono": "^5.0.8",
-    "@insperedu/active-handout-webcomponents": "github:toshikurauchi/active-handout-webcomponents",
     "@webcomponents/template-shadowroot": "^0.2.1",
     "astro": "^2.10.13",
     "astro-auto-import": "^0.3.1",

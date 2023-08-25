@@ -1,5 +1,5 @@
 {
-  "name": "@insperedu/active-handout-docs",
+  "name": "@toshikurauchi/active-handout-docs",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^2.3.2",
-    "@insperedu/active-handout": "https://gitpkg.now.sh/toshikurauchi/active-handout-astro/packages/active-handout?main",
+    "@toshikurauchi/active-handout": "https://gitpkg.now.sh/toshikurauchi/active-handout-astro/packages/active-handout?main",
     "astro": "^2.6.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import activeHandout from "@insperedu/active-handout";
+import activeHandout from "@toshikurauchi/active-handout";
 
 // https://astro.build/config
 export default defineConfig({
