@@ -1,0 +1,44 @@
+.contains-task-list {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.task-list-item {
+  // :has is not supported by some older browsers,
+  // but it's ok here because it's just cosmetics.
+  // Should be fine if the default checkbox is shown.
+  &:has(> input[type="checkbox"]:first-child) {
+    position: relative;
+    padding-left: 1.5em;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0.3em;
+      left: 0;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      border: 1px solid var(--clr-primary);
+      border-radius: 0.2em;
+      background-color: var(--clr-secondary);
+      vertical-align: middle;
+    }
+
+    & > input[type="checkbox"]:first-child {
+      display: none;
+    }
+  }
+
+  &:has(> input[type="checkbox"]:first-child:checked) {
+    &::after {
+      // content with checkmark symbol
+      content: "✓";
+      color: var(--clr-primary);
+      font-size: 1.3em;
+      position: absolute;
+      left: 0;
+      top: -0.3em;
+    }
+  }
+}

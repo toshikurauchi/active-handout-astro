@@ -2,6 +2,7 @@
 @use "./layout.scss";
 @use "./typeset.scss";
 @use "./colors.scss";
+@use "./task-list.scss";
 
 body {
   background-color: var(--clr-background);
