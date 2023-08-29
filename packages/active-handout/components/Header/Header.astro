@@ -36,15 +36,15 @@ const navEntries = getNavEntries(slug);
   <a href={import.meta.env.BASE_URL} class="home-btn">
     {websiteTitle}
   </a>
-  {
-    user && (
-      <div class="user-menu">
-        <UserMenu user={user} />
-      </div>
-    )
-  }
   <div class="right-header">
     <ClearTelemetryButton client:load />
+    {
+      user && (
+        <div class="user-menu">
+          <UserMenu user={user} />
+        </div>
+      )
+    }
   </div>
   <aside class="nav-container">
     <div class="menu-overlay"></div>

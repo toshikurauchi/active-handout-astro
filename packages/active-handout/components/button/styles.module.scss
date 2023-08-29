@@ -11,6 +11,7 @@ $border-radius: 0.2em;
   align-items: center;
   justify-content: center;
   flex-grow: 1;
+  position: relative;
 
   text-decoration: none;
   font-weight: normal;
@@ -81,6 +82,70 @@ $border-radius: 0.2em;
     &.rightImg {
       margin: 0 ($block-padding - $inline-padding) 0 $inline-padding;
     }
+  }
+
+  .tooltip {
+    $tooltip-background: #000a;
+
+    visibility: hidden;
+    background-color: $tooltip-background;
+    color: #fff;
+    text-align: center;
+    padding: 0.2em 0.5em;
+    border-radius: 0.2em;
+    font-size: var(--fnt-sz--2);
+
+    /* Default is bottom */
+    inset: 100% auto auto 50%;
+    transform: translateX(-50%);
+
+    position: absolute;
+    z-index: 1;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: auto auto 100% 50%;
+      margin: 0 0 0 -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent $tooltip-background transparent;
+    }
+
+    &.right {
+      inset: auto auto auto 100%;
+      transform: translateX(0);
+
+      &::after {
+        inset: 50% 100% auto auto;
+        margin: -5px 0 0 0;
+        border-color: transparent $tooltip-background transparent transparent;
+      }
+    }
+
+    &.left {
+      inset: auto 100% auto auto;
+      transform: translateX(0);
+
+      &::after {
+        inset: 50% auto auto 100%;
+        margin: -5px 0 0 0;
+        border-color: transparent transparent transparent $tooltip-background;
+      }
+    }
+
+    &.top {
+      inset: auto auto 100% 50%;
+
+      &::after {
+        inset: 100% auto auto 50%;
+        border-color: $tooltip-background transparent transparent transparent;
+      }
+    }
+  }
+
+  &:hover .tooltip {
+    visibility: visible;
   }
 }
 

@@ -4,4 +4,6 @@ export default interface Props {
   colorScheme?: string;
   leftImg?: string;
   rightImg?: string;
+  tooltip?: string;
+  tooltipPlacement?: "top" | "bottom" | "left" | "right";
 }

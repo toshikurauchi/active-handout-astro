@@ -10,6 +10,8 @@ export default function Button({
   colorScheme,
   leftImg,
   rightImg,
+  tooltip,
+  tooltipPlacement,
   children,
   ...props
 }: ButtonProps) {
@@ -18,6 +20,15 @@ export default function Button({
   } ${colorScheme ? Styles[colorScheme] : ""}`;
   return (
     <button className={className} {...props}>
+      {tooltip && (
+        <span
+          className={`${Styles.tooltip} ${
+            Styles[tooltipPlacement || "bottom"]
+          }`}
+        >
+          {tooltip}
+        </span>
+      )}
       {leftImg && <img src={leftImg} className={Styles.leftImg} />}
       <span className={Styles.buttonContent}>{children}</span>
       {rightImg && <img src={rightImg} className={Styles.rightImg} />}

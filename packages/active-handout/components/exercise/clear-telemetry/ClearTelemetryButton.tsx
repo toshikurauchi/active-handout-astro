@@ -16,7 +16,7 @@ export default function ClearTelemetryButton() {
   };
 
   return (
-    <Button transparent onClick={handleClearExercise}>
+    <Button transparent onClick={handleClearExercise} tooltip="Delete">
       <Trash className={Styles.icon} />
     </Button>
   );
