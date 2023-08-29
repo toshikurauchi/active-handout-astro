@@ -17,17 +17,11 @@ function activeHandoutI18nSchema() {
         .string()
         .describe("Text for the button that clears exercise answer"),
 
-      "msg.exercise-cleared": z
-        .string()
-        .describe(
-          "Text for the message to show when the user clears exercise answer"
-        ),
-
-      "msg.all-exercise-clear": z
+      "msg.all-exercises-clear": z
         .string()
         .describe("Text for the button that clears all answers"),
 
-      "msg.all-exercise-cleared": z
+      "msg.all-exercises-cleared": z
         .string()
         .describe(
           "Text for the message to show when the user clears all answers"

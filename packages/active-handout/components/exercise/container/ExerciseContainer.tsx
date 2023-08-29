@@ -1,17 +1,17 @@
 import React, { createContext, useEffect, useState } from "react";
 import config from "virtual:active-handout/user-config";
 import Styles from "./styles.module.scss";
-import { useTranslations } from "../../utils/translations";
-import Admonition from "../admonition/ReactAdmonition";
-import CorrectIcon from "./icons/CorrectIcon";
-import WrongIcon from "./icons/WrongIcon";
-import Button from "../button/ReactButton";
-import Trash from "../icons/Trash";
-import type { ExerciseBaseProps, Status } from "./props";
-import { clearTelemetry } from "./exercise-utils";
-import { dispatchNotification } from "../notifier/custom-events";
+import { useTranslations } from "../../../utils/translations";
+import Admonition from "../../admonition/ReactAdmonition";
+import CorrectIcon from "../icons/CorrectIcon";
+import WrongIcon from "../icons/WrongIcon";
+import Button from "../../button/ReactButton";
+import Trash from "../../icons/Trash";
+import type { ExerciseBaseProps, Status } from "../props";
+import { clearTelemetry } from "../exercise-utils";
+import { dispatchNotification } from "../../notifier/custom-events";
 
-type ExerciseContainerProps = ExerciseBaseProps;
+type ExerciseContainerProps = Omit<ExerciseBaseProps, "tags">;
 
 const t = useTranslations(config.lang);
 
@@ -40,7 +40,6 @@ export default function ExerciseContainer({
   const handleClearExercise = () => {
     clearTelemetry(pageId, slug);
     setReloadData(true);
-    dispatchNotification(t("msg.exercise-cleared"));
   };
 
   useEffect(() => {

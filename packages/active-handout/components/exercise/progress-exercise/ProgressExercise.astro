@@ -6,9 +6,14 @@ const pageId = Astro.url.pathname;
 
 interface Props {
   slug: string;
+  tags: string[];
 }
 
-const { slug } = Astro.props;
+if (!Astro.props.tags) {
+  Astro.props.tags = [];
+}
+const { slug, tags } = Astro.props;
+tags.push("progress-exercise");
 
 const exerciseNumber = getAutoIncrementedExerciseNumber(Astro.locals, slug);
 ---

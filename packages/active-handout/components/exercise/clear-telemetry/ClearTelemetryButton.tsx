@@ -12,14 +12,14 @@ const t = useTranslations(config.lang);
 export default function ClearTelemetryButton() {
   const handleClearExercise = () => {
     dispatchClearTelemetry();
-    dispatchNotification(t("msg.all-exercise-cleared"));
+    dispatchNotification(t("msg.all-exercises-cleared"));
   };
 
   return (
     <Button
       transparent
       onClick={handleClearExercise}
-      tooltip={t("msg.all-exercise-clear")}
+      tooltip={t("msg.all-exercises-clear")}
     >
       <Trash className={Styles.icon} />
     </Button>

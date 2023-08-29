@@ -1,9 +1,8 @@
 {
   "msg.or": "ou",
   "msg.exercise-clear": "Apagar resposta",
-  "msg.exercise-cleared": "Resposta apagada",
-  "msg.all-exercise-clear": "Apagar respostas",
-  "msg.all-exercise-cleared": "Respostas apagadas",
+  "msg.all-exercises-clear": "Apagar respostas",
+  "msg.all-exercises-cleared": "Respostas apagadas",
   "skipLink.label": "Pular para o conteúdo",
   "404.title": "Página não encontrada",
   "404.text": "Desculpe, não encontramos esta página. Se você acha que isso não deveria ter acontecido, por favor, nos avise.",
