@@ -8,7 +8,7 @@ const {title, collapsible, collapsed, type="default"} = Astro.props;
 
 {collapsible &&
   <details
-    class:list={["admonition", type]}
+    class:list={["admonition", "admonition-details", type]}
     open?={collapsed}
   >
     <summary class="admonition-title">{title}</summary>

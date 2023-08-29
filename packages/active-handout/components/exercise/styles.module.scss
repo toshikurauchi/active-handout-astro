@@ -1,0 +1,21 @@
+.correctIcon,
+.wrongIcon {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.correctIcon {
+  color: var(--clr-success);
+
+  circle {
+    fill: var(--clr-success-contrast);
+  }
+}
+
+.wrongIcon {
+  color: var(--clr-error);
+
+  circle {
+    fill: var(--clr-error-contrast);
+  }
+}
