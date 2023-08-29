@@ -1,23 +1,7 @@
 ---
-interface Props {
-  title?: string;
-  collapsible?: boolean;
-  collapsed?: boolean;
-  type?:
-    | "default"
-    | "note"
-    | "abstract"
-    | "info"
-    | "tip"
-    | "success"
-    | "question"
-    | "warning"
-    | "failure"
-    | "danger"
-    | "bug"
-    | "example"
-    | "quote";
-}
+import type AdmonitionProps from "./props";
+
+interface Props extends AdmonitionProps {}
 
 const {title, collapsible, collapsed, type="default"} = Astro.props;
 ---
@@ -45,5 +29,5 @@ const {title, collapsible, collapsed, type="default"} = Astro.props;
 }
 
 <style lang="scss">
-  @use "./styles";
+  @use "./styles.module.scss";
 </style>

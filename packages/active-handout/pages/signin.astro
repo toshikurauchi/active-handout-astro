@@ -1,7 +1,7 @@
 ---
 import config from "virtual:active-handout/user-config";
 import AuthPage from "../layout/AuthPage.astro";
-import LoginForm from "../react/fragments/login/LoginForm.tsx";
+import LoginForm from "../fragments/login/ReactLoginForm.tsx";
 import GoogleSigninButton from "../components/signin-buttons/google/GoogleSigninButton.astro";
 import { getUserFromCookie } from "../utils/server-auth.ts";
 import { useTranslations } from "../utils/translations";
@@ -63,3 +63,4 @@ const showOr = config.useEmailAuth && showExternalAuth;
     margin-top: 2em;
   }
 </style>
+ ../fragments/login/LoginForm.tsx

@@ -3,9 +3,9 @@ $inline-padding: 0.6em;
 $border-radius: 0.2em;
 
 .button {
-  --btn-background-color: var(--clr-secondary);
-  --btn-background-hover-color: var(--clr-secondary-hover);
-  --btn-text-color: var(--clr-secondary-contrast);
+  --btn-background-color: var(--clr-primary);
+  --btn-background-hover-color: var(--clr-primary-hover);
+  --btn-text-color: var(--clr-primary-contrast);
 
   display: flex;
   align-items: center;

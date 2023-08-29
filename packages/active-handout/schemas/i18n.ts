@@ -106,6 +106,12 @@ function activeHandoutI18nSchema() {
       "field.required": z
         .string()
         .describe("Error message shown when a required field is empty"),
+
+      "exercise.title": z.string().describe("Title of an exercise"),
+
+      "exercise.mark-done": z
+        .string()
+        .describe("Text shown on the button to mark an exercise as done"),
     })
     .partial();
 }

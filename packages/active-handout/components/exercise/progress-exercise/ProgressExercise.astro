@@ -1,0 +1,17 @@
+---
+import { getAutoIncrementedExerciseNumber } from "../exercise-utils";
+import Component from "./ReactComponent";
+
+// const bla = Astro.url.pathname;
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+
+const exerciseNumber = getAutoIncrementedExerciseNumber(Astro.params, slug);
+---
+
+<Component slug={slug} exerciseNumber={exerciseNumber} client:visible>
+  <slot />
+</Component>

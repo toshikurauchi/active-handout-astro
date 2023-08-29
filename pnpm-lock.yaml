@@ -13,7 +13,7 @@ importers:
         version: 2.3.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
       '@toshikurauchi/active-handout':
         specifier: ^0.0.6
-        version: 0.0.6(@types/react-dom@18.2.7)(@types/react@18.2.21)(postcss@8.4.28)
+        version: link:../packages/active-handout
       astro:
         specifier: ^2.10.14
         version: 2.10.14(sass@1.66.1)
@@ -59,6 +59,9 @@ importers:
       cssnano:
         specifier: ^6.0.1
         version: 6.0.1(postcss@8.4.28)
+      estree-util-visit:
+        specifier: ^2.0.0
+        version: 2.0.0
       firebase:
         specifier: ^10.3.0
         version: 10.3.0
@@ -101,6 +104,9 @@ importers:
       vite:
         specifier: ^4.4.9
         version: 4.4.9(sass@1.66.1)
+      vite-plugin-static-copy:
+        specifier: ^0.17.0
+        version: 0.17.0(vite@4.4.9)
     devDependencies:
       '@types/react':
         specifier: ^18.2.21
@@ -1756,50 +1762,6 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
-
-  /@toshikurauchi/active-handout@0.0.6(@types/react-dom@18.2.7)(@types/react@18.2.21)(postcss@8.4.28):
-    resolution: {integrity: sha512-EqJjdrSnCDfDd+AUAreiDpuXcT893Cs13r0lu636paPv2zE4L9Ypzp0z+7vzhMGcDLSoMAKPON2LKf0/wXLmlA==}
-    dependencies:
-      '@astrojs/mdx': 0.19.7(astro@2.10.14)
-      '@astrojs/react': 2.3.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
-      '@fontsource-variable/open-sans': 5.0.9
-      '@fontsource-variable/oswald': 5.0.8
-      '@fontsource/fira-mono': 5.0.8
-      '@webcomponents/template-shadowroot': 0.2.1
-      astro: 2.10.14(sass@1.66.1)
-      astro-auto-import: 0.3.1(astro@2.10.14)
-      autoprefixer: 10.4.15(postcss@8.4.28)
-      clipboard: 2.0.11
-      cssnano: 6.0.1(postcss@8.4.28)
-      firebase: 10.3.0
-      firebase-admin: 11.10.1
-      hastscript: 8.0.0
-      mermaid: 10.4.0
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      rehype: 12.0.1
-      rehype-accessible-emojis: 0.3.2
-      rehype-autolink-headings: 6.1.1
-      rehype-slug: 5.1.0
-      remark-emoji: 4.0.0
-      sass: 1.66.1
-      unist-util-visit: 5.0.0
-      vite: 4.4.9(sass@1.66.1)
-    transitivePeerDependencies:
-      - '@react-native-async-storage/async-storage'
-      - '@types/node'
-      - '@types/react'
-      - '@types/react-dom'
-      - encoding
-      - less
-      - lightningcss
-      - postcss
-      - sharp
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: false
 
   /@trysound/sax@0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -3672,6 +3634,13 @@ packages:
       '@types/unist': 2.0.7
     dev: false
 
+  /estree-util-visit@2.0.0:
+    resolution: {integrity: sha512-m5KgiH85xAhhW8Wta0vShLcUvOsh3LLPI2YVwcbio1l7E09NTLL1EyMZFM1OyWowoH0skScNbhOPl4kcBgzTww==}
+    dependencies:
+      '@types/estree-jsx': 1.0.0
+      '@types/unist': 3.0.0
+    dev: false
+
   /estree-walker@3.0.0:
     resolution: {integrity: sha512-s6ceX0NFiU/vKPiKvFdR83U1Zffu7upwZsGwpoqfg5rbbq1l50WQ5hCeIvM6E6oD4shUHCYMsiFPns4Jk0YfMQ==}
     dev: false
@@ -3926,6 +3895,15 @@ packages:
 
   /fraction.js@4.2.1:
     resolution: {integrity: sha512-/KxoyCnPM0GwYI4NN0Iag38Tqt+od3/mLuguepLgCAKPn0ZhC544nssAW0tG2/00zXEYl9W+7hwAIpLHo6Oc7Q==}
+    dev: false
+
+  /fs-extra@11.1.1:
+    resolution: {integrity: sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==}
+    engines: {node: '>=14.14'}
+    dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 6.1.0
+      universalify: 2.0.0
     dev: false
 
   /fs.realpath@1.0.0:
@@ -4728,6 +4706,14 @@ packages:
 
   /jsonc-parser@3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
+    dev: false
+
+  /jsonfile@6.1.0:
+    resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
+    dependencies:
+      universalify: 2.0.0
+    optionalDependencies:
+      graceful-fs: 4.2.11
     dev: false
 
   /jsonwebtoken@9.0.1:
@@ -7572,6 +7558,11 @@ packages:
       unist-util-visit-parents: 6.0.1
     dev: false
 
+  /universalify@2.0.0:
+    resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
+    engines: {node: '>= 10.0.0'}
+    dev: false
+
   /untildify@4.0.0:
     resolution: {integrity: sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==}
     engines: {node: '>=8'}
@@ -7647,6 +7638,19 @@ packages:
       is-buffer: 2.0.5
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
+    dev: false
+
+  /vite-plugin-static-copy@0.17.0(vite@4.4.9):
+    resolution: {integrity: sha512-2HpNbHfDt8SDy393AGXh9llHkc8FJMQkI8s3T5WsH3SWLMO+f5cFIyPErl4yGKU9Uh3Vaqsd4lHZYTf042fQ2A==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0
+    dependencies:
+      chokidar: 3.5.3
+      fast-glob: 3.3.1
+      fs-extra: 11.1.1
+      picocolors: 1.0.0
+      vite: 4.4.9(sass@1.66.1)
     dev: false
 
   /vite@4.4.9(sass@1.66.1):

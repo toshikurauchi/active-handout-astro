@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import type BaseProps from "./props";
+
+interface Props extends (HTMLAttributes<"button"> & BaseProps) {}
+
+const { primary, colorScheme, leftImg, rightImg, ...props } = Astro.props;
+---
+
+<button
+  class={`button ${primary ? "primary" : ""} ${colorScheme ? colorScheme : ""}`}
+  {...props}
+>
+  {leftImg && <img src={leftImg} class="leftImg" />}
+  <span class="buttonContent"><slot /></span>
+  {rightImg && <img src={rightImg} class="rightImg" />}
+</button>
+
+<style lang="scss">
+  @use "./styles.module.scss";
+</style>

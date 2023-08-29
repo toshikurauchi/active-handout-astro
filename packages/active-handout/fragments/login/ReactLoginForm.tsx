@@ -1,14 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Styles from "./styles.module.scss";
 import config from "virtual:active-handout/user-config";
-import FormInput from "../../components/form-input/FormInput.tsx";
-import Button from "../../components/button/Button.tsx";
-import { useTranslations } from "../../../utils/translations";
-import ErrorMsg from "../../components/error-msg/ErrorMsg.tsx";
+import FormInput from "../../components/form-input/ReactFormInput.tsx";
+import Button from "../../components/button/ReactButton.tsx";
+import { useTranslations } from "../../utils/translations.ts";
+import ErrorMsg from "../../components/error-msg/ReactErrorMsg.tsx";
 import {
   login,
   signinToFirebaseWithCredentials,
-} from "../../../utils/client-auth.ts";
+} from "../../utils/client-auth.ts";
 
 type LoginFormProps = {
   action: string;

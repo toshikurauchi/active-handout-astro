@@ -21,5 +21,7 @@
   "auth.signin-google": "Entrar com Google",
   "auth.signin-github": "Entrar com Github",
   "auth.register-submit": "Criar conta",
-  "field.required": "Não pode ser vazio"
+  "field.required": "Não pode ser vazio",
+  "exercise.title": "Exercício",
+  "exercise.mark-done": "Marcar como feito"
 }

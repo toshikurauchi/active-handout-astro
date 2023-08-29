@@ -8,7 +8,6 @@
   --top-margin: var(--default-top-margin, 0);
   --block-padding: var(--default-block-padding, 0.5rem);
   --inline-padding: var(--default-inline-padding, 0.8rem);
-  --top-margin: var(--default-top-margin, 0);
 
   border: 1px solid var(--admonition-border-color);
   border-radius: 0.2em;
@@ -56,6 +55,7 @@ $admonitions: (
   "bug": #f48fb1,
   "example": #ce93d8,
   "quote": #9e9e9e,
+  "exercise": #2b66c7,
 ) !default;
 
 @each $name, $props in $admonitions {

@@ -1,12 +1,8 @@
 import React from "react";
 import Styles from "./styles.module.scss";
+import type BaseProps from "./props";
 
-type ButtonProps = {
-  primary?: boolean;
-  colorScheme?: string;
-  leftImg?: string;
-  rightImg?: string;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = BaseProps & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({
   primary,

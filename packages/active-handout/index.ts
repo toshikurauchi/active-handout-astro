@@ -1,6 +1,9 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import emoji from "remark-emoji";
+import path from "path";
+import { fileURLToPath } from "url";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import rehypeSlug from "rehype-slug";
 import AutoImport from "astro-auto-import";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -13,6 +16,9 @@ import {
   ActiveHandoutUserConfig,
 } from "./utils/user-config";
 import { errorMap } from "./utils/error-map";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default function ActiveHandoutIntegration(
   opts: ActiveHandoutUserConfig
@@ -88,7 +94,18 @@ export default function ActiveHandoutIntegration(
             ],
           },
           vite: {
-            plugins: [vitePluginActiveHandoutUserConfig(userConfig)],
+            plugins: [
+              viteStaticCopy({
+                targets: [
+                  {
+                    src: path.resolve(__dirname, "./public/*"),
+                    dest: "",
+                    overwrite: false,
+                  },
+                ],
+              }),
+              vitePluginActiveHandoutUserConfig(userConfig),
+            ],
             ssr: {
               noExternal: [
                 "@fontsource-variable/open-sans",
@@ -112,6 +129,7 @@ export default function ActiveHandoutIntegration(
         "@toshikurauchi/active-handout/components/admonition/Admonition.astro",
         "@toshikurauchi/active-handout/components/tabs/TabGroup.astro",
         "@toshikurauchi/active-handout/components/tabs/TabItem.astro",
+        "@toshikurauchi/active-handout/components/exercise/progress-exercise/ProgressExercise.astro",
       ],
     }),
     react(),

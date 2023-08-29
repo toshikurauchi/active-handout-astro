@@ -1,5 +1,6 @@
 :root {
   --content-top-padding: 1.5rem;
+  --content-bottom-padding: 2rem;
   --default-block-padding: 0.5em;
   --default-inline-padding: 0.8em;
   --default-top-margin: 1.2em;
@@ -7,6 +8,7 @@
 
 .main-content {
   padding-top: var(--content-top-padding);
+  padding-bottom: var(--content-bottom-padding);
   width: min(100% - 2rem, 60ch);
   margin: 0 auto;
 
@@ -21,8 +23,10 @@
   }
 }
 
-p:not(:first-child) {
-  margin-top: 1.2em;
+p {
+  &:not(:first-child) {
+    margin-top: 1.2em;
+  }
 }
 
 $link-icon-width: 0.8em;

@@ -1,6 +1,6 @@
 import React from "react";
 import Styles from "./styles.module.scss";
-import ErrorMsg from "../error-msg/ErrorMsg";
+import ErrorMsg from "../error-msg/ReactErrorMsg";
 
 type FormInputProps = {
   labelText: string;

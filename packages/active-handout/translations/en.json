@@ -21,5 +21,7 @@
   "auth.signin-google": "Sign in with Google",
   "auth.signin-github": "Sign in with GitHub",
   "auth.register-submit": "Register",
-  "field.required": "Can't be empty"
+  "field.required": "Can't be empty",
+  "exercise.title": "Exercise",
+  "exercise.mark-done": "Mark as done"
 }
