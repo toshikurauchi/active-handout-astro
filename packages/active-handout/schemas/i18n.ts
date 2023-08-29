@@ -13,6 +13,12 @@ function activeHandoutI18nSchema() {
     .object({
       "msg.or": z.string().describe("Text for the word “or”"),
 
+      "msg.exercise-clear": z
+        .string()
+        .describe(
+          "Text for the message to show when the user clears all answers"
+        ),
+
       "skipLink.label": z
         .string()
         .describe(

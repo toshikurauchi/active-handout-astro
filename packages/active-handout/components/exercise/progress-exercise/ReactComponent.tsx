@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import config from "virtual:active-handout/user-config";
 import { useTranslations } from "../../../utils/translations";
 import Button from "../../button/ReactButton";
-import ExerciseContainer from "../ExerciseContainer";
+import ExerciseContainer, { ExerciseContext } from "../ExerciseContainer";
 import type { ExerciseBaseProps } from "../props";
 import Styles from "./styles.module.scss";
-import {
-  dispatchAddTelemetry,
-  dispatchRetrieveTelemetry,
-} from "../telemetry/custom-events";
+import { fetchTelemetry, postTelemetry } from "../exercise-utils";
 
 const t = useTranslations(config.lang);
 
@@ -23,25 +20,7 @@ export default function ProgressExercise({
   tags = [],
   children,
 }: ProgressExerciseProps) {
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    document.addEventListener("RetrievedTelemetry", (event) => {
-      const { detail } = event;
-      if (detail.pageId === pageId && detail.slug === slug) {
-        setDone(true);
-      }
-    });
-
-    dispatchRetrieveTelemetry(pageId, slug);
-  }, []);
-
   tags.push("progress-exercise");
-
-  const handleClick = () => {
-    dispatchAddTelemetry(pageId, slug, EXERCISE_TYPE, 100, { done: true });
-    setDone(true);
-  };
 
   return (
     <ExerciseContainer
@@ -49,14 +28,57 @@ export default function ProgressExercise({
       slug={slug}
       tags={tags}
       exerciseNumber={exerciseNumber}
-      status={done ? "success" : "unanswered"}
     >
+      <InnerComponent pageId={pageId} slug={slug}>
+        {children}
+      </InnerComponent>
+    </ExerciseContainer>
+  );
+}
+
+function InnerComponent({
+  pageId,
+  slug,
+  children,
+}: {
+  pageId: string;
+  slug: string;
+  children: React.ReactNode;
+}) {
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    setStatus(done ? "success" : "unanswered");
+  }, [done]);
+
+  const { reloadData, setReloadData, setStatus } = useContext(ExerciseContext);
+
+  useEffect(() => {
+    if (!reloadData) return;
+
+    const telemetry = fetchTelemetry(pageId, slug);
+    if (telemetry?.meta.pageId === pageId && telemetry?.meta.slug === slug) {
+      setDone(true);
+    } else {
+      setDone(false);
+    }
+
+    setReloadData(false);
+  }, [reloadData]);
+
+  const handleClick = () => {
+    postTelemetry(pageId, slug, EXERCISE_TYPE, 100, { done: true });
+    setDone(true);
+  };
+
+  return (
+    <>
       {children}
       <div className={Styles.markDoneButtonContainer}>
         <Button onClick={handleClick} disabled={done}>
           {t("exercise.mark-done")}
         </Button>
       </div>
-    </ExerciseContainer>
+    </>
   );
 }

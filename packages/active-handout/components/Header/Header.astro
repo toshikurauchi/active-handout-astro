@@ -4,6 +4,7 @@ import { getNavEntries } from "../../utils/routing";
 import NavMenu from "../nav-menu/NavMenu.astro";
 import UserMenu from "../user-menu/UserMenu.astro";
 import { getUserFromCookie } from "../../utils/server-auth";
+import ClearTelemetryButton from "../exercise/clear-telemetry/ClearTelemetryButton";
 
 interface Props {
   websiteTitle: string;
@@ -42,6 +43,9 @@ const navEntries = getNavEntries(slug);
       </div>
     )
   }
+  <div class="right-header">
+    <ClearTelemetryButton client:load />
+  </div>
   <aside class="nav-container">
     <div class="menu-overlay"></div>
     <nav><NavMenu entries={navEntries} headings={headings} /></nav>

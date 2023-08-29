@@ -5,3 +5,5 @@ export type ExerciseBaseProps = {
   tags?: string[];
   children?: React.ReactNode;
 };
+
+export type Status = "unanswered" | "success" | "failed";

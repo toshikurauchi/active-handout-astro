@@ -2,10 +2,10 @@
 
 ## Setup
 
-Install `yarn` and run from the root folder:
+Install `pnpm` and run from the root folder:
 
 ```
-yarn install
+pnpm install
 ```
 
 ## 🚀 Project Structure
@@ -48,3 +48,11 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Showing Toast notifications
+
+You can show a toast notification by dispatching an event `"NotifyToast"` to `document`. You can use the function `@insperedu/active-handout/components/notifier/custom-events.ts`:
+
+```typescript
+dispatchNotification("YOUR MESSAGE HERE");
+```
