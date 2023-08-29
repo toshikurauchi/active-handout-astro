@@ -37,6 +37,13 @@ $border-radius: 0.2em;
     }
   }
 
+  &.transparent {
+    --btn-background-color: transparent;
+    --btn-background-hover-color: transparent;
+    --btn-text-color: var(--clr-primary);
+    --btn-text-hover-color: var(--clr-primary-hover);
+  }
+
   &.primary {
     --btn-background-color: var(--clr-accent);
     --btn-background-hover-color: var(--clr-accent-hover);
@@ -78,5 +85,7 @@ $border-radius: 0.2em;
 }
 
 .buttonContent {
+  display: flex;
+  align-items: center;
   margin: 0 auto;
 }

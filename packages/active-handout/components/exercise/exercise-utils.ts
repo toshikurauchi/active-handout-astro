@@ -1,7 +1,5 @@
-import type { Params } from "astro";
-
 export function getAutoIncrementedExerciseNumber(
-  astroParams: Params,
+  astroParams: App.Locals & { exerciseSlugs?: string },
   slug: string
 ) {
   if (!slug) {

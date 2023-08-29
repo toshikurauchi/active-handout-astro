@@ -1,5 +1,7 @@
 export type ExerciseBaseProps = {
+  pageId: string;
   slug: string;
   exerciseNumber: number;
-  children: React.ReactNode;
+  tags?: string[];
+  children?: React.ReactNode;
 };

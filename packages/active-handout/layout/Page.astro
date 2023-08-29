@@ -13,6 +13,7 @@ import "../styles/prism/prism-one-light.css";
 import Header from "../components/header/Header.astro";
 import Breadcrumbs from "../components/breadcrumbs/Breadcrumbs.astro";
 import CopyButtonInjector from "../components/copy-button-injector/CopyButtonInjector.astro";
+import TelemetryHandler from "../components/exercise/telemetry/TelemetryHandler.astro";
 
 type Props = {
   headings?: MarkdownHeading[];
@@ -48,5 +49,6 @@ const isSplash = template === "splash";
       <slot />
     </main>
     <CopyButtonInjector />
+    <TelemetryHandler />
   </body>
 </html>

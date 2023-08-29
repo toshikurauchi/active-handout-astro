@@ -58,6 +58,13 @@ export const ActiveHandoutConfigSchema = z
       .describe(
         "Image to be used in the authentication page. If auth is false, this value will be ignored."
       ),
+
+    telemetry: z
+      .boolean()
+      .default(false)
+      .describe(
+        "Enable telemetry for your website. If true and auth is true, we will enable the telemetry server, otherwise we will just use localStorage."
+      ),
   })
   .refine((config) => {
     if (config.auth) {
