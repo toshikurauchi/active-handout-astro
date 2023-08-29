@@ -15,6 +15,20 @@ function activeHandoutI18nSchema() {
 
       "msg.exercise-clear": z
         .string()
+        .describe("Text for the button that clears exercise answer"),
+
+      "msg.exercise-cleared": z
+        .string()
+        .describe(
+          "Text for the message to show when the user clears exercise answer"
+        ),
+
+      "msg.all-exercise-clear": z
+        .string()
+        .describe("Text for the button that clears all answers"),
+
+      "msg.all-exercise-cleared": z
+        .string()
         .describe(
           "Text for the message to show when the user clears all answers"
         ),

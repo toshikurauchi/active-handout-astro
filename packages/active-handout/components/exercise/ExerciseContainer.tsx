@@ -9,6 +9,7 @@ import Button from "../button/ReactButton";
 import Trash from "../icons/Trash";
 import type { ExerciseBaseProps, Status } from "./props";
 import { clearTelemetry } from "./exercise-utils";
+import { dispatchNotification } from "../notifier/custom-events";
 
 type ExerciseContainerProps = ExerciseBaseProps;
 
@@ -39,6 +40,7 @@ export default function ExerciseContainer({
   const handleClearExercise = () => {
     clearTelemetry(pageId, slug);
     setReloadData(true);
+    dispatchNotification(t("msg.exercise-cleared"));
   };
 
   useEffect(() => {
@@ -54,8 +56,12 @@ export default function ExerciseContainer({
       renderTitleRight={() =>
         status === "unanswered" ? null : (
           <>
-            <Button transparent onClick={handleClearExercise}>
-              <Trash className={Styles.icon} />
+            <Button
+              transparent
+              onClick={handleClearExercise}
+              tooltip={t("msg.exercise-clear")}
+            >
+              <Trash className={`${Styles.icon} ${Styles.trashIcon}`} />
             </Button>
             {status === "success" && (
               <CorrectIcon className={`${Styles.icon} ${Styles.correctIcon}`} />
