@@ -1,8 +1,13 @@
 ---
+import config from "virtual:active-handout/user-config";
 import { getAutoIncrementedExerciseNumber } from "../exercise-utils";
-import Component from "./ReactComponent";
+import {
+  createOrGetExerciseFromCache,
+  getLatestSubmissionFromCache,
+} from "../server-telemetry";
+import Component, { exerciseType } from "./ReactComponent";
 
-const pageId = Astro.url.pathname;
+const handoutPath = Astro.url.pathname;
 
 interface Props {
   slug: string;
@@ -15,13 +20,41 @@ if (!Astro.props.tags) {
 const { slug, tags } = Astro.props;
 tags.push("progress-exercise");
 
-const exerciseNumber = getAutoIncrementedExerciseNumber(Astro.locals, slug);
+const exercise = await createOrGetExerciseFromCache(
+  Astro.locals,
+  handoutPath,
+  slug,
+  exerciseType,
+  tags,
+  {}
+);
+const exerciseNumber = getAutoIncrementedExerciseNumber(Astro.locals, exercise);
+
+let latestSubmission;
+if (config.auth && config.telemetry) {
+  const handout = Astro.locals.handout;
+  const user = Astro.locals.user;
+
+  if (!handout) {
+    throw new Error("No handout found for exercise " + slug);
+  }
+  if (!user) {
+    throw new Error("No user found");
+  }
+  latestSubmission = await getLatestSubmissionFromCache(
+    Astro.locals,
+    handout.uri,
+    slug,
+    user.uid
+  );
+}
 ---
 
 <Component
-  pageId={pageId}
+  pageId={handoutPath}
   slug={slug}
   exerciseNumber={exerciseNumber}
+  latestSubmission={latestSubmission}
   client:visible
 >
   <slot />

@@ -13,21 +13,27 @@ const t = useTranslations(config.lang);
 
 type ProgressExerciseProps = Omit<ExerciseBaseProps, "tags">;
 
-const EXERCISE_TYPE = "progress";
+export const exerciseType = "progress";
 
 export default function ProgressExercise({
   pageId,
   slug,
   exerciseNumber,
+  latestSubmission,
   children,
 }: ProgressExerciseProps) {
   return (
     <ExerciseContainer
       pageId={pageId}
       slug={slug}
+      latestSubmission={latestSubmission}
       exerciseNumber={exerciseNumber}
     >
-      <InnerComponent pageId={pageId} slug={slug}>
+      <InnerComponent
+        pageId={pageId}
+        slug={slug}
+        initialDoneValue={latestSubmission?.data?.done}
+      >
         {children}
       </InnerComponent>
     </ExerciseContainer>
@@ -37,13 +43,15 @@ export default function ProgressExercise({
 function InnerComponent({
   pageId,
   slug,
+  initialDoneValue,
   children,
 }: {
   pageId: string;
   slug: string;
+  initialDoneValue: boolean;
   children: React.ReactNode;
 }) {
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState(initialDoneValue || false);
 
   useEffect(() => {
     setStatus(done ? "success" : "unanswered");
@@ -54,19 +62,21 @@ function InnerComponent({
   useEffect(() => {
     if (!reloadData) return;
 
-    const telemetry = fetchTelemetry(pageId, slug);
-    if (telemetry?.meta.pageId === pageId && telemetry?.meta.slug === slug) {
-      setDone(true);
-    } else {
-      setDone(false);
-    }
+    fetchTelemetry(pageId, slug).then((telemetry) => {
+      if (telemetry?.data?.done) {
+        setDone(true);
+      } else {
+        setDone(false);
+      }
 
-    setReloadData(false);
+      setReloadData(false);
+    });
   }, [reloadData]);
 
   const handleClick = () => {
-    postTelemetry(pageId, slug, EXERCISE_TYPE, 100, { done: true });
-    setDone(true);
+    postTelemetry(pageId, slug, exerciseType, 100, { done: true }).then(() => {
+      setDone(true);
+    });
   };
 
   return (

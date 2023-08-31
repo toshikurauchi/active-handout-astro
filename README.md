@@ -56,3 +56,7 @@ You can show a toast notification by dispatching an event `"NotifyToast"` to `do
 ```typescript
 dispatchNotification("YOUR MESSAGE HERE");
 ```
+
+## Running for the first time with .auth enabled
+
+The first time you run the server after setting up auth, an error will occur from Firebase saying that you need to build some indexes. Click on the link it gives you and accept the creation of the links.

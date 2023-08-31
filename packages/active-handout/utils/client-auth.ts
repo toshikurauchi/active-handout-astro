@@ -1,5 +1,4 @@
 import {
-  Auth,
   AuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -8,7 +7,6 @@ import {
   getAuth,
   inMemoryPersistence,
   linkWithCredential,
-  signInWithCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -62,7 +60,7 @@ export async function signinToFirebaseWithProvider<
 
   if (!userCredential) {
     console.error("Error signing in");
-    return null;
+    return;
   }
 
   const user = userCredential.user;
@@ -73,9 +71,11 @@ export async function signinToFirebaseWithProvider<
     },
   });
 
-  if (res.redirected) {
-    window.location.assign(res.url);
-  }
+  auth.onAuthStateChanged(() => {
+    if (res.redirected) {
+      window.location.assign(res.url);
+    }
+  });
 }
 
 export async function signinToFirebaseWithCredentials(

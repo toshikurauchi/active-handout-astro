@@ -9,7 +9,6 @@ import Button from "../../button/ReactButton";
 import Trash from "../../icons/Trash";
 import type { ExerciseBaseProps, Status } from "../props";
 import { clearTelemetry } from "../exercise-utils";
-import { dispatchNotification } from "../../notifier/custom-events";
 
 type ExerciseContainerProps = Omit<ExerciseBaseProps, "tags">;
 
@@ -31,15 +30,22 @@ export default function ExerciseContainer({
   exerciseNumber,
   pageId,
   slug,
+  latestSubmission,
   children,
 }: ExerciseContainerProps) {
   // Start reloading data as soon as the component is mounted
   const [reloadData, setReloadData] = useState(true);
-  const [status, setStatus] = useState<Status>("unanswered");
+  const initialStatus = !latestSubmission
+    ? "unanswered"
+    : latestSubmission.percentComplete > 99.9
+    ? "success"
+    : "failed";
+  const [status, setStatus] = useState<Status>(initialStatus);
 
   const handleClearExercise = () => {
-    clearTelemetry(pageId, slug);
-    setReloadData(true);
+    clearTelemetry(pageId, slug).then(() => {
+      setReloadData(true);
+    });
   };
 
   useEffect(() => {

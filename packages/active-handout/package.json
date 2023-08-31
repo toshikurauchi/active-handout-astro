@@ -17,6 +17,7 @@
   },
   "exports": {
     ".": "./index.ts",
+    "./middleware/*": "./middleware/*",
     "./pages/*": "./pages/*",
     "./react/*": "./react/*",
     "./firebase/*": "./firebase/*",

@@ -46,6 +46,7 @@ export default function ActiveHandoutIntegration(
           pattern: "[...slug]",
           entryPoint: "@toshikurauchi/active-handout/pages/index.astro",
         });
+
         if (userConfig.auth) {
           injectRoute({
             pattern: "api/auth/signin",
@@ -70,6 +71,14 @@ export default function ActiveHandoutIntegration(
             pattern: "signin",
             entryPoint: "@toshikurauchi/active-handout/pages/signin.astro",
           });
+
+          if (userConfig.telemetry) {
+            injectRoute({
+              pattern: "api/telemetry",
+              entryPoint:
+                "@toshikurauchi/active-handout/pages/api/telemetry/index.ts",
+            });
+          }
         }
         const newConfig: AstroUserConfig = {
           // Setup auth

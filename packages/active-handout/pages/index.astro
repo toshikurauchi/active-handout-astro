@@ -9,7 +9,6 @@ import NotFound from "../components/not-found/NotFound.astro";
 import Page from "../layout/Page.astro";
 import type { AstroComponentFactory } from "astro/dist/runtime/server";
 import type { Handout } from "../schema";
-import { getUserFromCookie } from "../utils/server-auth";
 
 export async function getStaticPaths() {
   return paths;
@@ -42,8 +41,7 @@ if (!entry) {
 }
 
 if (requireLogin) {
-  const user = await getUserFromCookie(Astro.cookies.get("session").value);
-  if (!user) {
+  if (!Astro.locals.user) {
     return Astro.redirect("/signin?next=" + Astro.url.pathname);
   }
 }

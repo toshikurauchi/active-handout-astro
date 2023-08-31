@@ -1,27 +1,35 @@
 import config from "virtual:active-handout/user-config";
-
-interface TelemetryData {
-  meta: {
-    pageId: string;
-    slug: string;
-    type: string;
-    percentComplete: number;
-  };
-}
+import {
+  clearTelemetryFromLocalStorage,
+  getTelemetryFromLocalStorage,
+  saveTelemetryToLocalStorage,
+} from "./local-telemetry";
+import {
+  clearTelemetryFromServer,
+  getTelemetryDataFromServer,
+  postTelemetryDataToServer,
+} from "./client-telemetry";
+import type { Exercise } from "../../db/exercise/model";
+import type { TelemetryData } from "../../db/telemetry/model";
 
 let postTelemetry: (
-  pageId: string,
+  handoutPath: string,
   slug: string,
   type: string,
   percentComplete: number,
   data: any
-) => void;
-let fetchTelemetry: (pageId: string, slug: string) => TelemetryData | null;
-let clearTelemetry: (pageId: string, slug?: string) => void;
+) => Promise<void>;
+let fetchTelemetry: (
+  handoutPath: string,
+  slug: string
+) => Promise<TelemetryData | null | undefined>;
+let clearTelemetry: (handoutPath: string, slug?: string) => Promise<void>;
 
 const useTelemetry = !!(config.telemetry && config.auth);
 if (useTelemetry) {
-  // TODO
+  fetchTelemetry = getTelemetryDataFromServer;
+  postTelemetry = postTelemetryDataToServer;
+  clearTelemetry = clearTelemetryFromServer;
 } else {
   postTelemetry = saveTelemetryToLocalStorage;
   fetchTelemetry = getTelemetryFromLocalStorage;
@@ -30,70 +38,18 @@ if (useTelemetry) {
 export { postTelemetry, fetchTelemetry, clearTelemetry };
 
 export function getAutoIncrementedExerciseNumber(
-  astroParams: App.Locals & { exerciseSlugs?: string },
-  slug: string
+  astroLocals: App.Locals,
+  exercise: Exercise
 ) {
-  if (!slug) {
-    throw new Error("Exercise slug cannot be empty");
-  }
-
-  const exerciseSlugs = JSON.parse(
-    astroParams.exerciseSlugs || "[]"
-  ) as string[];
-  const slugIndex = exerciseSlugs.indexOf(slug);
+  const exercises = astroLocals.exercises || [];
+  const exerciseSlugs = exercises.map((exercise: Exercise) => exercise.slug);
+  const slugIndex = exerciseSlugs.indexOf(exercise.slug);
   if (slugIndex >= 0) {
     return slugIndex + 1;
   }
 
-  exerciseSlugs.push(slug);
-  astroParams.exerciseSlugs = JSON.stringify(exerciseSlugs);
+  exercises.push(exercise);
+  astroLocals.exercises = exercises;
 
-  return exerciseSlugs.length;
-}
-
-function saveTelemetryToLocalStorage(
-  pageId: string,
-  slug: string,
-  type: string,
-  percentComplete: number,
-  data: any
-) {
-  if (!pageId) throw new Error("pageId is required");
-  if (!slug) throw new Error("slug is required");
-  if (!type) throw new Error("type is required");
-  if (!percentComplete) throw new Error("percentComplete is required");
-  if (percentComplete < 0 || percentComplete > 100)
-    throw new Error("percentComplete must be between 0 and 100");
-
-  data.meta = {
-    pageId,
-    slug,
-    type,
-    percentComplete,
-    timestamp: Date.now(),
-  };
-
-  localStorage.setItem(buildKey(pageId, slug), JSON.stringify(data));
-}
-
-function getTelemetryFromLocalStorage(pageId: string, slug: string) {
-  const serializedData = localStorage.getItem(buildKey(pageId, slug));
-  return serializedData ? (JSON.parse(serializedData) as TelemetryData) : null;
-}
-
-function clearTelemetryFromLocalStorage(pageId: string, slug?: string) {
-  if (slug) {
-    localStorage.removeItem(buildKey(pageId, slug));
-    return;
-  }
-
-  Object.keys(localStorage)
-    .filter((key) => key.startsWith(`active-handout:telemetry:${pageId}:`))
-    .forEach((key) => localStorage.removeItem(key));
-}
-
-export function buildKey(pageId: string, slug: string) {
-  if (!pageId) throw new Error("pageId is required");
-  if (!slug) throw new Error("slug is required");
-  return `active-handout:telemetry:${pageId}:${slug}`;
+  return exercises.length;
 }

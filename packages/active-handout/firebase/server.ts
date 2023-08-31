@@ -1,6 +1,7 @@
 import config from "virtual:active-handout/user-config";
 import type { ServiceAccount } from "firebase-admin";
-import { initializeApp, cert, App, getApp } from "firebase-admin/app";
+import { initializeApp, cert, App, getApp, getApps } from "firebase-admin/app";
+import { getFirestore as getAdminFirestore } from "firebase-admin/firestore";
 
 const serviceAccount = {
   type: "service_account",
@@ -51,4 +52,9 @@ if (config.auth) {
   }
 }
 
-export { app };
+function getFirestore() {
+  if (!app) throw new Error("No firebase app initialized");
+  return getAdminFirestore(app);
+}
+
+export { app, getFirestore };

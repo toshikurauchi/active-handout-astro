@@ -1,27 +1,20 @@
 import type { APIRoute } from "astro";
 import { app } from "../../../firebase/server";
 import { getAuth } from "firebase-admin/auth";
+import { extractUserFromRequest } from "./utils";
 
 export const get: APIRoute = async ({ url, request, cookies, redirect }) => {
   const auth = getAuth(app);
 
-  /* Get token from request headers */
-  const idToken = request.headers.get("Authorization")?.split("Bearer ")[1];
-  if (!idToken) {
-    return new Response("No token found", { status: 401 });
-  }
-
-  /* Verify id token */
-  try {
-    await auth.verifyIdToken(idToken);
-  } catch (error) {
-    return new Response("Invalid token", { status: 401 });
+  const [idToken, decodedToken, msg] = await extractUserFromRequest(request);
+  if (!idToken || !decodedToken) {
+    return new Response(msg, { status: 401 });
   }
 
   /* Create and set session cookie */
-  const oneYear = 1000 * 60 * 60 * 24 * 5;
+  const fiveDays = 1000 * 60 * 60 * 24 * 5;
   const sessionCookie = await auth.createSessionCookie(idToken, {
-    expiresIn: oneYear,
+    expiresIn: fiveDays,
   });
 
   cookies.set("session", sessionCookie, {
