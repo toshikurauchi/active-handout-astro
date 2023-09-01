@@ -1,9 +1,11 @@
+import { getDoc, setDoc } from "firebase/firestore";
 import { handoutIdFromPath } from "../handout/collection";
-import { exercisesRef } from "./collection";
+import { exerciseRef } from "./collection";
 import { Exercise } from "./model";
 
 export async function getExercise(handoutPath: string, slug: string) {
-  return (await exercisesRef(handoutPath).doc(slug).get()).data() as Exercise;
+  const exerciseDoc = exerciseRef(handoutPath, slug);
+  return (await getDoc(exerciseDoc))?.data();
 }
 
 export async function createExercise(
@@ -15,6 +17,7 @@ export async function createExercise(
 ) {
   const pageId = handoutIdFromPath(handoutPath);
   const exercise = new Exercise(slug, pageId, type, tags, data);
-  exercisesRef(handoutPath).doc(slug).set(exercise);
+  const exerciseDoc = exerciseRef(handoutPath, slug);
+  await setDoc(exerciseDoc, exercise);
   return exercise;
 }

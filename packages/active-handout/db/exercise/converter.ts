@@ -1,4 +1,4 @@
-import type { QueryDocumentSnapshot } from "firebase-admin/firestore";
+import type { QueryDocumentSnapshot } from "firebase/firestore";
 import { Exercise } from "./model";
 
 export const exerciseConverter = {

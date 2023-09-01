@@ -1,4 +1,4 @@
-import type { QueryDocumentSnapshot } from "firebase-admin/firestore";
+import type { QueryDocumentSnapshot } from "firebase/firestore";
 import { Handout } from "./model";
 
 export const handoutConverter = {

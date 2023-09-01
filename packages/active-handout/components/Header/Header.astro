@@ -5,13 +5,18 @@ import NavMenu from "../nav-menu/NavMenu.astro";
 import UserMenu from "../user-menu/UserMenu.astro";
 import { getUserFromCookie } from "../../utils/server-auth";
 import ClearTelemetryButton from "../exercise/clear-telemetry/ClearTelemetryButton";
+import config from "virtual:active-handout/user-config";
+import type { DecodedIdToken } from "firebase-admin/auth";
 
 interface Props {
   websiteTitle: string;
   headings?: MarkdownHeading[] | undefined;
 }
 
-const user = await getUserFromCookie(Astro.cookies.get("session").value);
+let user: DecodedIdToken | null = null;
+if (config.auth) {
+  user = await getUserFromCookie(Astro.cookies.get("session").value);
+}
 const { slug } = Astro.params;
 const { websiteTitle, headings } = Astro.props;
 const navEntries = getNavEntries(slug);

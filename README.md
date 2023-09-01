@@ -59,4 +59,20 @@ dispatchNotification("YOUR MESSAGE HERE");
 
 ## Running for the first time with .auth enabled
 
+You will need to setup a Firebase account and create a Firestore database within it. Then, copy the file `.env.example` to `.env` in your project's root folder.
+
 The first time you run the server after setting up auth, an error will occur from Firebase saying that you need to build some indexes. Click on the link it gives you and accept the creation of the links.
+
+After creating your Firestore you will need to change the permission rules. Go to the Rules tab in the Firestore dashboard and change the content to:
+
+```
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+```

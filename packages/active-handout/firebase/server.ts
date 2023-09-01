@@ -1,7 +1,13 @@
 import config from "virtual:active-handout/user-config";
-import type { ServiceAccount } from "firebase-admin";
-import { initializeApp, cert, App, getApp, getApps } from "firebase-admin/app";
-import { getFirestore as getAdminFirestore } from "firebase-admin/firestore";
+import {
+  initializeApp,
+  cert,
+  App,
+  getApp,
+  ServiceAccount,
+} from "firebase-admin/app";
+import { getFirestore as getFirestoreClient } from "firebase/firestore";
+import { app as clientApp } from "./client";
 
 const serviceAccount = {
   type: "service_account",
@@ -53,8 +59,8 @@ if (config.auth) {
 }
 
 function getFirestore() {
-  if (!app) throw new Error("No firebase app initialized");
-  return getAdminFirestore(app);
+  if (!clientApp) throw new Error("No firebase client app initialized");
+  return getFirestoreClient(clientApp);
 }
 
 export { app, getFirestore };

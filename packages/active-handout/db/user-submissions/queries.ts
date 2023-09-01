@@ -1,5 +1,6 @@
+import { getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { handoutIdFromPath } from "../handout/collection";
-import { createTelemetryData, getTelemetryData } from "../telemetry/queries";
+import { createTelemetryData } from "../telemetry/queries";
 import { userSubmissionsInHandout, userSubmissionsRef } from "./collection";
 import { UserSubmissions } from "./model";
 
@@ -8,11 +9,9 @@ export async function getUserSubmissions(
   exerciseSlug: string,
   userId: string
 ) {
-  const submissions = await userSubmissionsRef(
-    handoutPath,
-    exerciseSlug,
-    userId
-  ).get();
+  const submissions = await getDoc(
+    userSubmissionsRef(handoutPath, exerciseSlug, userId)
+  );
   return submissions?.data() || null;
 }
 
@@ -31,12 +30,8 @@ export async function updateUserSubmissions(
     data
   );
   if (!telemetryData) throw new Error("Failed to create telemetry data");
-  const userSubmissionRef = userSubmissionsRef(
-    handoutPath,
-    exerciseSlug,
-    userId
-  );
-  let submissions = (await userSubmissionRef.get()).data();
+  const submissionsRef = userSubmissionsRef(handoutPath, exerciseSlug, userId);
+  let submissions = (await getDoc(submissionsRef)).data();
   if (!submissions) {
     const pageId = handoutIdFromPath(handoutPath);
     submissions = new UserSubmissions(userId, pageId, exerciseSlug, 0, 0, null);
@@ -49,7 +44,7 @@ export async function updateUserSubmissions(
     data: data,
     timestamp: telemetryData.timestamp,
   };
-  await userSubmissionRef.set(submissions);
+  await setDoc(submissionsRef, submissions);
   return submissions;
 }
 
@@ -59,12 +54,12 @@ export async function deleteLatestUserSubmission(
   userId: string
 ) {
   const submissionsRef = userSubmissionsRef(handoutPath, exerciseSlug, userId);
-  const submissions = await submissionsRef.get();
+  const submissions = await getDoc(submissionsRef);
   if (!submissions.exists) {
     // Doesn't exist, so nothing to delete
     return;
   }
-  await submissionsRef.update({ latestTelemetryData: null });
+  await updateDoc(submissionsRef, { latestTelemetryData: null });
 }
 
 export async function deleteAllLatestUserSubmission(
@@ -72,8 +67,8 @@ export async function deleteAllLatestUserSubmission(
   userId: string
 ) {
   const submissionsRef = userSubmissionsInHandout(handoutPath, userId);
-  const submissions = await submissionsRef.get();
+  const submissions = await getDocs(submissionsRef);
   for (const submissionsForExercise of submissions.docs) {
-    await submissionsForExercise.ref.update({ latestTelemetryData: null });
+    await updateDoc(submissionsForExercise.ref, { latestTelemetryData: null });
   }
 }
