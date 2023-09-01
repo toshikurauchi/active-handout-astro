@@ -1,9 +1,8 @@
 import type { APIRoute } from "astro";
-import { getUserFromCookie } from "../../../utils/server-auth";
 import { getLatestSubmissionFromDB } from "../../../components/exercise/server-telemetry";
 
-export const GET: APIRoute = async ({ cookies, url }) => {
-  const user = await getUserFromCookie(cookies.get("session").value);
+export const GET: APIRoute = async ({ url, locals }) => {
+  const user = locals.user;
   if (!user) {
     return new Response("No user found", { status: 401 });
   }

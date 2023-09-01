@@ -1,12 +1,11 @@
 import type { APIRoute } from "astro";
-import { getUserFromCookie } from "../../../utils/server-auth";
 import {
   deleteAllLatestUserSubmission,
   deleteLatestUserSubmission,
 } from "../../../db/user-submissions/queries";
 
-export const DELETE: APIRoute = async ({ request, cookies }) => {
-  const user = await getUserFromCookie(cookies.get("session").value);
+export const DELETE: APIRoute = async ({ request, locals }) => {
+  const user = locals.user;
   if (!user) {
     return new Response("No user found", { status: 401 });
   }

@@ -1,9 +1,8 @@
 import type { APIRoute } from "astro";
-import { getUserFromCookie } from "../../../utils/server-auth";
 import { updateUserSubmissions } from "../../../db/user-submissions/queries";
 
-export const POST: APIRoute = async ({ request, cookies }) => {
-  const user = await getUserFromCookie(cookies.get("session").value);
+export const POST: APIRoute = async ({ request, locals }) => {
+  const user = locals.user;
   if (!user) {
     return new Response("No user found", { status: 401 });
   }

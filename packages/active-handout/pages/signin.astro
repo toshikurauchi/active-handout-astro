@@ -3,7 +3,6 @@ import config from "virtual:active-handout/user-config";
 import AuthPage from "../layout/AuthPage.astro";
 import LoginForm from "../fragments/login/ReactLoginForm.tsx";
 import GoogleSigninButton from "../components/signin-buttons/google/GoogleSigninButton.astro";
-import { getUserFromCookie } from "../utils/server-auth.ts";
 import { useTranslations } from "../utils/translations";
 import Or from "../components/Or.astro";
 import GitHubSigninButton from "../components/signin-buttons/github/GitHubSigninButton.astro";
@@ -11,7 +10,7 @@ import GitHubSigninButton from "../components/signin-buttons/github/GitHubSignin
 const t = useTranslations(config.lang);
 
 if (config.auth) {
-  const user = await getUserFromCookie(Astro.cookies.get("session").value);
+  const user = Astro.locals.user;
   if (user) {
     return Astro.redirect(Astro.url.searchParams.get("next") || "/");
   }
