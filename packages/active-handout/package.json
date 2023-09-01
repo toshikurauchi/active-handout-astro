@@ -27,9 +27,6 @@
     "./index.astro": "./index.astro",
     "./404.astro": "./404.astro"
   },
-  "files": [
-    "public/**/*"
-  ],
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
     "@astrojs/react": "^2.3.2",
