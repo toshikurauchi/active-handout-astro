@@ -1,4 +1,4 @@
-import type { QueryDocumentSnapshot } from "firebase/firestore";
+import type { QueryDocumentSnapshot } from "firebase-admin/firestore";
 import { UserSubmissions } from "./model";
 
 export const userSubmissionsConverter = {

@@ -1,16 +1,14 @@
-import { collection, doc } from "firebase/firestore";
 import { getFirestore } from "../../firebase/server";
 import { handoutConverter } from "./converter";
 
-const firestore = getFirestore();
-
 export function handoutsRef() {
-  return collection(firestore, "handouts").withConverter(handoutConverter);
+  const firestore = getFirestore();
+  return firestore.collection("handouts").withConverter(handoutConverter);
 }
 
 export function handoutRef(handoutPath: string) {
   const pageId = handoutIdFromPath(handoutPath);
-  return doc(handoutsRef(), pageId);
+  return handoutsRef().doc(pageId);
 }
 
 export function handoutIdFromPath(handoutPath: string) {

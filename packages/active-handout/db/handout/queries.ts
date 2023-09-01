@@ -1,4 +1,3 @@
-import { deleteDoc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { exercisesRef } from "../exercise/collection";
 import type { Exercise } from "../exercise/model";
 import { userSubmissionsInHandout } from "../user-submissions/collection";
@@ -13,9 +12,9 @@ export async function getHandoutWithExercisesAndSubmissions(
 ): Promise<[Handout, Exercise[], UserSubmissions[]]> {
   const [handoutSnapshot, exercisesSnapshot, submissionsSnapshot] =
     await Promise.all([
-      getDoc(handoutRef(handoutPath)),
-      getDocs(exercisesRef(handoutPath)),
-      getDocs(userSubmissionsInHandout(handoutPath, userId)),
+      handoutRef(handoutPath).get(),
+      exercisesRef(handoutPath).get(),
+      userSubmissionsInHandout(handoutPath, userId).get(),
     ]);
 
   let handout = handoutSnapshot.data();
@@ -32,11 +31,11 @@ export async function getHandoutWithExercisesAndSubmissions(
 export async function createHandout(handoutPath: string) {
   const pageId = handoutIdFromPath(handoutPath);
   const handout = new Handout(pageId, handoutPath);
-  await setDoc(handoutRef(pageId), handout);
+  await handoutRef(pageId).set(handout);
   return handout;
 }
 
 export async function deleteHandout(handoutPath: string) {
   const pageId = handoutIdFromPath(handoutPath);
-  await deleteDoc(handoutRef(pageId));
+  await handoutRef(pageId).delete();
 }

@@ -1,10 +1,9 @@
-import { addDoc, getDoc } from "firebase/firestore";
 import { handoutIdFromPath } from "../handout/collection";
 import { telemetriesRef, telemetryRef } from "./collection";
 import { TelemetryData } from "./model";
 
 export function getTelemetryData(telemetryDataId: string) {
-  return getDoc(telemetryRef(telemetryDataId));
+  return telemetryRef(telemetryDataId).get();
 }
 
 export async function createTelemetryData(
@@ -25,6 +24,6 @@ export async function createTelemetryData(
     data,
     timestamp || Date.now()
   );
-  const telemetryDataRef = await addDoc(telemetriesRef(), inputData);
-  return (await getDoc(telemetryDataRef)).data();
+  const telemetryDataRef = await telemetriesRef().add(inputData);
+  return (await telemetryDataRef.get()).data();
 }

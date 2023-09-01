@@ -6,8 +6,7 @@ import {
   getApp,
   ServiceAccount,
 } from "firebase-admin/app";
-import { getFirestore as getFirestoreClient } from "firebase/firestore";
-import { app as clientApp } from "./client";
+import { getFirestore as getFirestoreServer } from "firebase-admin/firestore";
 
 const serviceAccount = {
   type: "service_account",
@@ -59,8 +58,8 @@ if (config.auth) {
 }
 
 function getFirestore() {
-  if (!clientApp) throw new Error("No firebase client app initialized");
-  return getFirestoreClient(clientApp);
+  if (!app) throw new Error("No firebase client app initialized");
+  return getFirestoreServer(app);
 }
 
 export { app, getFirestore };

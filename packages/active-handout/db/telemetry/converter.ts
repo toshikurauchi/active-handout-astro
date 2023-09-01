@@ -1,4 +1,7 @@
-import { QueryDocumentSnapshot, Timestamp } from "firebase/firestore";
+import {
+  Timestamp,
+  type QueryDocumentSnapshot,
+} from "firebase-admin/firestore";
 import { TelemetryData } from "./model";
 
 export const telemetryDataConverter = {

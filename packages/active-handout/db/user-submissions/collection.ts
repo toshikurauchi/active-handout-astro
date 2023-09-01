@@ -2,20 +2,13 @@ import { getFirestore } from "../../firebase/server";
 import { exercisesRef } from "../exercise/collection";
 import { userSubmissionsConverter } from "./converter";
 import { handoutIdFromPath } from "../handout/collection";
-import {
-  collection,
-  collectionGroup,
-  doc,
-  query,
-  where,
-} from "firebase/firestore";
 
 export function userSubmissionsCollectionRef(
   handoutPath: string,
   exerciseSlug: string
 ) {
-  const exerciseRef = doc(exercisesRef(handoutPath), exerciseSlug);
-  const submissionsRef = collection(exerciseRef, "user-submissions");
+  const exerciseRef = exercisesRef(handoutPath).doc(exerciseSlug);
+  const submissionsRef = exerciseRef.collection("user-submissions");
   return submissionsRef.withConverter(userSubmissionsConverter);
 }
 
@@ -24,19 +17,14 @@ export function userSubmissionsRef(
   exerciseSlug: string,
   userId: string
 ) {
-  return doc(userSubmissionsCollectionRef(handoutPath, exerciseSlug), userId);
+  return userSubmissionsCollectionRef(handoutPath, exerciseSlug).doc(userId);
 }
 
 export function userSubmissionsInHandout(handoutPath: string, userId: string) {
   const pageId = handoutIdFromPath(handoutPath);
-  const allUserSubmissions = collectionGroup(
-    getFirestore(),
-    "user-submissions"
-  );
-  const userSubmissionsQuery = query(
-    allUserSubmissions,
-    where("pageId", "==", pageId),
-    where("userId", "==", userId)
-  ).withConverter(userSubmissionsConverter);
-  return userSubmissionsQuery;
+  const allUserSubmissions = getFirestore().collectionGroup("user-submissions");
+  return allUserSubmissions
+    .where("pageId", "==", pageId)
+    .where("userId", "==", userId)
+    .withConverter(userSubmissionsConverter);
 }

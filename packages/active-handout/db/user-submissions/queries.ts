@@ -1,4 +1,3 @@
-import { getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { handoutIdFromPath } from "../handout/collection";
 import { createTelemetryData } from "../telemetry/queries";
 import { userSubmissionsInHandout, userSubmissionsRef } from "./collection";
@@ -9,9 +8,11 @@ export async function getUserSubmissions(
   exerciseSlug: string,
   userId: string
 ) {
-  const submissions = await getDoc(
-    userSubmissionsRef(handoutPath, exerciseSlug, userId)
-  );
+  const submissions = await userSubmissionsRef(
+    handoutPath,
+    exerciseSlug,
+    userId
+  ).get();
   return submissions?.data() || null;
 }
 
@@ -31,7 +32,7 @@ export async function updateUserSubmissions(
   );
   if (!telemetryData) throw new Error("Failed to create telemetry data");
   const submissionsRef = userSubmissionsRef(handoutPath, exerciseSlug, userId);
-  let submissions = (await getDoc(submissionsRef)).data();
+  let submissions = (await submissionsRef.get()).data();
   if (!submissions) {
     const pageId = handoutIdFromPath(handoutPath);
     submissions = new UserSubmissions(userId, pageId, exerciseSlug, 0, 0, null);
@@ -44,7 +45,7 @@ export async function updateUserSubmissions(
     data: data,
     timestamp: telemetryData.timestamp,
   };
-  await setDoc(submissionsRef, submissions);
+  await submissionsRef.set(submissions);
   return submissions;
 }
 
@@ -54,12 +55,12 @@ export async function deleteLatestUserSubmission(
   userId: string
 ) {
   const submissionsRef = userSubmissionsRef(handoutPath, exerciseSlug, userId);
-  const submissions = await getDoc(submissionsRef);
+  const submissions = await submissionsRef.get();
   if (!submissions.exists) {
     // Doesn't exist, so nothing to delete
     return;
   }
-  await updateDoc(submissionsRef, { latestTelemetryData: null });
+  await submissionsRef.update({ latestTelemetryData: null });
 }
 
 export async function deleteAllLatestUserSubmission(
@@ -67,8 +68,8 @@ export async function deleteAllLatestUserSubmission(
   userId: string
 ) {
   const submissionsRef = userSubmissionsInHandout(handoutPath, userId);
-  const submissions = await getDocs(submissionsRef);
+  const submissions = await submissionsRef.get();
   for (const submissionsForExercise of submissions.docs) {
-    await updateDoc(submissionsForExercise.ref, { latestTelemetryData: null });
+    await submissionsForExercise.ref.update({ latestTelemetryData: null });
   }
 }
