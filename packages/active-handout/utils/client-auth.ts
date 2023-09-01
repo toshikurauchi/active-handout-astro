@@ -31,7 +31,10 @@ export async function signinToFirebaseWithProvider<
   const provider = new ProviderClass();
   const userCredential = await signInWithPopup(auth, provider).catch(
     async (error) => {
-      if (error.code === "auth/account-exists-with-different-credential") {
+      if (
+        error.hasOwnProperty("code") &&
+        error.code === "auth/account-exists-with-different-credential"
+      ) {
         const pendingCred = ProviderClass.credentialFromError(error);
         const email = error.customData.email;
 
@@ -53,6 +56,8 @@ export async function signinToFirebaseWithProvider<
 
         const existingUser = await signInWithPopup(auth, otherProvider);
         return linkWithCredential(existingUser.user, pendingCred);
+      } else {
+        console.error(error);
       }
       return null;
     }
