@@ -13,7 +13,7 @@ importers:
         version: 2.3.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
       '@toshikurauchi/active-handout':
         specifier: ^0.0.9
-        version: link:../packages/active-handout
+        version: 0.0.9(@types/react-dom@18.2.7)(@types/react@18.2.21)(csstype@3.1.2)(postcss@8.4.29)
       astro:
         specifier: ^2.10.14
         version: 2.10.14
@@ -107,9 +107,6 @@ importers:
       vite:
         specifier: ^4.4.9
         version: 4.4.9(sass@1.66.1)
-      vite-plugin-static-copy:
-        specifier: ^0.17.0
-        version: 0.17.0(vite@4.4.9)
     devDependencies:
       '@types/react':
         specifier: ^18.2.21
@@ -1813,6 +1810,54 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@toshikurauchi/active-handout@0.0.9(@types/react-dom@18.2.7)(@types/react@18.2.21)(csstype@3.1.2)(postcss@8.4.29):
+    resolution: {integrity: sha512-Y6c1zwCCBINmXRf/c2D3lSQHWuB6iso8TL3ne0vCNSw38S6a7lljFsCEj8z/fqTDRDtK4+XmQ4h+KsYzdiNnjg==}
+    dependencies:
+      '@astrojs/mdx': 0.19.7(astro@2.10.15)
+      '@astrojs/react': 2.3.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
+      '@fontsource-variable/open-sans': 5.0.9
+      '@fontsource-variable/oswald': 5.0.8
+      '@fontsource/fira-mono': 5.0.8
+      '@webcomponents/template-shadowroot': 0.2.1
+      astro: 2.10.15(sass@1.66.1)
+      astro-auto-import: 0.3.1(astro@2.10.15)
+      autoprefixer: 10.4.15(postcss@8.4.29)
+      clipboard: 2.0.11
+      cssnano: 6.0.1(postcss@8.4.29)
+      estree-util-visit: 2.0.0
+      firebase: 10.3.1
+      firebase-admin: 11.10.1
+      hastscript: 8.0.0
+      mermaid: 10.4.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-hot-toast: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
+      rehype: 12.0.1
+      rehype-accessible-emojis: 0.3.2
+      rehype-autolink-headings: 6.1.1
+      rehype-slug: 5.1.0
+      remark-emoji: 4.0.0
+      sass: 1.66.1
+      unist-util-visit: 5.0.0
+      vite: 4.4.9(sass@1.66.1)
+      vite-plugin-static-copy: 0.17.0(vite@4.4.9)
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - '@types/node'
+      - '@types/react'
+      - '@types/react-dom'
+      - csstype
+      - encoding
+      - less
+      - lightningcss
+      - postcss
+      - sharp
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+    dev: false
 
   /@trysound/sax@0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
