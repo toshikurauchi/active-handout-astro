@@ -41,12 +41,7 @@ if (config.auth && config.telemetry) {
   if (!user) {
     throw new Error("No user found");
   }
-  latestSubmission = await getLatestSubmissionFromCache(
-    Astro.locals,
-    handout.uri,
-    slug,
-    user.uid
-  );
+  latestSubmission = await getLatestSubmissionFromCache(Astro.locals, slug);
 }
 ---
 

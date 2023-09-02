@@ -19,14 +19,13 @@ function isHandoutUrl(url: URL) {
 const exerciseMiddleware = defineMiddleware(async ({ locals, url }, next) => {
   if (config.auth && config.telemetry && isHandoutUrl(url)) {
     if (locals.user) {
-      const [handout, exercises, submissions] =
+      const [handout, submissions] =
         await getHandoutWithExercisesAndSubmissions(
           url.pathname,
           locals.user.uid,
           true
         );
       locals.handout = handout;
-      locals.exercises = exercises;
       locals.submissions = submissions;
     } else {
       console.log("No user found");

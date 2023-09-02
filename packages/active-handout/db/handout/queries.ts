@@ -1,41 +1,45 @@
-import { exercisesRef } from "../exercise/collection";
-import type { Exercise } from "../exercise/model";
-import { userSubmissionsInHandout } from "../user-submissions/collection";
-import type { UserSubmissions } from "../user-submissions/model";
-import { handoutIdFromPath, handoutRef } from "./collection";
+import { deleteData, getData } from "../../firebase/promisify";
+import {
+  handoutIdFromPath,
+  handoutRef,
+  telemetrySummariesForHandout,
+} from "../../firebase/schema";
+import { TelemetrySummary } from "../telemetry-summary/model";
 import { Handout } from "./model";
+
+type TelemetrySummaryMap = { [exerciseSlug: string]: TelemetrySummary };
 
 export async function getHandoutWithExercisesAndSubmissions(
   handoutPath: string,
   userId: string,
   createIfNotExists: boolean = false
-): Promise<[Handout, Exercise[], UserSubmissions[]]> {
-  const [handoutSnapshot, exercisesSnapshot, submissionsSnapshot] =
-    await Promise.all([
-      handoutRef(handoutPath).get(),
-      exercisesRef(handoutPath).get(),
-      userSubmissionsInHandout(handoutPath, userId).get(),
-    ]);
+): Promise<[Handout | null, TelemetrySummaryMap | null]> {
+  let [handout, submissions] = await Promise.all([
+    getData(handoutRef(handoutPath), Handout.fromJSON),
+    getData(telemetrySummariesForHandout(handoutPath, userId), (json) => {
+      if (!json) return {} as TelemetrySummaryMap;
+      const summaries: TelemetrySummaryMap = {};
+      for (const exerciseSlug in json) {
+        summaries[exerciseSlug] = TelemetrySummary.fromJSON(json[exerciseSlug]);
+      }
+      return summaries;
+    }),
+  ]);
 
-  let handout = handoutSnapshot.data();
   if (!handout && createIfNotExists) {
     handout = await createHandout(handoutPath);
   }
-  return [
-    handout as Handout,
-    exercisesSnapshot.docs.map((doc) => doc.data()),
-    submissionsSnapshot.docs.map((doc) => doc.data()),
-  ];
+  return [handout, submissions];
 }
 
 export async function createHandout(handoutPath: string) {
   const pageId = handoutIdFromPath(handoutPath);
-  const handout = new Handout(pageId, handoutPath);
+  const handout = new Handout(handoutPath, []);
   await handoutRef(pageId).set(handout);
   return handout;
 }
 
 export async function deleteHandout(handoutPath: string) {
   const pageId = handoutIdFromPath(handoutPath);
-  await handoutRef(pageId).delete();
+  await deleteData(handoutRef(pageId));
 }

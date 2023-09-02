@@ -1,4 +1,4 @@
-import type { TelemetryDataCache } from "../../db/user-submissions/model";
+import type { TelemetryDataCache } from "../../db/telemetry-summary/model";
 
 export type ExerciseBaseProps = {
   pageId: string;

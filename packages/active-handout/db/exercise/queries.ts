@@ -1,11 +1,6 @@
-import { handoutIdFromPath } from "../handout/collection";
-import { exerciseRef } from "./collection";
+import { setData } from "../../firebase/promisify";
+import { exerciseRef, handoutIdFromPath } from "../../firebase/schema";
 import { Exercise } from "./model";
-
-export async function getExercise(handoutPath: string, slug: string) {
-  const exerciseDoc = exerciseRef(handoutPath, slug);
-  return (await exerciseDoc.get())?.data();
-}
 
 export async function createExercise(
   slug: string,
@@ -16,7 +11,6 @@ export async function createExercise(
 ) {
   const pageId = handoutIdFromPath(handoutPath);
   const exercise = new Exercise(slug, pageId, type, tags, data);
-  const exerciseDoc = exerciseRef(handoutPath, slug);
-  await exerciseDoc.set(exercise);
+  await setData(exerciseRef(handoutPath, slug), exercise.toJSON());
   return exercise;
 }

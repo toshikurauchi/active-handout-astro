@@ -1,8 +1,8 @@
 import config from "virtual:active-handout/user-config";
 import { createExercise } from "../../db/exercise/queries";
-import { getUserSubmissions } from "../../db/user-submissions/queries";
+import { getTelemetrySummary } from "../../db/telemetry-summary/queries";
 import { Exercise } from "../../db/exercise/model";
-import { handoutIdFromPath } from "../../db/handout/collection";
+import { handoutIdFromPath } from "../../firebase/schema";
 
 export async function createOrGetExerciseFromCache(
   cache: App.Locals,
@@ -17,7 +17,7 @@ export async function createOrGetExerciseFromCache(
   }
 
   if (config.auth && config.telemetry) {
-    const exercise = cache.exercises?.find(
+    const exercise = cache.handout?.exercises.find(
       (exercise) => exercise.slug === slug
     );
     if (exercise) {
@@ -31,20 +31,9 @@ export async function createOrGetExerciseFromCache(
   }
 }
 
-export function getLatestSubmissionFromCache(
-  cache: App.Locals,
-  handoutPath: string,
-  slug: string,
-  userId: string
-) {
+export function getLatestSubmissionFromCache(cache: App.Locals, slug: string) {
   if (config.auth && config.telemetry) {
-    const pageId = handoutIdFromPath(handoutPath);
-    const userSubmissions = cache.submissions?.find(
-      (submission) =>
-        submission.exerciseSlug === slug &&
-        submission.userId === userId &&
-        submission.pageId === pageId
-    );
+    const userSubmissions = cache.submissions?.[slug] || null;
     return userSubmissions?.latestTelemetryData || null;
   } else {
     return null;
@@ -56,6 +45,6 @@ export async function getLatestSubmissionFromDB(
   slug: string,
   userId: string
 ) {
-  const userSubmissions = await getUserSubmissions(handoutPath, slug, userId);
+  const userSubmissions = await getTelemetrySummary(handoutPath, slug, userId);
   return userSubmissions?.latestTelemetryData || null;
 }

@@ -6,7 +6,7 @@ import {
   getApp,
   ServiceAccount,
 } from "firebase-admin/app";
-import { getFirestore as getFirestoreServer } from "firebase-admin/firestore";
+import { getDatabase } from "firebase-admin/database";
 
 const serviceAccount = {
   type: "service_account",
@@ -50,6 +50,7 @@ if (config.auth) {
     if (config.auth) {
       app = initializeApp({
         credential: cert(serviceAccount as ServiceAccount),
+        databaseURL: import.meta.env.PUBLIC_FIREBASE_DATABASE_URL,
       });
     }
   } catch (e) {
@@ -57,9 +58,6 @@ if (config.auth) {
   }
 }
 
-function getFirestore() {
-  if (!app) throw new Error("No firebase client app initialized");
-  return getFirestoreServer(app);
-}
+const db = getDatabase(app);
 
-export { app, getFirestore };
+export { app, db };

@@ -5,7 +5,7 @@ import type { ClearTelemetryEvent } from "./components/exercise/telemetry/custom
 import type { DecodedIdToken } from "firebase-admin/auth";
 import type { Handout as DBHandout } from "./db/handout/model";
 import type { Exercise as DBExercise } from "./db/exercise/model";
-import type { UserSubmissions as DBUserSubmissions } from "./db/user-submissions/model";
+import type { TelemetrySummary as DBUserSubmissions } from "./db/telemetry-summary/model";
 
 interface CustomEventMap {
   ClearTelemetry: ClearTelemetryEvent;
@@ -23,9 +23,8 @@ declare global {
 
   namespace App {
     interface Locals {
-      handout?: DBHandout;
-      exercises?: DBExercise[];
-      submissions?: DBUserSubmissions[];
+      handout?: DBHandout | null;
+      submissions?: { [exerciseSlug: string]: DBUserSubmissions } | null;
       user?: DecodedIdToken | null;
     }
   }

@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import {
   deleteAllLatestUserSubmission,
   deleteLatestUserSubmission,
-} from "../../../db/user-submissions/queries";
+} from "../../../db/telemetry-summary/queries";
 
 export const DELETE: APIRoute = async ({ request, locals }) => {
   const user = locals.user;

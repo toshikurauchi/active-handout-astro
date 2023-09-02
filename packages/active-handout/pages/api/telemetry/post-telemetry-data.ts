@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { updateUserSubmissions } from "../../../db/user-submissions/queries";
+import { updateTelemetrySummary } from "../../../db/telemetry-summary/queries";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const user = locals.user;
@@ -21,8 +21,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response("Missing form data", { status: 400 });
   }
 
-  /* Save to local storage */
-  const submission = await updateUserSubmissions(
+  /* Save on DB */
+  await updateTelemetrySummary(
     handoutPath,
     exerciseSlug,
     user.uid,
@@ -30,5 +30,5 @@ export const POST: APIRoute = async ({ request, locals }) => {
     data
   );
 
-  return new Response(JSON.stringify(submission), { status: 200 });
+  return new Response("OK", { status: 200 });
 };
