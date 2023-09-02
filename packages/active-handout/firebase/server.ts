@@ -6,7 +6,7 @@ import {
   getApp,
   ServiceAccount,
 } from "firebase-admin/app";
-import { getDatabase } from "firebase-admin/database";
+import { Database, getDatabase } from "firebase-admin/database";
 
 const serviceAccount = {
   type: "service_account",
@@ -58,6 +58,18 @@ if (config.auth) {
   }
 }
 
-const db = getDatabase(app);
+let db: Database | undefined;
+try {
+  db = getDatabase(app);
+} catch (e) {
+  console.log("Error getting database", e);
+}
 
-export { app, db };
+function getDB() {
+  if (!db) {
+    throw new Error("Database not initialized");
+  }
+  return db;
+}
+
+export { app, getDB };

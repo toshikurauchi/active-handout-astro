@@ -27,7 +27,7 @@
  *          /{exerciseSlug}
  */
 
-import { db } from "./server";
+import { getDB } from "./server";
 
 export function handoutIdFromPath(handoutPath: string) {
   if (!handoutPath) throw new Error("No handout path provided");
@@ -40,12 +40,12 @@ export function handoutIdFromPath(handoutPath: string) {
 
 export function handoutRef(handoutPath: string) {
   const pageId = handoutIdFromPath(handoutPath);
-  return db.ref(`/handouts/${pageId}`);
+  return getDB().ref(`/handouts/${pageId}`);
 }
 
 export function exerciseRef(handoutPath: string, slug: string) {
   const pageId = handoutIdFromPath(handoutPath);
-  return db.ref(`/handouts/${pageId}/exercises/${slug}`);
+  return getDB().ref(`/handouts/${pageId}/exercises/${slug}`);
 }
 
 export function telemetryRef(
@@ -54,7 +54,9 @@ export function telemetryRef(
   userId: string
 ) {
   const pageId = handoutIdFromPath(handoutPath);
-  return db.ref(`/telemetry/${userId}/handouts/${pageId}/exercises/${slug}`);
+  return getDB().ref(
+    `/telemetry/${userId}/handouts/${pageId}/exercises/${slug}`
+  );
 }
 
 export function telemetrySummaryRef(
@@ -63,7 +65,7 @@ export function telemetrySummaryRef(
   userId: string
 ) {
   const pageId = handoutIdFromPath(handoutPath);
-  return db.ref(
+  return getDB().ref(
     `/telemetry-summary/${pageId}/users/${userId}/exercises/${exerciseSlug}`
   );
 }
@@ -73,5 +75,5 @@ export function telemetrySummariesForHandout(
   userId: string
 ) {
   const pageId = handoutIdFromPath(handoutPath);
-  return db.ref(`/telemetry-summary/${pageId}/users/${userId}/exercises`);
+  return getDB().ref(`/telemetry-summary/${pageId}/users/${userId}/exercises`);
 }
