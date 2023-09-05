@@ -4,13 +4,12 @@ import Page from "../layout/Page.astro";
 import NotFound from "../components/not-found/NotFound.astro";
 import { useTranslations } from "../utils/translations";
 import { get404Entry } from "../utils/not-found";
-import type { AstroComponentFactory } from "astro/dist/runtime/server";
 import type { Handout } from "../schema";
 
 const t = useTranslations(config.lang);
 
 let template: Handout["template"] = "handout";
-let Content: AstroComponentFactory = NotFound;
+let Content = NotFound;
 let headings = [];
 const entry = await get404Entry();
 if (entry) {

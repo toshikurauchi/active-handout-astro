@@ -8,9 +8,9 @@ import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import linkIcon from "./utils/hastSVGLinkIcon";
 import type { AstroIntegration, AstroUserConfig, ViteUserConfig } from "astro";
 import {
-  ActiveHandoutConfig,
+  type ActiveHandoutConfig,
   ActiveHandoutConfigSchema,
-  ActiveHandoutUserConfig,
+  type ActiveHandoutUserConfig,
 } from "./utils/user-config";
 import { errorMap } from "./utils/error-map";
 

@@ -7,7 +7,6 @@ import { get404Entry } from "../utils/not-found";
 import NotFound from "../components/not-found/NotFound.astro";
 
 import Page from "../layout/Page.astro";
-import type { AstroComponentFactory } from "astro/dist/runtime/server";
 import type { Handout } from "../schema";
 
 export async function getStaticPaths() {
@@ -46,7 +45,7 @@ if (requireLogin) {
   }
 }
 
-let Content: AstroComponentFactory = NotFound;
+let Content = NotFound;
 let headings = [];
 if (entry) {
   const renderedEntry = await entry.render();

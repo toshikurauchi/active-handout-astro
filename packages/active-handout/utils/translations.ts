@@ -1,12 +1,12 @@
-import config from 'virtual:active-handout/user-config';
-import builtinTranslations from '../translations';
+import config from "virtual:active-handout/user-config";
+import builtinTranslations from "../translations";
 
 /** User-configured language. */
 const defaultLang = config.lang;
 
 /**
- * Generate a utility function that returns UI strings for the given `locale`.
- * @param {string | undefined} [locale]
+ * Generate a utility function that returns UI strings for the given `lang`.
+ * @param {string | undefined} [lang]
  * @example
  * const t = useTranslations('en');
  * const label = t('search.label'); // => 'Search'

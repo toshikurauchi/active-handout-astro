@@ -4,10 +4,8 @@ import activeHandout from "@toshikurauchi/active-handout";
 // https://astro.build/config
 export default defineConfig({
   site: "https://toshikurauchi.github.io",
-  base: "/active-handout-astro/",
-  experimental: {
-    assets: true,
-  },
+  // Had to do this after upgrading to Astro 3.0: https://github.com/withastro/astro/issues/8352
+  base: import.meta.env.DEV ? "" : "/active-handout-astro/",
   integrations: [
     activeHandout({
       title: "Active Handout Docs",
