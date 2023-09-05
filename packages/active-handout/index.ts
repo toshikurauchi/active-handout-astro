@@ -106,7 +106,6 @@ export default function ActiveHandoutIntegration(
               ],
             },
           },
-          experimental: { assets: true },
         };
         updateConfig(newConfig);
       },
