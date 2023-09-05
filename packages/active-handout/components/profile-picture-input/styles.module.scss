@@ -1,0 +1,50 @@
+.profilePicBtn {
+  $size: 5rem;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  background: none;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.26);
+
+  .profilePic {
+    width: 100%;
+    height: 100%;
+  }
+
+  .profilePicInput {
+    visibility: hidden;
+  }
+
+  .profileChangeText {
+    display: grid;
+    cursor: pointer;
+    padding: 0.5rem;
+    place-items: center;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0007;
+    font-size: var(--fnt-sz--2);
+    font-weight: bold;
+    line-height: 1.1;
+    opacity: 0;
+    transition:
+      top 0.2s ease-in-out,
+      opacity 0.2s ease-in-out;
+  }
+
+  &:hover {
+    box-shadow: 6px 6px 8px 1px rgba(0, 0, 0, 0.26);
+
+    .profileChangeText {
+      top: 0;
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+---
+import config from "virtual:active-handout/user-config";
+import { useTranslations } from "../utils/translations";
+import Page from "../layout/Page.astro";
+import ProfileForm from "../fragments/profile/ProfileForm";
+
+const t = useTranslations(config.lang);
+
+if (!config.auth) {
+  return null;
+}
+
+if (!Astro.locals.user) {
+  return Astro.redirect("/signin?next=" + Astro.url.pathname);
+}
+
+const user = Astro.locals.user;
+---
+
+<Page title={t("profile.edit")} template="handout">
+  <section class="profile-form-container">
+    <ProfileForm user={user} client:visible />
+  </section>
+</Page>
+
+<style>
+  .profile-form-container {
+    margin-top: 2em;
+  }
+</style>

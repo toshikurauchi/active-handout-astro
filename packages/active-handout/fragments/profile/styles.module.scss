@@ -1,0 +1,13 @@
+.formContainer {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto 1fr;
+
+  button {
+    place-self: center;
+  }
+
+  @media (max-width: 450px) {
+    grid-template-columns: 1fr;
+  }
+}

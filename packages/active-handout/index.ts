@@ -58,12 +58,21 @@ export default function ActiveHandoutIntegration(
               "@toshikurauchi/active-handout/pages/api/auth/register.ts",
           });
           injectRoute({
+            pattern: "api/auth/profile",
+            entryPoint:
+              "@toshikurauchi/active-handout/pages/api/auth/profile.ts",
+          });
+          injectRoute({
             pattern: "register",
             entryPoint: "@toshikurauchi/active-handout/pages/register.astro",
           });
           injectRoute({
             pattern: "signin",
             entryPoint: "@toshikurauchi/active-handout/pages/signin.astro",
+          });
+          injectRoute({
+            pattern: "profile",
+            entryPoint: "@toshikurauchi/active-handout/pages/profile.astro",
           });
 
           if (userConfig.telemetry) {

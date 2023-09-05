@@ -117,6 +117,8 @@ function activeHandoutI18nSchema() {
         .string()
         .describe("Label for the submit button on the registration page"),
 
+      "auth.signout": z.string().describe("Text shown on the signout button"),
+
       "field.required": z
         .string()
         .describe("Error message shown when a required field is empty"),
@@ -126,6 +128,26 @@ function activeHandoutI18nSchema() {
       "exercise.mark-done": z
         .string()
         .describe("Text shown on the button to mark an exercise as done"),
+
+      "profile.edit": z
+        .string()
+        .describe("Text shown on the button to edit the profile"),
+
+      "profile.displayName": z
+        .string()
+        .describe("Label for display name field on the profile page"),
+
+      "profile.add-picture": z
+        .string()
+        .describe("Text shown on the button to add the profile picture"),
+
+      "profile.change-picture": z
+        .string()
+        .describe("Text shown on the button to change the profile picture"),
+
+      "profile.unsaved-changes": z
+        .string()
+        .describe("Text shown when user has not saved the changes"),
     })
     .partial();
 }

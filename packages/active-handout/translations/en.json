@@ -24,7 +24,13 @@
   "auth.signin-google": "Sign in with Google",
   "auth.signin-github": "Sign in with GitHub",
   "auth.register-submit": "Register",
+  "auth.signout": "Sign out",
   "field.required": "Can't be empty",
   "exercise.title": "Exercise",
-  "exercise.mark-done": "Mark as done"
+  "exercise.mark-done": "Mark as done",
+  "profile.edit": "Edit profile",
+  "profile.displayName": "Name",
+  "profile.add-picture": "Add picture",
+  "profile.change-picture": "Change picture",
+  "profile.unsaved-changes": "You have unsaved changes"
 }

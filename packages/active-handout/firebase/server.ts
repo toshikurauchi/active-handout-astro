@@ -7,6 +7,7 @@ import {
   ServiceAccount,
 } from "firebase-admin/app";
 import { Database, getDatabase } from "firebase-admin/database";
+import { getStorage as getAdminStorage } from "firebase-admin/storage";
 
 const serviceAccount = {
   type: "service_account",
@@ -51,6 +52,7 @@ if (config.auth) {
       app = initializeApp({
         credential: cert(serviceAccount as ServiceAccount),
         databaseURL: import.meta.env.PUBLIC_FIREBASE_DATABASE_URL,
+        storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
       });
     }
   } catch (e) {
@@ -72,4 +74,8 @@ function getDB() {
   return db;
 }
 
-export { app, getDB };
+function getStorage() {
+  return getAdminStorage(app);
+}
+
+export { app, getDB, getStorage };

@@ -24,7 +24,13 @@
   "auth.signin-google": "Entrar com Google",
   "auth.signin-github": "Entrar com Github",
   "auth.register-submit": "Criar conta",
+  "auth.signout": "Sair",
   "field.required": "Não pode ser vazio",
   "exercise.title": "Exercício",
-  "exercise.mark-done": "Marcar como feito"
+  "exercise.mark-done": "Marcar como feito",
+  "profile.edit": "Editar perfil",
+  "profile.displayName": "Nome",
+  "profile.add-picture": "Adicionar foto",
+  "profile.change-picture": "Mudar foto",
+  "profile.unsaved-changes": "Você tem alterações não salvas"
 }

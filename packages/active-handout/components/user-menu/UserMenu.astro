@@ -1,10 +1,14 @@
 ---
 import type { DecodedIdToken } from "firebase-admin/auth";
 import defaultProfileIcon from "./default-profile-icon.svg";
+import config from "virtual:active-handout/user-config";
+import { useTranslations } from "../../utils/translations";
 
 interface Props {
   user: DecodedIdToken;
 }
+
+const t = useTranslations(config.lang);
 
 const { user } = Astro.props;
 ---
@@ -19,7 +23,8 @@ const { user } = Astro.props;
   </button>
   <dialog class="user-menu-dialog">
     <span class="user-name">{user.name}</span>
-    <button class="sign-out-btn">Sign out</button>
+    <a class="menu-link" href="/profile">{t("profile.edit")}</a>
+    <button class="sign-out-btn">{t("auth.signout")}</button>
   </dialog>
 </div>
 
