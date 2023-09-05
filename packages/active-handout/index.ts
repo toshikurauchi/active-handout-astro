@@ -98,6 +98,9 @@ export default function ActiveHandoutIntegration(
           },
           vite: {
             plugins: [vitePluginActiveHandoutUserConfig(userConfig)],
+            optimizeDeps: {
+              exclude: ["virtual:active-handout/user-config"],
+            },
             ssr: {
               noExternal: [
                 "@fontsource-variable/open-sans",
