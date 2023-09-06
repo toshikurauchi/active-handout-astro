@@ -130,9 +130,11 @@ export default function ActiveHandoutIntegration(
       // Add the components we want to be auto-imported in .mdx files here
       imports: [
         "@toshikurauchi/active-handout/components/admonition/Admonition.astro",
+        "@toshikurauchi/active-handout/components/sidenote/Sidenote.tsx",
+        "@toshikurauchi/active-handout/components/sidenote/SidenoteAnchor.tsx",
+        "@toshikurauchi/active-handout/components/exercise/progress-exercise/ProgressExercise.astro",
         "@toshikurauchi/active-handout/components/tabs/TabGroup.astro",
         "@toshikurauchi/active-handout/components/tabs/TabItem.astro",
-        "@toshikurauchi/active-handout/components/exercise/progress-exercise/ProgressExercise.astro",
       ],
     }),
     react(),

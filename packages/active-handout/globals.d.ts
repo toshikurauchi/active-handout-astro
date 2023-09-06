@@ -6,10 +6,12 @@ import type { DecodedIdToken } from "firebase-admin/auth";
 import type { Handout as DBHandout } from "./db/handout/model";
 import type { Exercise as DBExercise } from "./db/exercise/model";
 import type { TelemetrySummary as DBUserSubmissions } from "./db/telemetry-summary/model";
+import type { ToggleSidenoteEvent } from "./components/sidenote/custom-events";
 
 interface CustomEventMap {
   ClearTelemetry: ClearTelemetryEvent;
   NotifyToast: NotifyToastEvent;
+  ToggleSidenote: ToggleSidenoteEvent;
 }
 
 declare global {

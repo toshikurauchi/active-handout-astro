@@ -1,0 +1,145 @@
+$toggle-button-size: 1.2rem;
+$sidenote-inline-margin: 1rem;
+$sidenote-border-radius: 0.2rem;
+$color: var(--clr-primary);
+
+.sidenoteAnchor {
+  position: relative;
+  border: 2px dotted $color;
+  border-radius: 0.2em;
+  padding-inline: 0.2rem;
+  cursor: pointer;
+}
+
+.toggleSidenote {
+  display: grid;
+  cursor: pointer;
+  padding: 0;
+  place-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: $color;
+  font-weight: bold;
+  font-size: var(--fnt-sz--2);
+  background-color: var(--clr-background);
+  line-height: 1;
+  width: $toggle-button-size;
+  height: $toggle-button-size;
+  border: 2px dotted $color;
+  border-radius: 50%;
+  transform: translate(50%, -50%);
+  transition: transform 0.2s ease-in-out;
+
+  &.anchorOpen {
+    transform: translate(50%, -50%) rotate(45deg);
+  }
+}
+
+.sidenote {
+  opacity: 0;
+  position: absolute;
+  top: var(--sidenote-top-position);
+  left: var(--main-content-left);
+  width: var(--main-content-width);
+  padding: 0.5em;
+  border-radius: $sidenote-border-radius;
+  z-index: -1;
+  transition:
+    left 0.2s ease-in-out,
+    opacity 0.2s ease-in-out,
+    z-index 0.2s step-end;
+
+  &.sidenoteOpen {
+    opacity: 1;
+    background-color: var(--clr-background);
+    left: var(--main-content-left);
+    z-index: var(--sidenote-z-index, 9999999);
+    transition:
+      left 0.2s ease-in-out,
+      opacity 0.2s ease-in-out,
+      z-index 0.2s step-start;
+  }
+
+  &.sidenoteFitsSide {
+    left: var(--sidenote-right);
+    width: calc(var(--space-right) - 2rem);
+    margin-inline: $sidenote-inline-margin;
+    box-shadow: 2px 2px 4px 1px rgba(10, 10, 10, 0.26);
+    cursor: pointer;
+
+    &.sidenoteOpen {
+      left: var(--main-content-right);
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.backdrop {
+  display: none;
+  cursor: pointer;
+
+  &.backdropVisible {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: black;
+    opacity: 0.5;
+    z-index: 9999998;
+  }
+}
+
+.sidenoteLine {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  z-index: 0;
+  height: calc(var(--sidenote-height) - ($sidenote-border-radius * 2));
+  position: absolute;
+  top: calc(var(--sidenote-top-position) + $sidenote-border-radius);
+  left: calc(var(--sidenote-right) + ($toggle-button-size / 2));
+  width: 0;
+  transition:
+    width 0.2s ease-in-out,
+    opacity 0.2s ease-in-out,
+    z-index 0.2s step-end;
+
+  &.sidenoteLineVisible {
+    opacity: 1;
+    z-index: 9999998;
+    width: calc(
+      var(--main-content-right) - var(--sidenote-right) +
+        ($sidenote-inline-margin - $toggle-button-size / 2)
+    );
+    transition:
+      width 0.2s ease-in-out,
+      opacity 0.2s ease-in-out,
+      z-index 0.2s step-start;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+  }
+
+  &::before {
+    height: calc(
+      var(--sidenote-top) - var(--sidenote-top-position) -
+        $sidenote-border-radius
+    );
+    border-bottom-right-radius: 0.5rem;
+    box-shadow: inset -2px -2px 4px -2px rgba(10, 10, 10, 0.26);
+  }
+
+  &::after {
+    border-top-right-radius: 0.5rem;
+    flex-grow: 1;
+    box-shadow: inset -2px 2px 4px -2px rgba(10, 10, 10, 0.26);
+  }
+}

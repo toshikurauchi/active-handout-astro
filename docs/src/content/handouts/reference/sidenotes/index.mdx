@@ -1,0 +1,36 @@
+---
+title: Sidenotes
+---
+
+You can add <SidenoteAnchor forId="1" client:idle>sidenotes</SidenoteAnchor> using the following syntax:
+
+<Sidenote id="1" client:idle>Sidenote example.</Sidenote>
+
+```md
+Side notes are added like this:
+<SidenoteAnchor forId="1" client:idle> inline text
+</SidenoteAnchor>. The "inline text" will be
+displayed inline, while the "side note content can go
+anywhere" will be displayed to the right on larger
+displays or as a modal on smaller displays.
+
+<Sidenote id="1" client:idle>side note content can
+go anywhere</Sidenote>
+```
+
+## Markdown
+
+You can use <SidenoteAnchor forId="2" client:idle>regular markdown</SidenoteAnchor> inside the sidenote.
+
+<Sidenote id="2" client:idle>
+You can use regular markdown here, so images should work:
+
+![](./monty-python.jpg)
+</Sidenote>
+
+## Work in progress
+
+The current implementation has a few known bugs:
+
+1. Avoid starting or ending the document with long sidenotes, as they are **always** vertically centered on the reference;
+2. Avoid adding two sidenotes too close from each other, because they may overlap.
