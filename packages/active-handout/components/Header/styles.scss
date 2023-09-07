@@ -1,70 +1,46 @@
-$padding-left: 2rem;
+// The header component fills the whole viewport, so we had to
+// play with the pointer-events property to make sure that the
+// header doesn't block the content below it.
+
+$padding-inline: 2rem;
 $transition-time: 0.2s;
 $menu-btn-size: 2rem;
 
-.main-header {
-  width: max(100% - 2rem, 100% - 2 * $padding-left);
-  margin: 0 auto;
-  position: sticky;
-  top: 0;
-  background-color: var(--clr-background);
+// Header container
+.header-container {
+  display: block;
+  position: fixed;
+  inset: 0;
   z-index: 1000;
+  isolation: isolate;
+  pointer-events: none;
+}
+
+// Main header
+.main-header {
+  width: 100%;
+  margin: 0 auto;
+  background-color: var(--clr-background);
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  padding-top: 0.5rem;
+  padding: 0.5rem $padding-inline;
+  box-shadow: 0 0 0 0 rgba(10, 10, 10, 0);
+  transition: box-shadow $transition-time ease-in-out;
+  pointer-events: auto;
 
-  &.opened {
-    .menu-btn svg path {
-      d: path("M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5");
-    }
-
-    &.separate-nav-layer {
-      .home-btn {
-        z-index: 1;
-      }
-
-      .menu-btn svg path {
-        d: path("M6 18L18 6M6 6l12 12");
-      }
-
-      .menu-overlay {
-        overflow: hidden;
-        background: #333a;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 10000;
-      }
-
-      nav {
-        background-color: var(--clr-background);
-        z-index: 10001;
-      }
-    }
-
-    nav {
-      left: 0;
-    }
-  }
-
-  &.with-transition {
-    svg path {
-      transition: $transition-time;
-    }
-
-    .menu-overlay {
-      transition: background-color $transition-time ease-in-out;
-    }
-
-    nav {
-      transition: left $transition-time ease-in-out;
-    }
+  @media (max-width: 700px) {
+    padding-inline: 1rem;
   }
 }
 
+.header-container.scrolled {
+  .main-header {
+    box-shadow: 0 2px 4px 0 rgba(10, 10, 10, 0.2);
+  }
+}
+
+// Menu button
 .menu-btn {
   background: none;
   border: none;
@@ -73,25 +49,80 @@ $menu-btn-size: 2rem;
   margin: 0;
   width: $menu-btn-size;
   height: $menu-btn-size;
-  z-index: 999999;
+  z-index: 100; // Is isolated in header-container
   color: var(--clr-text);
-  position: fixed;
 }
 
+.header-container {
+  &.opened {
+    .menu-btn svg path {
+      d: path("M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5");
+    }
+
+    &.separate-nav-layer {
+      .menu-btn svg path {
+        d: path("M6 18L18 6M6 6l12 12");
+      }
+    }
+  }
+
+  &.with-transition {
+    svg path {
+      transition: $transition-time;
+    }
+  }
+}
+
+// Home button
 .home-btn {
+  z-index: 1;
   font-weight: bold;
   text-decoration: none;
   color: var(--clr-primary);
-  margin-inline-start: calc($menu-btn-size + 1rem);
-  z-index: 999999;
 }
 
+// Right header
+.right-header {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+// Navigation container
+.nav-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+// Menu overlay
 .menu-overlay {
   background: transparent;
+  pointer-events: auto;
 }
 
+.header-container {
+  &.opened.separate-nav-layer {
+    .menu-overlay {
+      overflow: hidden;
+      background: #333a;
+      position: absolute;
+      inset: 0;
+      z-index: 98;
+    }
+  }
+
+  &.with-transition {
+    .menu-overlay {
+      transition: background-color $transition-time ease-in-out;
+    }
+  }
+}
+
+// Navigation menu
 nav {
-  position: fixed;
+  position: absolute;
   left: calc(var(--nav-menu-width, 100rem) * -1);
   margin: 0;
   padding: calc(var(--header-height, 3rem) + var(--content-top-padding)) 1rem
@@ -101,14 +132,26 @@ nav {
   font-size: var(--fnt-sz--1);
   background-color: transparent;
   width: min(80vw, 20rem);
+  pointer-events: auto;
 }
 
-.user-menu {
-  margin-left: auto;
-}
+.header-container {
+  &.opened {
+    &.separate-nav-layer {
+      nav {
+        background-color: var(--clr-background);
+        z-index: 99;
+      }
+    }
 
-.right-header {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
+    nav {
+      left: 0;
+    }
+  }
+
+  &.with-transition {
+    nav {
+      transition: left $transition-time ease-in-out;
+    }
+  }
 }

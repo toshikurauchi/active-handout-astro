@@ -3,22 +3,36 @@ let isMenuOpened = false;
 const body = document.querySelector("body");
 const mainContent = document.querySelector(".main-content");
 const mainHeader = document.querySelector<HTMLElement>(".main-header");
+const headerContainer =
+  document.querySelector<HTMLElement>(".header-container");
 
 body?.style.setProperty("--header-height", mainHeader?.clientHeight + "px");
 
-const menuBtn = mainHeader?.querySelector(".menu-btn");
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  if (scrollY > 0) {
+    headerContainer?.classList.add("scrolled");
+  } else {
+    headerContainer?.classList.remove("scrolled");
+  }
+});
+
+const menuBtn = headerContainer?.querySelector(".menu-btn");
 menuBtn?.addEventListener("click", () => {
   toggleMenu();
 });
 
-const menuOverlay = mainHeader?.querySelector(".menu-overlay");
+const menuOverlay = headerContainer?.querySelector(".menu-overlay");
 menuOverlay?.addEventListener("click", () => {
   toggleMenu(false);
 });
 
-const navMenu = mainHeader?.querySelector("nav");
+const navMenu = headerContainer?.querySelector("nav");
 if (navMenu) {
-  mainHeader?.style.setProperty("--nav-menu-width", navMenu.clientWidth + "px");
+  headerContainer?.style.setProperty(
+    "--nav-menu-width",
+    navMenu.clientWidth + "px"
+  );
 }
 
 if (mainContent && navMenu) {
@@ -35,7 +49,7 @@ recoverMenuState();
 // We need the setTimeout so there is a delay between the page load and the transition
 setTimeout(() => {
   // Enable after everything is done, so that the transition is not visible on page load
-  mainHeader?.classList.add("with-transition");
+  headerContainer?.classList.add("with-transition");
 }, 1000);
 
 // FUNCTIONS
@@ -46,9 +60,9 @@ function toggleMenu(opened?: boolean, bypassLocalStorage?: boolean) {
   }
   isMenuOpened = opened;
   if (isMenuOpened) {
-    mainHeader?.classList.add("opened");
+    headerContainer?.classList.add("opened");
   } else {
-    mainHeader?.classList.remove("opened");
+    headerContainer?.classList.remove("opened");
   }
 
   if (!bypassLocalStorage) {
@@ -70,12 +84,12 @@ function updateNavFitsPage() {
   const menuWidth = navMenu?.clientWidth || 0;
 
   if (menuWidth) {
-    mainHeader?.style.setProperty("--nav-menu-width", menuWidth + "px");
+    headerContainer?.style.setProperty("--nav-menu-width", menuWidth + "px");
 
     if (navFitsPage()) {
-      mainHeader?.classList.remove("separate-nav-layer");
+      headerContainer?.classList.remove("separate-nav-layer");
     } else {
-      mainHeader?.classList.add("separate-nav-layer");
+      headerContainer?.classList.add("separate-nav-layer");
     }
   }
 }

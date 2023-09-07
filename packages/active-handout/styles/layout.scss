@@ -7,7 +7,7 @@
 }
 
 .main-content {
-  padding-top: var(--content-top-padding);
+  padding-top: calc(var(--content-top-padding) + var(--header-height, 3rem));
   padding-bottom: var(--content-bottom-padding);
   width: min(100% - 2rem, 60ch);
   margin: 0 auto;
@@ -52,4 +52,9 @@ h6 {
       display: inline;
     }
   }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }

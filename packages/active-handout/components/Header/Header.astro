@@ -21,40 +21,42 @@ const { websiteTitle, headings } = Astro.props;
 const navEntries = getNavEntries(slug);
 ---
 
-<header class="main-header separate-nav-layer">
-  <button class="menu-btn">
-    <svg
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-    </svg>
-  </button>
-  <a href={import.meta.env.BASE_URL} class="home-btn">
-    {websiteTitle}
-  </a>
-  <div class="right-header">
-    <ClearTelemetryButton client:load />
-    {
-      user && (
-        <div class="user-menu">
-          <UserMenu user={user} />
-        </div>
-      )
-    }
-  </div>
+<div class="header-container">
+  <header class="main-header separate-nav-layer">
+    <button class="menu-btn">
+      <svg
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+      </svg>
+    </button>
+    <a href={import.meta.env.BASE_URL} class="home-btn">
+      {websiteTitle}
+    </a>
+    <div class="right-header">
+      <ClearTelemetryButton client:load />
+      {
+        user && (
+          <div class="user-menu">
+            <UserMenu user={user} />
+          </div>
+        )
+      }
+    </div>
+  </header>
   <aside class="nav-container">
     <div class="menu-overlay"></div>
     <nav><NavMenu entries={navEntries} headings={headings} /></nav>
   </aside>
-</header>
+</div>
 
 <script src="./script.ts"></script>
 
