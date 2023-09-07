@@ -1,0 +1,13 @@
+---
+import OptionsReact from "./OptionsReact";
+
+interface Props {
+  columns?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+}
+
+const { columns } = Astro.props;
+---
+
+<OptionsReact columns={columns} client:visible>
+  <slot />
+</OptionsReact>

@@ -1,0 +1,27 @@
+---
+import { setupExercise } from "../server-telemetry";
+import MultipleChoiceExercise, { exerciseType } from "./MultipleChoiceReact";
+import type { ExerciseContainerProps } from "../props";
+
+const handoutPath = Astro.url.pathname;
+
+interface Props extends ExerciseContainerProps {}
+
+const [exerciseNumber, latestSubmission, slug] = await setupExercise(
+  Astro.props,
+  Astro.locals,
+  handoutPath,
+  exerciseType,
+  ["multiple-choice-exercise"]
+);
+---
+
+<MultipleChoiceExercise
+  pageId={handoutPath}
+  slug={slug}
+  exerciseNumber={exerciseNumber}
+  latestSubmission={latestSubmission}
+  client:visible
+>
+  <slot />
+</MultipleChoiceExercise>

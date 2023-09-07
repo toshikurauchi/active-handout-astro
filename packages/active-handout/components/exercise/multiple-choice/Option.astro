@@ -1,0 +1,11 @@
+---
+import OptionReact from "./OptionReact";
+
+interface Props {
+  correct?: boolean;
+}
+
+const { correct } = Astro.props;
+---
+
+<OptionReact ?correct={correct} client:visible><slot /></OptionReact>

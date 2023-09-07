@@ -1,0 +1,67 @@
+// Exercise
+.submitBtnContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+  margin: 2rem 0 0 auto;
+  width: max-content;
+}
+
+// Options list
+.optionList {
+  display: grid;
+  grid-gap: 0.5rem;
+  margin-top: 1rem;
+  counter-reset: options;
+}
+
+@for $cols from 1 through 10 {
+  .options--#{$cols}-cols {
+    grid-template-columns: repeat($cols, 1fr);
+  }
+}
+
+.clearSelectionBtnContainer {
+  display: flex;
+  align-items: center;
+}
+
+.clearSelectionBtn {
+  cursor: pointer;
+  margin: 0.2em 0 0 auto;
+  background-color: transparent;
+  border: none;
+  color: var(--clr-text-light);
+  font-size: var(--fnt-sz--1);
+}
+
+// Option
+.option {
+  $padding: 0.5em;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: $padding;
+  border-radius: 0.2em;
+  background-color: var(--clr-secondary);
+  color: var(--clr-secondary-contrast);
+  counter-increment: options;
+  overflow: hidden;
+  box-shadow: 1px 1px 2px 1px rgba(10, 10, 10, 0.2);
+  border: none;
+  cursor: pointer;
+
+  &::before {
+    content: counter(options, upper-alpha);
+    display: block;
+    padding: (2 * $padding) $padding;
+    margin: (-2 * $padding) $padding (-2 * $padding) (-$padding);
+    background-color: var(--clr-primary);
+    color: var(--clr-primary-contrast);
+  }
+
+  &Selected {
+    border: 2px solid var(--clr-primary);
+  }
+}
