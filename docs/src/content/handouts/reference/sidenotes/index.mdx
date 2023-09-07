@@ -2,21 +2,27 @@
 title: Sidenotes
 ---
 
-You can add <SidenoteAnchor forId="1" client:idle>sidenotes</SidenoteAnchor> using the following syntax:
+A sidenote is composed of an anchor and the content. The anchor is an inline text that links to the sidenote content. The content is a modal (on mobile) or an aside (desktop) that only appears when the user clicks the anchor. See the example below.
 
-<Sidenote id="1" client:idle>Sidenote example.</Sidenote>
+This is a <SidenoteAnchor forId="1" client:idle>sidenote anchor</SidenoteAnchor>. You can add sidenotes in your MDX using the following syntax. For anchors:
+
+<Sidenote id="1" client:idle>And this is the sidenote content. It will appear differently depending on the screen size.</Sidenote>
 
 ```md
-Side notes are added like this:
-<SidenoteAnchor forId="1" client:idle> inline text
-</SidenoteAnchor>. The "inline text" will be
-displayed inline, while the "side note content can go
-anywhere" will be displayed to the right on larger
-displays or as a modal on smaller displays.
-
-<Sidenote id="1" client:idle>side note content can
-go anywhere</Sidenote>
+<SidenoteAnchor forId="1" client:idle>
+inline anchor text
+</SidenoteAnchor>
 ```
+
+The sidenote content may go anywhere in your document, but must match the `forId` value of an anchor. Also, you have to make sure the `id`s are unique.
+
+```md
+<Sidenote id="1" client:idle>
+side note content can go anywhere
+</Sidenote>
+```
+
+When using Astro, make sure to add `client:idle` in both the anchor and the content, so the sidenote becomes interactive.
 
 ## Markdown
 
@@ -27,10 +33,3 @@ You can use regular markdown here, so images should work:
 
 ![](./monty-python.jpg)
 </Sidenote>
-
-## Work in progress
-
-The current implementation has a few known bugs:
-
-1. Avoid starting or ending the document with long sidenotes, as they are **always** vertically centered on the reference;
-2. Avoid adding two sidenotes too close from each other, because they may overlap.
