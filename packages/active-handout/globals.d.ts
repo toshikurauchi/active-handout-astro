@@ -28,6 +28,7 @@ declare global {
       handout?: DBHandout | null;
       submissions?: { [exerciseSlug: string]: DBUserSubmissions } | null;
       user?: DecodedIdToken | null;
+      exercises?: DBExercise[] | null;
     }
   }
 }

@@ -27,6 +27,12 @@ function activeHandoutI18nSchema() {
           "Text for the message to show when the user clears all answers"
         ),
 
+      "msg.clear-selection": z
+        .string()
+        .describe("Text for the button that clears the selection"),
+
+      "msg.submit": z.string().describe("Text for the submit button"),
+
       "skipLink.label": z
         .string()
         .describe(

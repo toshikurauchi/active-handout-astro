@@ -3,6 +3,8 @@
   "msg.exercise-clear": "Apagar resposta",
   "msg.all-exercises-clear": "Apagar respostas",
   "msg.all-exercises-cleared": "Respostas apagadas",
+  "msg.clear-selection": "Limpar seleção",
+  "msg.submit": "Enviar",
   "skipLink.label": "Pular para o conteúdo",
   "404.title": "Página não encontrada",
   "404.text": "Desculpe, não encontramos esta página. Se você acha que isso não deveria ter acontecido, por favor, nos avise.",

@@ -1,5 +1,10 @@
 import type { TelemetryDataCache } from "../../db/telemetry-summary/model";
 
+export interface ExerciseContainerProps {
+  slug: string;
+  tags: string[];
+}
+
 export type ExerciseBaseProps = {
   pageId: string;
   slug: string;

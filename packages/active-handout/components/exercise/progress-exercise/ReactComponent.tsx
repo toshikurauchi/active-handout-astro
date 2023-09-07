@@ -53,11 +53,11 @@ function InnerComponent({
 }) {
   const [done, setDone] = useState(initialDoneValue || false);
 
+  const { reloadData, setReloadData, setStatus } = useContext(ExerciseContext);
+
   useEffect(() => {
     setStatus(done ? "success" : "unanswered");
   }, [done]);
-
-  const { reloadData, setReloadData, setStatus } = useContext(ExerciseContext);
 
   useEffect(() => {
     if (!reloadData) return;

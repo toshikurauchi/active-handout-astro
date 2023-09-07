@@ -36,20 +36,3 @@ if (useTelemetry) {
   clearTelemetry = clearTelemetryFromLocalStorage;
 }
 export { postTelemetry, fetchTelemetry, clearTelemetry };
-
-export function getAutoIncrementedExerciseNumber(
-  astroLocals: App.Locals,
-  exercise: Exercise
-) {
-  const exercises = astroLocals.exercises || [];
-  const exerciseSlugs = exercises.map((exercise: Exercise) => exercise.slug);
-  const slugIndex = exerciseSlugs.indexOf(exercise.slug);
-  if (slugIndex >= 0) {
-    return slugIndex + 1;
-  }
-
-  exercises.push(exercise);
-  astroLocals.exercises = exercises;
-
-  return exercises.length;
-}

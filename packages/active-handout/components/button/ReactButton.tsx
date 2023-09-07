@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import Styles from "./styles.module.scss";
 import type BaseProps from "./props";
 
-type ButtonProps = BaseProps & React.ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = BaseProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { className?: string };
 
 export default function Button({
   primary,
@@ -13,11 +14,12 @@ export default function Button({
   tooltip,
   tooltipPlacement,
   children,
+  className: extraClassName,
   ...props
 }: ButtonProps) {
   const className = `${Styles.button} ${
     transparent ? Styles.transparent : primary ? Styles.primary : ""
-  } ${colorScheme ? Styles[colorScheme] : ""}`;
+  } ${colorScheme ? Styles[colorScheme] : ""} ${extraClassName || ""}`;
   const [showTooltip, setShowTooltip] = React.useState(false);
 
   useEffect(() => {

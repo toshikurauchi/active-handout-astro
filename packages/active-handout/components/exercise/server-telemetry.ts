@@ -3,6 +3,47 @@ import { createExercise } from "../../db/exercise/queries";
 import { getTelemetrySummary } from "../../db/telemetry-summary/queries";
 import { Exercise } from "../../db/exercise/model";
 import { handoutIdFromPath } from "../../firebase/schema";
+import type { ExerciseContainerProps } from "./props";
+
+export async function setupExercise(
+  props: ExerciseContainerProps,
+  cache: App.Locals,
+  handoutPath: string,
+  exerciseType: string,
+  extraTags: string[]
+) {
+  if (!props.tags) {
+    props.tags = [];
+  }
+  const { slug, tags } = props;
+  tags.push(...extraTags);
+
+  const exercise = await createOrGetExerciseFromCache(
+    cache,
+    handoutPath,
+    slug,
+    exerciseType,
+    tags,
+    {}
+  );
+  const exerciseNumber = getAutoIncrementedExerciseNumber(cache, exercise);
+
+  let latestSubmission;
+  if (config.auth && config.telemetry) {
+    const handout = cache.handout;
+    const user = cache.user;
+
+    if (!handout) {
+      throw new Error("No handout found for exercise " + slug);
+    }
+    if (!user) {
+      throw new Error("No user found");
+    }
+    latestSubmission = getLatestSubmissionFromCache(cache, slug);
+  }
+
+  return [exerciseNumber, latestSubmission, slug] as const;
+}
 
 export async function createOrGetExerciseFromCache(
   cache: App.Locals,
@@ -47,4 +88,21 @@ export async function getLatestSubmissionFromDB(
 ) {
   const userSubmissions = await getTelemetrySummary(handoutPath, slug, userId);
   return userSubmissions?.latestTelemetryData || null;
+}
+
+export function getAutoIncrementedExerciseNumber(
+  astroLocals: App.Locals,
+  exercise: Exercise
+) {
+  const exercises = astroLocals.exercises || [];
+  const exerciseSlugs = exercises.map((exercise: Exercise) => exercise.slug);
+  const slugIndex = exerciseSlugs.indexOf(exercise.slug);
+  if (slugIndex >= 0) {
+    return slugIndex + 1;
+  }
+
+  exercises.push(exercise);
+  astroLocals.exercises = exercises;
+
+  return exercises.length;
 }
