@@ -86,3 +86,25 @@ strong {
   color: var(--clr-primary);
   font-weight: 900;
 }
+
+ul,
+ol {
+  padding-left: 1em;
+}
+
+li::marker {
+  color: var(--clr-primary);
+  font-weight: bold;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+}
+
+ol ol ol {
+  list-style-type: lower-roman;
+}
+
+ol ol ol ol {
+  list-style-type: decimal;
+}

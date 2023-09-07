@@ -23,7 +23,9 @@
   }
 }
 
-p {
+p,
+ul,
+ol {
   &:not(:first-child) {
     margin-top: 1.2em;
   }

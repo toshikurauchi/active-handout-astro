@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Styles from "./styles.module.scss";
 import type BaseProps from "./props";
 
@@ -18,9 +18,22 @@ export default function Button({
   const className = `${Styles.button} ${
     transparent ? Styles.transparent : primary ? Styles.primary : ""
   } ${colorScheme ? Styles[colorScheme] : ""}`;
+  const [showTooltip, setShowTooltip] = React.useState(false);
+
+  useEffect(() => {
+    // We do this instead of using CSS hover because we want the tooltip to
+    // not be rendered on the server
+    document.addEventListener("mouseenter", () => {
+      setShowTooltip(true);
+    });
+    document.addEventListener("mouseleave", () => {
+      setShowTooltip(false);
+    });
+  }, []);
+
   return (
     <button className={className} {...props}>
-      {tooltip && (
+      {showTooltip && tooltip && (
         <span
           className={`${Styles.tooltip} ${
             Styles[tooltipPlacement || "bottom"]

@@ -6,7 +6,12 @@ const mainHeader = document.querySelector<HTMLElement>(".main-header");
 const headerContainer =
   document.querySelector<HTMLElement>(".header-container");
 
-body?.style.setProperty("--header-height", mainHeader?.clientHeight + "px");
+if (mainHeader) {
+  const resizeObserver = new ResizeObserver(() => {
+    body?.style.setProperty("--header-height", mainHeader.clientHeight + "px");
+  });
+  resizeObserver.observe(mainHeader);
+}
 
 window.addEventListener("scroll", () => {
   const scrollY = window.scrollY;
