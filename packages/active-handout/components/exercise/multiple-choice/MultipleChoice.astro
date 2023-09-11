@@ -2,17 +2,22 @@
 import { setupExercise } from "../server-telemetry";
 import MultipleChoiceExercise, { exerciseType } from "./MultipleChoiceReact";
 import type { ExerciseContainerProps } from "../props";
+import { rehypeExtractOptions } from "./rehype-extract-options";
 
 const handoutPath = Astro.url.pathname;
 
 interface Props extends ExerciseContainerProps {}
+
+const baseHTML = await Astro.slots.render("default");
+const { options, html } = rehypeExtractOptions(baseHTML);
 
 const [exerciseNumber, latestSubmission, slug] = await setupExercise(
   Astro.props,
   Astro.locals,
   handoutPath,
   exerciseType,
-  ["multiple-choice-exercise"]
+  ["multiple-choice-exercise"],
+  { options }
 );
 ---
 
@@ -23,5 +28,5 @@ const [exerciseNumber, latestSubmission, slug] = await setupExercise(
   latestSubmission={latestSubmission}
   client:visible
 >
-  <slot />
+  <Fragment set:html={html} />
 </MultipleChoiceExercise>

@@ -10,7 +10,8 @@ export async function setupExercise(
   cache: App.Locals,
   handoutPath: string,
   exerciseType: string,
-  extraTags: string[]
+  extraTags: string[],
+  data: any
 ) {
   if (!props.tags) {
     props.tags = [];
@@ -24,7 +25,7 @@ export async function setupExercise(
     slug,
     exerciseType,
     tags,
-    {}
+    data
   );
   const exerciseNumber = getAutoIncrementedExerciseNumber(cache, exercise);
 

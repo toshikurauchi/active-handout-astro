@@ -52,8 +52,13 @@ export default function Option({ correct, children }: OptionProps) {
   }`;
 
   return (
-    <button className={className} onClick={handleClick} ref={buttonRef}>
-      {children}
+    <button
+      className={className}
+      onClick={handleClick}
+      ref={buttonRef}
+      data-correct={correct ? "correct" : ""}
+    >
+      <div className={Styles.optionContent}>{children}</div>
     </button>
   );
 }

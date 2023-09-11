@@ -3,11 +3,18 @@ import OptionsReact from "./OptionsReact";
 
 interface Props {
   columns?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  letterPosition?: "top" | "left" | null;
 }
 
-const { columns } = Astro.props;
+const { columns, letterPosition } = Astro.props;
 ---
 
-<OptionsReact columns={columns} client:visible>
+<OptionsReact
+  columns={columns}
+  letterPosition={typeof letterPosition === "undefined"
+    ? "left"
+    : letterPosition}
+  client:visible
+>
   <slot />
 </OptionsReact>

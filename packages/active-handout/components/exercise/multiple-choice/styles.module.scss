@@ -18,6 +18,10 @@
 @for $cols from 1 through 10 {
   .options--#{$cols}-cols {
     grid-template-columns: repeat($cols, 1fr);
+
+    @media (max-width: 1000px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -36,13 +40,12 @@
 }
 
 // Option
+$option-padding: 0.5em;
 .option {
-  $padding: 0.5em;
-
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  flex-wrap: wrap;
-  padding: $padding;
+  padding: 0;
   border-radius: 0.2em;
   background-color: var(--clr-secondary);
   color: var(--clr-secondary-contrast);
@@ -54,9 +57,10 @@
 
   &::before {
     content: counter(options, upper-alpha);
-    display: block;
-    padding: (2 * $padding) $padding;
-    margin: (-2 * $padding) $padding (-2 * $padding) (-$padding);
+    display: grid;
+    place-items: center;
+    height: 100%;
+    padding: 0 $option-padding;
     background-color: var(--clr-primary);
     color: var(--clr-primary-contrast);
   }
@@ -64,4 +68,26 @@
   &Selected {
     border: 2px solid var(--clr-primary);
   }
+}
+
+.optionsLetterNone {
+  .option::before {
+    display: none;
+  }
+}
+
+.optionsLetterTop {
+  .option {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+
+    &::before {
+      height: auto;
+    }
+  }
+}
+
+.optionContent {
+  padding: $option-padding;
+  text-align: left;
 }

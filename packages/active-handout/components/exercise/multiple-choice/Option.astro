@@ -8,4 +8,4 @@ interface Props {
 const { correct } = Astro.props;
 ---
 
-<OptionReact ?correct={correct} client:visible><slot /></OptionReact>
+<OptionReact correct={correct || false} client:visible><slot /></OptionReact>

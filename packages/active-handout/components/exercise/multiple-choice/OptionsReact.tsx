@@ -8,11 +8,16 @@ import { getContainer } from "./dom-utils";
 const t = useTranslations(config.lang);
 
 type OptionsProps = {
-  columns?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  columns?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | undefined;
+  letterPosition?: "top" | "left" | null;
   children: React.ReactNode;
 };
 
-export default function Options({ columns, children }: OptionsProps) {
+export default function Options({
+  columns,
+  letterPosition,
+  children,
+}: OptionsProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
 
   if (!columns) columns = 1;
@@ -25,6 +30,12 @@ export default function Options({ columns, children }: OptionsProps) {
 
   const className = `multiple-choice-options ${Styles.optionList} ${
     Styles[`options--${columns}-cols`]
+  } ${
+    letterPosition === "top"
+      ? Styles.optionsLetterTop
+      : letterPosition === "left"
+      ? Styles.optionsLetterLeft
+      : Styles.optionsLetterNone
   }`;
 
   return (
