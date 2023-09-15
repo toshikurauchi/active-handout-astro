@@ -1,0 +1,22 @@
+.exerciseAnswer {
+  --block-space: var(--block-padding, 0.5rem);
+  --inline-space: var(--inline-padding, 0.8rem);
+
+  margin: var(--block-space) calc(-1 * var(--inline-space))
+    calc(-1 * var(--block-space));
+  padding: var(--block-space) var(--inline-space);
+
+  &Title {
+    margin: var(--block-space) calc(-1 * var(--inline-space))
+      calc(-1 * var(--block-space));
+    padding: var(--block-space) var(--inline-space);
+
+    display: flex;
+    align-items: center;
+    background-color: var(--admonition-title-background-color);
+    font-weight: bold;
+    border: 1px solid var(--admonition-border-color);
+    border-left: none;
+    border-right: none;
+  }
+}

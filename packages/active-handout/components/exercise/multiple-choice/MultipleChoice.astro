@@ -1,16 +1,27 @@
 ---
 import { setupExercise } from "../server-telemetry";
-import MultipleChoiceExercise, { exerciseType } from "./MultipleChoiceReact";
+import MultipleChoiceExercise, {
+  exerciseType,
+  type ColumnCount,
+  type LetterPosition,
+} from "./ReactComponent/MultipleChoice";
 import type { ExerciseContainerProps } from "../props";
 import { rehypeExtractOptions } from "./rehype-extract-options";
 import config from "virtual:active-handout/user-config";
 
 const handoutPath = Astro.url.pathname;
 
-interface Props extends ExerciseContainerProps {}
+interface Props extends ExerciseContainerProps {
+  columns?: ColumnCount;
+  letterPosition?: LetterPosition;
+}
 
 const baseHTML = await Astro.slots.render("default");
-const { options, html } = rehypeExtractOptions(baseHTML);
+const { options, htmlBefore, htmlAfter } = rehypeExtractOptions(baseHTML);
+
+let { columns, letterPosition } = Astro.props;
+if (!columns) columns = 1;
+if (typeof letterPosition === "undefined") letterPosition = "left";
 
 const [exerciseNumber, latestSubmission, slug] = await setupExercise(
   Astro.props,
@@ -30,10 +41,13 @@ const registryKey = `exercise-registry/multiple-choice-exercise/${handoutPath}/$
   exerciseNumber={exerciseNumber}
   latestSubmission={latestSubmission}
   registryKey={registryKey}
+  htmlBefore={htmlBefore}
+  htmlAfter={htmlAfter}
+  options={options}
+  columns={columns}
+  letterPosition={letterPosition}
   client:visible
->
-  <Fragment set:html={html} />
-</MultipleChoiceExercise>
+/>
 
 {
   (!config.auth || !config.telemetry) && (

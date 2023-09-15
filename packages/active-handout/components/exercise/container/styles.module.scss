@@ -17,6 +17,14 @@
   }
 }
 
+.partiallyCorrectIcon {
+  color: var(--clr-warning);
+
+  circle {
+    fill: var(--clr-warning-contrast);
+  }
+}
+
 .wrongIcon {
   color: var(--clr-error);
 

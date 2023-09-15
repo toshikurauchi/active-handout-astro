@@ -20,6 +20,7 @@
     background-color: var(--admonition-title-background-color);
     font-weight: bold;
     border-bottom: 1px solid var(--admonition-border-color);
+    border-color: var(--admonition-border-color);
   }
 
   &-title,
@@ -71,12 +72,7 @@ $admonitions: (
 
   // Admonition flavour
   .admonition.#{$name} {
-    border-color: $tint;
-  }
-
-  // Admonition flavour title
-  .#{$name} > .admonition-title {
-    border-color: $tint;
-    background-color: color.adjust($tint, $alpha: -0.7);
+    --admonition-border-color: #{$tint};
+    --admonition-title-background-color: #{color.adjust($tint, $alpha: -0.7)};
   }
 }

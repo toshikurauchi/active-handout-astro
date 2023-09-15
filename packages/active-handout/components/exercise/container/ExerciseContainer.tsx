@@ -4,6 +4,7 @@ import Styles from "./styles.module.scss";
 import { useTranslations } from "../../../utils/translations";
 import Admonition from "../../admonition/ReactAdmonition";
 import CorrectIcon from "../icons/CorrectIcon";
+import PartiallyCorrectIcon from "../icons/PartiallyCorrectIcon";
 import WrongIcon from "../icons/WrongIcon";
 import Button from "../../button/ReactButton";
 import Trash from "../../icons/Trash";
@@ -70,6 +71,11 @@ export default function ExerciseContainer({
             </Button>
             {status === "success" && (
               <CorrectIcon className={`${Styles.icon} ${Styles.correctIcon}`} />
+            )}
+            {status === "partial-success" && (
+              <PartiallyCorrectIcon
+                className={`${Styles.icon} ${Styles.partiallyCorrectIcon}`}
+              />
             )}
             {status === "failed" && (
               <WrongIcon className={`${Styles.icon} ${Styles.wrongIcon}`} />

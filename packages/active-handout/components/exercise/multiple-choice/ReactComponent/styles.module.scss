@@ -42,13 +42,18 @@
 // Option
 $option-padding: 0.5em;
 .option {
+  --option-background: var(--clr-secondary);
+  --option-color: var(--clr-secondary-contrast);
+  --option-letter-background: var(--clr-primary);
+  --option-letter-color: var(--clr-primary-contrast);
+
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   padding: 0;
   border-radius: 0.2em;
-  background-color: var(--clr-secondary);
-  color: var(--clr-secondary-contrast);
+  background-color: var(--option-background);
+  color: var(--option-color);
   counter-increment: options;
   overflow: hidden;
   box-shadow: 1px 1px 2px 1px rgba(10, 10, 10, 0.2);
@@ -61,12 +66,20 @@ $option-padding: 0.5em;
     place-items: center;
     height: 100%;
     padding: 0 $option-padding;
-    background-color: var(--clr-primary);
-    color: var(--clr-primary-contrast);
+    background-color: var(--option-letter-background);
+    color: var(--option-letter-color);
   }
 
   &Selected {
-    border: 2px solid var(--clr-primary);
+    border: 2px solid var(--option-letter-background);
+  }
+
+  &:disabled {
+    cursor: default;
+    --option-background: hsl(0, 0%, 90%);
+    --option-color: #000;
+    --option-letter-background: hsl(0, 0%, 40%);
+    --option-letter-color: #fff;
   }
 }
 

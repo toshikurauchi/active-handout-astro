@@ -14,4 +14,4 @@ export type ExerciseBaseProps = {
   children?: React.ReactNode;
 };
 
-export type Status = "unanswered" | "success" | "failed";
+export type Status = "unanswered" | "success" | "partial-success" | "failed";

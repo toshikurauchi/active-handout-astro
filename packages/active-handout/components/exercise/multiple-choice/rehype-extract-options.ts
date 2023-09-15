@@ -1,5 +1,12 @@
 import { rehype } from "rehype";
-import { CONTINUE, SKIP, visit } from "unist-util-visit";
+import { SKIP, visit } from "unist-util-visit";
+import { toHtml } from "hast-util-to-html";
+
+export type Option = {
+  plainContent: string;
+  htmlContent: string;
+  points: number;
+};
 
 function extractTextRec(node: any, text: string[]) {
   if (node.type === "text") {
@@ -19,28 +26,39 @@ const optionsProcessor = rehype()
   .use(function options() {
     return (tree, file) => {
       file.data.options = [];
-      const options = file.data.options as {
-        content: string;
-        correct: boolean;
-      }[];
+      file.data.htmlBefore = "";
+      file.data.htmlAfter = "";
+      const options = file.data.options as Option[];
 
+      let foundOptions = false;
       visit(tree, "element", (node) => {
-        if (!node.properties?.className) return CONTINUE;
-        if (!Array.isArray(node.properties.className)) return CONTINUE;
-        const classNames = node.properties.className as unknown as string[];
-        if (!classNames.includes("exercise-option")) {
-          return CONTINUE;
+        const classNames =
+          node.properties?.className || ([] as unknown as string[]);
+        if (
+          !classNames ||
+          !Array.isArray(classNames) ||
+          !classNames.includes("multiple-choice-option")
+        ) {
+          if (foundOptions) {
+            file.data.htmlAfter += toHtml(node);
+          } else {
+            file.data.htmlBefore += toHtml(node);
+          }
+          return SKIP;
         }
+
+        foundOptions = true;
 
         const lines: string[] = [];
         extractTextRec(node, lines);
 
-        const isCorrect = node.properties.dataCorrect === "correct";
-        delete node.properties.dataCorrect;
+        const points = parseInt((node.properties?.dataPoints || "0") as string);
+        delete node.properties?.dataPoints;
 
         options.push({
-          content: lines.join("").trim(),
-          correct: isCorrect,
+          plainContent: lines.join("").trim(),
+          htmlContent: toHtml(node.children),
+          points,
         });
 
         // Skip over the tab panel’s children.
@@ -51,5 +69,13 @@ const optionsProcessor = rehype()
 
 export function rehypeExtractOptions(exerciseHTML: string) {
   const file = optionsProcessor.processSync({ value: exerciseHTML });
-  return { options: file.data.options, html: file.toString() };
+  return {
+    options: file.data.options,
+    htmlBefore: file.data.htmlBefore,
+    htmlAfter: file.data.htmlAfter,
+  } as {
+    options: Option[];
+    htmlBefore: string;
+    htmlAfter: string;
+  };
 }

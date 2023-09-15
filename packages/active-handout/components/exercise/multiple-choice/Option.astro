@@ -1,11 +1,21 @@
 ---
-import OptionReact from "./OptionReact";
-
+// This component is only used to make it easier to write the mdx.
+// The content of this component is extracted with rehype and then
+// used to generate the actual React component.
 interface Props {
+  points?: number;
   correct?: boolean;
 }
 
-const { correct } = Astro.props;
+let { points, correct } = Astro.props;
+if (correct) {
+  points = points || 100;
+}
+if (!points) {
+  points = 0;
+}
 ---
 
-<OptionReact correct={correct || false} client:visible><slot /></OptionReact>
+<div class="multiple-choice-option" data-points={points}>
+  <slot />
+</div>

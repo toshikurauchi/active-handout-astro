@@ -29,19 +29,26 @@ Try answering the quiz bellow. Answers persist page refreshes, so students won't
         Text explaining correct answer. Only shown after option is selected.
 ```
 
-<MultipleChoice slug="example-choice-exercise">
+<MultipleChoice slug="example-choice-exercise" columns={3}>
 Text of the question.
 
-<Options columns={3}>
-  <Option>wrong option 1</Option>
-  <Option>wrong option 2</Option>
-  <Option correct>correct option</Option>
-</Options>
+<Option>wrong option 1</Option>
+<Option>wrong option 2</Option>
+<Option points={50}>
+Some content in
+
+multiple paragraphs
+
+![Image alt](./monty-python.jpg)
+
+</Option>
+<Option correct>correct option</Option>
 
 You can add more text after the options, if you want.
 
+<Answer>
 Text explaining correct answer. Only shown after option is selected.
-
+</Answer>
 </MultipleChoice>
 
 #### two columns
