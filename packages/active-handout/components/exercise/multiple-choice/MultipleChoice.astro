@@ -3,6 +3,7 @@ import { setupExercise } from "../server-telemetry";
 import MultipleChoiceExercise, { exerciseType } from "./MultipleChoiceReact";
 import type { ExerciseContainerProps } from "../props";
 import { rehypeExtractOptions } from "./rehype-extract-options";
+import config from "virtual:active-handout/user-config";
 
 const handoutPath = Astro.url.pathname;
 
@@ -19,14 +20,25 @@ const [exerciseNumber, latestSubmission, slug] = await setupExercise(
   ["multiple-choice-exercise"],
   { options }
 );
+
+const registryKey = `exercise-registry/multiple-choice-exercise/${handoutPath}/${slug}`;
 ---
 
 <MultipleChoiceExercise
-  pageId={handoutPath}
+  handoutPath={handoutPath}
   slug={slug}
   exerciseNumber={exerciseNumber}
   latestSubmission={latestSubmission}
+  registryKey={registryKey}
   client:visible
 >
   <Fragment set:html={html} />
 </MultipleChoiceExercise>
+
+{
+  (!config.auth || !config.telemetry) && (
+    <script define:vars={{ handoutPath, slug, options, registryKey }}>
+    localStorage.setItem(registryKey, JSON.stringify(options));
+    </script>
+  )
+}

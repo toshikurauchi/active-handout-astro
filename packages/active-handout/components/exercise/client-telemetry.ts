@@ -4,6 +4,8 @@
  * enabled.
  */
 
+import { TelemetryData } from "../../db/telemetry/model";
+
 export async function getTelemetryDataFromServer(
   handoutPath: string,
   exerciseSlug: string

@@ -28,7 +28,7 @@ export const ExerciseContext = createContext<{
 
 export default function ExerciseContainer({
   exerciseNumber,
-  pageId,
+  handoutPath,
   slug,
   latestSubmission,
   children,
@@ -43,7 +43,7 @@ export default function ExerciseContainer({
   const [status, setStatus] = useState<Status>(initialStatus);
 
   const handleClearExercise = () => {
-    clearTelemetry(pageId, slug).then(() => {
+    clearTelemetry(handoutPath, slug).then(() => {
       setReloadData(true);
     });
   };

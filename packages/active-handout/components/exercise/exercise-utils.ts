@@ -9,7 +9,6 @@ import {
   getTelemetryDataFromServer,
   postTelemetryDataToServer,
 } from "./client-telemetry";
-import type { Exercise } from "../../db/exercise/model";
 import type { TelemetryData } from "../../db/telemetry/model";
 
 let postTelemetry: (

@@ -16,7 +16,7 @@ type ProgressExerciseProps = Omit<ExerciseBaseProps, "tags">;
 export const exerciseType = "progress";
 
 export default function ProgressExercise({
-  pageId,
+  handoutPath,
   slug,
   exerciseNumber,
   latestSubmission,
@@ -24,13 +24,13 @@ export default function ProgressExercise({
 }: ProgressExerciseProps) {
   return (
     <ExerciseContainer
-      pageId={pageId}
+      handoutPath={handoutPath}
       slug={slug}
       latestSubmission={latestSubmission}
       exerciseNumber={exerciseNumber}
     >
       <InnerComponent
-        pageId={pageId}
+        handoutPath={handoutPath}
         slug={slug}
         initialDoneValue={latestSubmission?.data?.done}
       >
@@ -41,12 +41,12 @@ export default function ProgressExercise({
 }
 
 function InnerComponent({
-  pageId,
+  handoutPath,
   slug,
   initialDoneValue,
   children,
 }: {
-  pageId: string;
+  handoutPath: string;
   slug: string;
   initialDoneValue: boolean;
   children: React.ReactNode;
@@ -62,7 +62,7 @@ function InnerComponent({
   useEffect(() => {
     if (!reloadData) return;
 
-    fetchTelemetry(pageId, slug).then((telemetry) => {
+    fetchTelemetry(handoutPath, slug).then((telemetry) => {
       if (telemetry?.data?.done) {
         setDone(true);
       } else {
@@ -74,9 +74,11 @@ function InnerComponent({
   }, [reloadData]);
 
   const handleClick = () => {
-    postTelemetry(pageId, slug, exerciseType, 100, { done: true }).then(() => {
-      setDone(true);
-    });
+    postTelemetry(handoutPath, slug, exerciseType, 100, { done: true })
+      .then(() => fetchTelemetry(handoutPath, slug))
+      .then((telemetryData) => {
+        setDone(telemetryData?.data?.done || false);
+      });
   };
 
   return (

@@ -49,7 +49,7 @@ export default function Option({ correct, children }: OptionProps) {
 
   const className = `exercise-option ${Styles.option} ${
     selected ? Styles.optionSelected : ""
-  }`;
+  }`.trim();
 
   return (
     <button

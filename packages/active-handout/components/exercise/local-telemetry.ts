@@ -15,7 +15,6 @@ export function saveTelemetryToLocalStorage(
   if (!handoutPath) throw new Error("handoutPath is required");
   if (!slug) throw new Error("slug is required");
   if (!type) throw new Error("type is required");
-  if (!percentComplete) throw new Error("percentComplete is required");
   if (percentComplete < 0 || percentComplete > 100)
     throw new Error("percentComplete must be between 0 and 100");
 
@@ -25,7 +24,8 @@ export function saveTelemetryToLocalStorage(
     handoutPath,
     slug,
     percentComplete,
-    data
+    data,
+    Date.now()
   );
 
   localStorage.setItem(

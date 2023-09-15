@@ -6,7 +6,7 @@ export interface ExerciseContainerProps {
 }
 
 export type ExerciseBaseProps = {
-  pageId: string;
+  handoutPath: string;
   slug: string;
   exerciseNumber: number;
   latestSubmission?: TelemetryDataCache | null | undefined;

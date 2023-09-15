@@ -24,7 +24,6 @@ const optionsProcessor = rehype()
         correct: boolean;
       }[];
 
-      let optionIndex = 1;
       visit(tree, "element", (node) => {
         if (!node.properties?.className) return CONTINUE;
         if (!Array.isArray(node.properties.className)) return CONTINUE;
@@ -37,13 +36,12 @@ const optionsProcessor = rehype()
         extractTextRec(node, lines);
 
         const isCorrect = node.properties.dataCorrect === "correct";
+        delete node.properties.dataCorrect;
 
         options.push({
           content: lines.join("").trim(),
           correct: isCorrect,
         });
-
-        node.properties.dataOptionIndex = optionIndex++;
 
         // Skip over the tab panel’s children.
         return SKIP;
