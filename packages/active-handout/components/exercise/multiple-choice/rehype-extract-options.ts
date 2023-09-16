@@ -32,8 +32,8 @@ const optionsProcessor = rehype()
 
       let foundOptions = false;
       visit(tree, "element", (node) => {
-        const classNames =
-          node.properties?.className || ([] as unknown as string[]);
+        const classNames = (node.properties?.className ||
+          []) as unknown as string[];
         if (
           !classNames ||
           !Array.isArray(classNames) ||
@@ -61,7 +61,6 @@ const optionsProcessor = rehype()
           points,
         });
 
-        // Skip over the tab panel’s children.
         return SKIP;
       });
     };

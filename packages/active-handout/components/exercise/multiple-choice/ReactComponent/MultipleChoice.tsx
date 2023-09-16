@@ -11,6 +11,7 @@ import { fetchTelemetry, postTelemetry } from "../../exercise-utils";
 import type { Option as OptionData } from "../rehype-extract-options";
 import Option from "./Option";
 import { getOptionPointsFromLocalStorage } from "./utils";
+import AnswerReact from "../../answer/AnswerReact";
 
 const t = useTranslations(config.lang);
 
@@ -21,6 +22,7 @@ type MultipleChoiceExerciseProps = Omit<ExerciseBaseProps, "tags"> & {
   registryKey: string;
   htmlBefore: string;
   htmlAfter: string;
+  answerHTML: string;
   options: OptionData[];
   columns: ColumnCount;
   letterPosition: LetterPosition;
@@ -36,6 +38,7 @@ export default function MultipleChoiceExercise({
   registryKey,
   htmlBefore,
   htmlAfter,
+  answerHTML,
   options,
   columns,
   letterPosition,
@@ -55,6 +58,7 @@ export default function MultipleChoiceExercise({
         registryKey={registryKey}
         htmlBefore={htmlBefore}
         htmlAfter={htmlAfter}
+        answerHTML={answerHTML}
         options={options}
         columns={columns}
         letterPosition={letterPosition}
@@ -78,6 +82,7 @@ function InnerComponent({
   registryKey,
   htmlBefore,
   htmlAfter,
+  answerHTML,
   options,
   columns,
   letterPosition,
@@ -89,6 +94,7 @@ function InnerComponent({
   registryKey: string;
   htmlBefore: string;
   htmlAfter: string;
+  answerHTML: string;
   options: OptionData[];
   columns: ColumnCount;
   letterPosition: LetterPosition;
@@ -101,7 +107,8 @@ function InnerComponent({
     typeof initialPoints === "undefined" ? null : initialPoints
   );
   const [exerciseEnabled, setExerciseEnabled] = useState(true);
-  const { reloadData, setReloadData, setStatus } = useContext(ExerciseContext);
+  const { reloadData, setReloadData, status, setStatus } =
+    useContext(ExerciseContext);
 
   useEffect(() => {
     if (points === null) {
@@ -209,6 +216,12 @@ function InnerComponent({
           {t("msg.submit")}
         </Button>
       </div>
+
+      <AnswerReact
+        answerHTML={answerHTML}
+        visible={!exerciseEnabled}
+        status={status}
+      />
     </div>
   );
 }

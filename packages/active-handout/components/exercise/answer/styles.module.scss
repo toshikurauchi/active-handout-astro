@@ -1,22 +1,40 @@
 .exerciseAnswer {
   --block-space: var(--block-padding, 0.5rem);
   --inline-space: var(--inline-padding, 0.8rem);
+  --title-background-color: var(--clr-primary);
+  --title-color: var(--clr-primary-contrast);
 
   margin: var(--block-space) calc(-1 * var(--inline-space))
     calc(-1 * var(--block-space));
   padding: var(--block-space) var(--inline-space);
 
   &Title {
-    margin: var(--block-space) calc(-1 * var(--inline-space))
-      calc(-1 * var(--block-space));
+    margin: var(--block-space) calc(-1 * var(--inline-space));
     padding: var(--block-space) var(--inline-space);
 
     display: flex;
     align-items: center;
-    background-color: var(--admonition-title-background-color);
+    background-color: var(--title-background-color);
+    color: var(--title-color);
     font-weight: bold;
-    border: 1px solid var(--admonition-border-color);
+
+    border: 1px solid var(--title-color);
     border-left: none;
     border-right: none;
+  }
+
+  &.correct {
+    --title-background-color: var(--clr-success-contrast);
+    --title-color: var(--clr-success);
+  }
+
+  &.partiallyCorrect {
+    --title-background-color: var(--clr-warning-contrast);
+    --title-color: var(--clr-warning);
+  }
+
+  &.wrong {
+    --title-background-color: var(--clr-error-contrast);
+    --title-color: var(--clr-error);
   }
 }

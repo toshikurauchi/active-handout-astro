@@ -7,6 +7,7 @@ import MultipleChoiceExercise, {
 } from "./ReactComponent/MultipleChoice";
 import type { ExerciseContainerProps } from "../props";
 import { rehypeExtractOptions } from "./rehype-extract-options";
+import { rehypeExtractAnswer } from "../answer/rehype-extract-answer";
 import config from "virtual:active-handout/user-config";
 
 const handoutPath = Astro.url.pathname;
@@ -17,7 +18,9 @@ interface Props extends ExerciseContainerProps {
 }
 
 const baseHTML = await Astro.slots.render("default");
-const { options, htmlBefore, htmlAfter } = rehypeExtractOptions(baseHTML);
+const [answerHTML, htmlWithoutAnswer] = rehypeExtractAnswer(baseHTML);
+const { options, htmlBefore, htmlAfter } =
+  rehypeExtractOptions(htmlWithoutAnswer);
 
 let { columns, letterPosition } = Astro.props;
 if (!columns) columns = 1;
@@ -43,6 +46,7 @@ const registryKey = `exercise-registry/multiple-choice-exercise/${handoutPath}/$
   registryKey={registryKey}
   htmlBefore={htmlBefore}
   htmlAfter={htmlAfter}
+  answerHTML={answerHTML}
   options={options}
   columns={columns}
   letterPosition={letterPosition}
