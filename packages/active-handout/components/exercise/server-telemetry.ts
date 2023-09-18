@@ -4,20 +4,25 @@ import { getTelemetrySummary } from "../../db/telemetry-summary/queries";
 import { Exercise } from "../../db/exercise/model";
 import { handoutIdFromPath } from "../../firebase/schema";
 import type { ExerciseContainerProps } from "./props";
+import { rehypeExtractAnswer } from "./answer/rehype-extract-answer";
 
-export async function setupExercise(
+export async function buildExerciseContainerProps(
+  baseHTML: string,
   props: ExerciseContainerProps,
   cache: App.Locals,
   handoutPath: string,
   exerciseType: string,
   extraTags: string[],
-  data: any
+  getData: (baseHTML: string) => [any, any]
 ) {
   if (!props.tags) {
     props.tags = [];
   }
   const { slug, tags } = props;
   tags.push(...extraTags);
+
+  const [answerHTML, htmlWithoutAnswer] = rehypeExtractAnswer(baseHTML);
+  const [data, extraProps] = getData(htmlWithoutAnswer);
 
   const exercise = await createOrGetExerciseFromCache(
     cache,
@@ -43,7 +48,20 @@ export async function setupExercise(
     latestSubmission = getLatestSubmissionFromCache(cache, slug);
   }
 
-  return [exerciseNumber, latestSubmission, slug] as const;
+  const registryKey = `exercise-registry/${exerciseType}/${handoutPath}/${slug}`;
+
+  return {
+    exerciseData: !config.auth || !config.telemetry ? data : undefined,
+    baseHTML: htmlWithoutAnswer,
+    answerHTML,
+    registryKey,
+    handoutPath,
+    exerciseType,
+    slug,
+    exerciseNumber,
+    latestSubmission,
+    ...extraProps,
+  };
 }
 
 export async function createOrGetExerciseFromCache(
@@ -99,6 +117,16 @@ export function getAutoIncrementedExerciseNumber(
   const exerciseSlugs = exercises.map((exercise: Exercise) => exercise.slug);
   const slugIndex = exerciseSlugs.indexOf(exercise.slug);
   if (slugIndex >= 0) {
+    const previousExercise = exercises[slugIndex];
+    if (
+      previousExercise?.type !== exercise.type ||
+      previousExercise?.tags !== exercise.tags ||
+      previousExercise?.data !== exercise.data
+    ) {
+      throw new Error(
+        `Exercise ${exercise.slug} already exists with different type, tags or data`
+      );
+    }
     return slugIndex + 1;
   }
 

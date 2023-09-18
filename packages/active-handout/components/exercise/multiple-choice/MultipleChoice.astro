@@ -1,14 +1,11 @@
 ---
-import { setupExercise } from "../server-telemetry";
+import { buildExerciseContainerProps } from "../server-telemetry";
 import MultipleChoiceExercise, {
   exerciseType,
-  type ColumnCount,
-  type LetterPosition,
 } from "./ReactComponent/MultipleChoice";
 import type { ExerciseContainerProps } from "../props";
 import { rehypeExtractOptions } from "./rehype-extract-options";
-import { rehypeExtractAnswer } from "../answer/rehype-extract-answer";
-import config from "virtual:active-handout/user-config";
+import type { ColumnCount, LetterPosition } from "./ReactComponent/props";
 
 const handoutPath = Astro.url.pathname;
 
@@ -17,46 +14,27 @@ interface Props extends ExerciseContainerProps {
   letterPosition?: LetterPosition;
 }
 
-const baseHTML = await Astro.slots.render("default");
-const [answerHTML, htmlWithoutAnswer] = rehypeExtractAnswer(baseHTML);
-const { options, htmlBefore, htmlAfter } =
-  rehypeExtractOptions(htmlWithoutAnswer);
-
 let { columns, letterPosition } = Astro.props;
 if (!columns) columns = 1;
 if (typeof letterPosition === "undefined") letterPosition = "left";
 
-const [exerciseNumber, latestSubmission, slug] = await setupExercise(
+const props = await buildExerciseContainerProps(
+  await Astro.slots.render("default"),
   Astro.props,
   Astro.locals,
   handoutPath,
   exerciseType,
   ["multiple-choice-exercise"],
-  { options }
+  (baseHTML: string) => {
+    const { options, htmlBefore, htmlAfter } = rehypeExtractOptions(baseHTML);
+    return [{ options }, { options, htmlBefore, htmlAfter }];
+  }
 );
-
-const registryKey = `exercise-registry/multiple-choice-exercise/${handoutPath}/${slug}`;
 ---
 
 <MultipleChoiceExercise
-  handoutPath={handoutPath}
-  slug={slug}
-  exerciseNumber={exerciseNumber}
-  latestSubmission={latestSubmission}
-  registryKey={registryKey}
-  htmlBefore={htmlBefore}
-  htmlAfter={htmlAfter}
-  answerHTML={answerHTML}
-  options={options}
+  {...props}
   columns={columns}
   letterPosition={letterPosition}
   client:visible
 />
-
-{
-  (!config.auth || !config.telemetry) && (
-    <script define:vars={{ handoutPath, slug, options, registryKey }}>
-    localStorage.setItem(registryKey, JSON.stringify(options));
-    </script>
-  )
-}

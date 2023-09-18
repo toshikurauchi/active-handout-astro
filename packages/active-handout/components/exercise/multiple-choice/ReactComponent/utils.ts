@@ -1,11 +1,11 @@
 export function getOptionPointsFromLocalStorage(
   registryKey: string,
-  selectedOption: number
+  selectedOption: number | null
 ) {
-  const options = localStorage.getItem(registryKey);
-  if (options) {
-    const parsedOptions = JSON.parse(options);
-    const optionData = parsedOptions?.[selectedOption];
+  const exerciseDataStr = localStorage.getItem(registryKey);
+  if (exerciseDataStr && selectedOption !== null) {
+    const exerciseData = JSON.parse(exerciseDataStr);
+    const optionData = exerciseData?.options?.[selectedOption];
     if (optionData) {
       return optionData.points;
     }

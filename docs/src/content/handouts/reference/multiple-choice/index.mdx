@@ -2,10 +2,6 @@
 title: Multiple Choice Exercises
 ---
 
-The choices are written as unordered lists using the ascii checkbox `[ ]` for options. The correct answer is indicated by a filled checkbox (`[x]`). Any number of choices are allowed. A text explaining the correct answer is also required and it will be shown after the student answers the quiz.
-
-You can choose to display the quiz in one or two column format as you see fit for your activity
-
 ## Suggested uses
 
 - Memorization of simple concepts
@@ -16,61 +12,70 @@ You can choose to display the quiz in one or two column format as you see fit fo
 
 Try answering the quiz bellow. Answers persist page refreshes, so students won't loose their progress after the end of a session.
 
-```
-!!! exercise choice "Question"
-    Text of the question.
-
-    - [ ] option 1
-    - [ ] option 2
-    - [X] correct option
-
-
-    !!! answer
-        Text explaining correct answer. Only shown after option is selected.
-```
-
-<MultipleChoice slug="example-choice-exercise" columns={3}>
+<MultipleChoice slug="example-choice-exercise">
 Text of the question.
 
 <Option>wrong option 1</Option>
 <Option>wrong option 2</Option>
-<Option points={50}>
-Some content in
-
-multiple paragraphs
-
-![Image alt](./monty-python.jpg)
-
-</Option>
 <Option correct>correct option</Option>
 
-You can add more text after the options, if you want.
+You can add more content after the options, if you want.
 
 <Answer>
 Text explaining correct answer. Only shown after option is selected.
 </Answer>
 </MultipleChoice>
 
-#### two columns
-
-```
-!!! exercise choice two-cols
-    Text of the question.
-
-    - [ ] option 1
-    - [ ] option 2
-    - [X] correct option
-
-    !!! answer
-        Text explaining correct answer. Only shown after option is selected.
-```
-
-!!! exercise choice two-cols
+```md
+<MultipleChoice slug="example-choice-exercise">
 Text of the question.
 
-    - [ ] option 1
-    - [ ] option 2
-    - [X] correct option
+<Option>wrong option 1</Option>
+<Option>wrong option 2</Option>
+<Option correct>correct option</Option>
 
-    !!! answer
-        Text explaining correct answer. Only shown after option is selected.
+You can add more content after the options, if you want.
+
+<Answer>
+Text explaining correct answer. Only shown after option is selected.
+</Answer>
+</MultipleChoice>
+```
+
+#### Multiple columns and partial points
+
+<MultipleChoice slug="example-choice-exercise-with-partials" columns={3}>
+Text of the question.
+
+<Option>wrong option</Option>
+<Option points={20}>20% correct option</Option>
+<Option points={30}>30% correct option</Option>
+<Option points={40}>40% correct option</Option>
+<Option points={50}>50% correct option</Option>
+<Option correct>correct option</Option>
+
+You can add more content after the options, if you want.
+
+<Answer>
+Text explaining correct answer. Only shown after option is selected.
+</Answer>
+</MultipleChoice>
+
+```md
+<MultipleChoice slug="example-choice-exercise-with-partials" columns={3}>
+Text of the question.
+
+<Option>wrong option</Option>
+<Option points={20}>20% correct option</Option>
+<Option points={30}>30% correct option</Option>
+<Option points={40}>40% correct option</Option>
+<Option points={50}>50% correct option</Option>
+<Option correct>correct option</Option>
+
+You can add more content after the options, if you want.
+
+<Answer>
+Text explaining correct answer. Only shown after option is selected.
+</Answer>
+</MultipleChoice>
+```

@@ -1,5 +1,5 @@
 ---
-import { setupExercise } from "../server-telemetry";
+import { buildExerciseContainerProps } from "../server-telemetry";
 import ReactProgressExercise, { exerciseType } from "./ReactComponent";
 import type { ExerciseContainerProps } from "../props";
 
@@ -7,22 +7,19 @@ const handoutPath = Astro.url.pathname;
 
 interface Props extends ExerciseContainerProps {}
 
-const [exerciseNumber, latestSubmission, slug] = await setupExercise(
+const props = await buildExerciseContainerProps(
+  await Astro.slots.render("default"),
   Astro.props,
   Astro.locals,
   handoutPath,
   exerciseType,
   ["progress-exercise"],
-  {}
+  () => {
+    return [{}, {}];
+  }
 );
 ---
 
-<ReactProgressExercise
-  handoutPath={handoutPath}
-  slug={slug}
-  exerciseNumber={exerciseNumber}
-  latestSubmission={latestSubmission}
-  client:visible
->
+<ReactProgressExercise {...props} client:visible>
   <slot />
 </ReactProgressExercise>

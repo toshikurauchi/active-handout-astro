@@ -7,53 +7,29 @@ import ExerciseContainer, {
 } from "../container/ExerciseContainer";
 import type { ExerciseBaseProps } from "../props";
 import Styles from "./styles.module.scss";
-import { fetchTelemetry, postTelemetry } from "../exercise-utils";
 
 const t = useTranslations(config.lang);
 
-type ProgressExerciseProps = Omit<ExerciseBaseProps, "tags">;
-
 export const exerciseType = "progress";
 
-export default function ProgressExercise({
-  handoutPath,
-  slug,
-  exerciseNumber,
-  latestSubmission,
-  children,
-}: ProgressExerciseProps) {
+export default function ProgressExercise(props: ExerciseBaseProps) {
   return (
-    <ExerciseContainer
-      handoutPath={handoutPath}
-      slug={slug}
-      latestSubmission={latestSubmission}
-      exerciseNumber={exerciseNumber}
-    >
-      <InnerComponent
-        handoutPath={handoutPath}
-        slug={slug}
-        initialDoneValue={latestSubmission?.data?.done}
-      >
-        {children}
+    <ExerciseContainer {...props}>
+      <InnerComponent {...props}>
+        <div dangerouslySetInnerHTML={{ __html: props.baseHTML }} />
       </InnerComponent>
     </ExerciseContainer>
   );
 }
 
 function InnerComponent({
-  handoutPath,
-  slug,
-  initialDoneValue,
+  latestSubmission,
   children,
-}: {
-  handoutPath: string;
-  slug: string;
-  initialDoneValue: boolean;
-  children: React.ReactNode;
-}) {
-  const [done, setDone] = useState(initialDoneValue || false);
+}: ExerciseBaseProps & { children: React.ReactNode }) {
+  const [done, setDone] = useState(latestSubmission?.data?.done || false);
 
-  const { reloadData, setReloadData, setStatus } = useContext(ExerciseContext);
+  const { reloadData, setReloadData, setStatus, getTelemetry, setTelemetry } =
+    useContext(ExerciseContext);
 
   useEffect(() => {
     setStatus(done ? "success" : "unanswered");
@@ -62,7 +38,7 @@ function InnerComponent({
   useEffect(() => {
     if (!reloadData) return;
 
-    fetchTelemetry(handoutPath, slug).then((telemetry) => {
+    getTelemetry().then((telemetry) => {
       if (telemetry?.data?.done) {
         setDone(true);
       } else {
@@ -74,11 +50,9 @@ function InnerComponent({
   }, [reloadData]);
 
   const handleClick = () => {
-    postTelemetry(handoutPath, slug, exerciseType, 100, { done: true })
-      .then(() => fetchTelemetry(handoutPath, slug))
-      .then((telemetryData) => {
-        setDone(telemetryData?.data?.done || false);
-      });
+    setTelemetry(100, { done: true }).then((telemetryData) => {
+      setDone(telemetryData?.data?.done || false);
+    });
   };
 
   return (

@@ -10,8 +10,9 @@ import Button from "../../button/ReactButton";
 import Trash from "../../icons/Trash";
 import type { ExerciseBaseProps, Status } from "../props";
 import { clearTelemetry } from "../exercise-utils";
-
-type ExerciseContainerProps = Omit<ExerciseBaseProps, "tags">;
+import AnswerReact from "../answer/AnswerReact";
+import { fetchTelemetry, postTelemetry } from "../exercise-utils";
+import type { TelemetryData } from "../../../db/telemetry/model";
 
 const t = useTranslations(config.lang);
 
@@ -19,22 +20,34 @@ export const ExerciseContext = createContext<{
   reloadData: boolean;
   setReloadData: React.Dispatch<React.SetStateAction<boolean>>;
   status: Status;
+  exerciseEnabled: boolean;
   setStatus: React.Dispatch<React.SetStateAction<Status>>;
+  getTelemetry: () => Promise<TelemetryData | null | undefined>;
+  setTelemetry: (
+    percentComplete: number,
+    data: any
+  ) => Promise<TelemetryData | null | undefined>;
 }>({
   reloadData: true,
   setReloadData: () => {},
   status: "unanswered",
+  exerciseEnabled: true,
   setStatus: () => {},
+  getTelemetry: async () => null,
+  setTelemetry: async () => null,
 });
 
 export default function ExerciseContainer({
   exerciseNumber,
   handoutPath,
   slug,
+  registryKey,
+  exerciseData,
   latestSubmission,
+  exerciseType,
   answerHTML,
   children,
-}: ExerciseContainerProps) {
+}: ExerciseBaseProps) {
   // Start reloading data as soon as the component is mounted
   const [reloadData, setReloadData] = useState(true);
   const initialStatus = !latestSubmission
@@ -55,6 +68,26 @@ export default function ExerciseContainer({
       handleClearExercise();
     });
   }, []);
+
+  useEffect(() => {
+    if (exerciseData) {
+      localStorage.setItem(registryKey, JSON.stringify(exerciseData));
+    }
+  }, [exerciseData]);
+
+  const getTelemetry = () => {
+    return fetchTelemetry(handoutPath, slug);
+  };
+
+  const setTelemetry = async (percentComplete: number, data: any) => {
+    return postTelemetry(
+      handoutPath,
+      slug,
+      exerciseType,
+      percentComplete,
+      data
+    ).then(() => fetchTelemetry(handoutPath, slug));
+  };
 
   return (
     <Admonition
@@ -86,10 +119,26 @@ export default function ExerciseContainer({
       }
     >
       <ExerciseContext.Provider
-        value={{ reloadData, setReloadData, status, setStatus }}
+        value={{
+          reloadData,
+          setReloadData,
+          status,
+          exerciseEnabled: status === "unanswered",
+          setStatus,
+          getTelemetry,
+          setTelemetry,
+        }}
       >
         {children}
       </ExerciseContext.Provider>
+
+      {answerHTML && (
+        <AnswerReact
+          answerHTML={answerHTML}
+          visible={status !== "unanswered"}
+          status={status}
+        />
+      )}
     </Admonition>
   );
 }

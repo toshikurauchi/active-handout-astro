@@ -8,10 +8,13 @@ export interface ExerciseContainerProps {
 export type ExerciseBaseProps = {
   handoutPath: string;
   slug: string;
+  exerciseData?: any;
+  exerciseType: string;
+  registryKey: string;
   exerciseNumber: number;
   answerHTML?: string;
+  baseHTML: string;
   latestSubmission?: TelemetryDataCache | null | undefined;
-  tags?: string[];
   children?: React.ReactNode;
 };
 
