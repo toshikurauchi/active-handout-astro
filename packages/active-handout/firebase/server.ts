@@ -61,15 +61,15 @@ if (config.auth) {
 }
 
 let db: Database | undefined;
-try {
-  db = getDatabase(app);
-} catch (e) {
-  console.log("Error getting database", e);
-}
 
 function getDB() {
   if (!db) {
-    throw new Error("Database not initialized");
+    try {
+      db = getDatabase(app);
+    } catch (e) {
+      console.log("Error getting database", e);
+      throw new Error("Database not initialized");
+    }
   }
   return db;
 }

@@ -49,6 +49,7 @@ export default function MultipleChoiceExercise({
       slug={slug}
       latestSubmission={latestSubmission}
       exerciseNumber={exerciseNumber}
+      answerHTML={answerHTML}
     >
       <InnerComponent
         handoutPath={handoutPath}

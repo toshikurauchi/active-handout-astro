@@ -9,6 +9,7 @@ export type ExerciseBaseProps = {
   handoutPath: string;
   slug: string;
   exerciseNumber: number;
+  answerHTML?: string;
   latestSubmission?: TelemetryDataCache | null | undefined;
   tags?: string[];
   children?: React.ReactNode;

@@ -32,6 +32,7 @@ export default function ExerciseContainer({
   handoutPath,
   slug,
   latestSubmission,
+  answerHTML,
   children,
 }: ExerciseContainerProps) {
   // Start reloading data as soon as the component is mounted

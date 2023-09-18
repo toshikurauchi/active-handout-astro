@@ -27,7 +27,7 @@ const answerProcessor = rehype()
     };
   });
 
-export function rehypeExtractAnswer(exerciseHTML: string) {
+export function rehypeExtractAnswer(exerciseHTML: string): [string, string] {
   const file = answerProcessor.processSync({ value: exerciseHTML });
   return [file.data.answer as string, file.toString()];
 }
