@@ -1,0 +1,33 @@
+---
+title: Embed PDF
+---
+
+You can also embed PDF files in the handout. PDF files must be placed in the `public` folder and can be [accessed via absolute path](https://docs.astro.build/en/core-concepts/project-structure/#public).
+
+## Syntax
+
+```
+<PDFViewer url="/slides.pdf" aspect="16:9" />
+```
+
+<PDFViewer url="/slides.pdf" aspect="16:9" />
+
+The available aspect ratios are:
+
+- `1:1`
+- `4:3`
+- `3:4`
+- `16:9`
+- `9:16`
+- `3:2`
+- `2:3`
+- `8:5`
+- `5:8`
+- `A4`
+- `A4-landscape`
+
+## Recommended uses
+
+- Lecture slides for theoretical reference during practical sessions
+- Preparatory readings
+- Datasheets and other technical reference material
