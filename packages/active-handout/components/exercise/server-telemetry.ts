@@ -1,19 +1,23 @@
 import config from "virtual:active-handout/user-config";
-import { createExercise } from "../../db/exercise/queries";
+import { createOrUpdateExercise } from "../../db/exercise/queries";
 import { getTelemetrySummary } from "../../db/telemetry-summary/queries";
 import { Exercise } from "../../db/exercise/model";
 import { handoutIdFromPath } from "../../firebase/schema";
 import type { ExerciseContainerProps } from "./props";
 import { rehypeExtractAnswer } from "./answer/rehype-extract-answer";
 
-export async function buildExerciseContainerProps(
+export async function buildExerciseContainerProps<T>(
   baseHTML: string,
   props: ExerciseContainerProps,
   cache: App.Locals,
   handoutPath: string,
   exerciseType: string,
   extraTags: string[],
-  getData: (baseHTML: string) => [any, any]
+  getData: (baseHTML: string) => {
+    data: any;
+    extraProps: T;
+    newHTML?: string;
+  }
 ) {
   if (!props.tags) {
     props.tags = [];
@@ -22,7 +26,7 @@ export async function buildExerciseContainerProps(
   tags.push(...extraTags);
 
   const [answerHTML, htmlWithoutAnswer] = rehypeExtractAnswer(baseHTML);
-  const [data, extraProps] = getData(htmlWithoutAnswer);
+  const { data, extraProps, newHTML } = getData(htmlWithoutAnswer);
 
   const exercise = await createOrGetExerciseFromCache(
     cache,
@@ -52,7 +56,7 @@ export async function buildExerciseContainerProps(
 
   return {
     exerciseData: !config.auth || !config.telemetry ? data : undefined,
-    baseHTML: htmlWithoutAnswer,
+    baseHTML: typeof newHTML === "undefined" ? htmlWithoutAnswer : newHTML,
     answerHTML,
     registryKey,
     handoutPath,
@@ -80,10 +84,15 @@ export async function createOrGetExerciseFromCache(
     const exercise = cache.handout?.exercises.find(
       (exercise) => exercise.slug === slug
     );
-    if (exercise) {
-      return exercise;
+    if (
+      !exercise ||
+      exercise.type !== type ||
+      exercise.tags !== tags ||
+      exercise.data !== data
+    ) {
+      return await createOrUpdateExercise(slug, type, handoutPath, tags, data);
     } else {
-      return await createExercise(slug, type, handoutPath, tags, data);
+      return exercise;
     }
   } else {
     const pageId = handoutIdFromPath(handoutPath);

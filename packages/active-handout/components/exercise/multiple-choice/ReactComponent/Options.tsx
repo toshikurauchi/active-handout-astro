@@ -3,13 +3,12 @@ import config from "virtual:active-handout/user-config";
 import { useTranslations } from "../../../../utils/translations";
 import Styles from "./styles.module.scss";
 import Option from "./Option";
-import type { Option as OptionData } from "../rehype-extract-options";
 import type { ColumnCount, LetterPosition } from "./props";
 
 const t = useTranslations(config.lang);
 
 type OptionsProps = {
-  options: OptionData[];
+  options: string[];
   columns: ColumnCount;
   letterPosition: LetterPosition;
   selectedOption: number | null;
@@ -60,7 +59,7 @@ export default function Options({
         {options.map((option, idx) => (
           <Option
             key={`option--${idx}`}
-            html={option.htmlContent}
+            html={option}
             onClick={buildOptionClickHandler(idx)}
             disabled={!exerciseEnabled}
             selected={optionsStatus[idx] as boolean}
@@ -94,7 +93,7 @@ function buildOptionsClassName(
 }
 
 function buildOptionsStatus(
-  options: OptionData[],
+  options: string[],
   selectedOption: number | undefined
 ) {
   return options.map((_, idx) => idx === selectedOption);

@@ -81,8 +81,14 @@ export default function ActiveHandoutIntegration(
               entryPoint:
                 "@toshikurauchi/active-handout/pages/api/telemetry/index.ts",
             });
+            injectRoute({
+              pattern: "api/auto-grade/multiple-choice",
+              entryPoint:
+                "@toshikurauchi/active-handout/pages/api/auto-grade/multiple-choice.ts",
+            });
           }
         }
+
         const newConfig: AstroUserConfig = {
           // Setup auth
           // IMPORTANT: if you are using auth, you must set an adapter in the configurations

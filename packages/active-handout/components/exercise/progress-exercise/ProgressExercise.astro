@@ -14,9 +14,10 @@ const props = await buildExerciseContainerProps(
   handoutPath,
   exerciseType,
   ["progress-exercise"],
-  () => {
-    return [{}, {}];
-  }
+  () => ({
+    data: {},
+    extraProps: {},
+  })
 );
 ---
 

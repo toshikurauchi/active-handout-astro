@@ -27,7 +27,12 @@ const props = await buildExerciseContainerProps(
   ["multiple-choice-exercise"],
   (baseHTML: string) => {
     const { options, htmlBefore, htmlAfter } = rehypeExtractOptions(baseHTML);
-    return [{ options }, { options, htmlBefore, htmlAfter }];
+    const cleanOptions = options.map((option) => option.htmlContent);
+    return {
+      data: { options },
+      extraProps: { options: cleanOptions, htmlBefore, htmlAfter },
+      newHTML: "",
+    };
   }
 );
 ---

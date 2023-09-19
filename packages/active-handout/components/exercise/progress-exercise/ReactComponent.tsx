@@ -28,11 +28,11 @@ function InnerComponent({
 }: ExerciseBaseProps & { children: React.ReactNode }) {
   const [done, setDone] = useState(latestSubmission?.data?.done || false);
 
-  const { reloadData, setReloadData, setStatus, getTelemetry, setTelemetry } =
+  const { reloadData, setReloadData, setPoints, getTelemetry, setTelemetry } =
     useContext(ExerciseContext);
 
   useEffect(() => {
-    setStatus(done ? "success" : "unanswered");
+    setPoints(done ? 100 : null);
   }, [done]);
 
   useEffect(() => {

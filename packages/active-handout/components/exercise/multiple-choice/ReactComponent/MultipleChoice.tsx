@@ -3,7 +3,6 @@ import ExerciseContainer, {
   ExerciseContext,
 } from "../../container/ExerciseContainer";
 import type { ExerciseBaseProps } from "../../props";
-import type { Option as OptionData } from "../rehype-extract-options";
 import { getOptionPointsFromLocalStorage } from "./utils";
 import ExerciseSubmitButton from "../../submit-button/ExerciseSubmitButton";
 import type { ColumnCount, LetterPosition } from "./props";
@@ -13,7 +12,7 @@ type MultipleChoiceExerciseProps = ExerciseBaseProps & {
   htmlBefore: string;
   htmlAfter: string;
   answerHTML: string;
-  options: OptionData[];
+  options: string[];
   columns: ColumnCount;
   letterPosition: LetterPosition;
 };
@@ -47,30 +46,14 @@ function InnerComponent(props: MultipleChoiceExerciseProps) {
     latestSubmission?.data?.option ?? null
   );
 
-  const initialPoints = latestSubmission?.percentComplete;
-  const [points, setPoints] = useState<number | null>(
-    typeof initialPoints === "undefined" ? null : initialPoints
-  );
   const {
     reloadData,
     setReloadData,
-    setStatus,
+    setPoints,
     getTelemetry,
     setTelemetry,
     exerciseEnabled,
   } = useContext(ExerciseContext);
-
-  // Update exercise status when points change
-  useEffect(() => {
-    if (points === null) {
-      setStatus("unanswered");
-    } else {
-      setStatus(
-        points < 100 ? (points < 10 ? "failed" : "partial-success") : "success"
-      );
-    }
-  }, [points]);
-
   // Update points and options status when requested by container
   useEffect(() => {
     if (!reloadData) return;

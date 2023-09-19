@@ -21,7 +21,8 @@ export const ExerciseContext = createContext<{
   setReloadData: React.Dispatch<React.SetStateAction<boolean>>;
   status: Status;
   exerciseEnabled: boolean;
-  setStatus: React.Dispatch<React.SetStateAction<Status>>;
+  points: number | null;
+  setPoints: React.Dispatch<React.SetStateAction<number | null>>;
   getTelemetry: () => Promise<TelemetryData | null | undefined>;
   setTelemetry: (
     percentComplete: number,
@@ -32,7 +33,8 @@ export const ExerciseContext = createContext<{
   setReloadData: () => {},
   status: "unanswered",
   exerciseEnabled: true,
-  setStatus: () => {},
+  points: 0,
+  setPoints: () => {},
   getTelemetry: async () => null,
   setTelemetry: async () => null,
 });
@@ -52,10 +54,20 @@ export default function ExerciseContainer({
   const [reloadData, setReloadData] = useState(true);
   const initialStatus = !latestSubmission
     ? "unanswered"
-    : latestSubmission.percentComplete > 99.9
-    ? "success"
-    : "failed";
+    : pointsToStatus(latestSubmission.percentComplete);
   const [status, setStatus] = useState<Status>(initialStatus);
+  const initialPoints = latestSubmission?.percentComplete;
+  const [points, setPoints] = useState<number | null>(
+    typeof initialPoints === "undefined" ? null : initialPoints
+  );
+
+  useEffect(() => {
+    if (points === null) {
+      setStatus("unanswered");
+    } else {
+      setStatus(pointsToStatus(points));
+    }
+  }, [points]);
 
   const handleClearExercise = () => {
     clearTelemetry(handoutPath, slug).then(() => {
@@ -124,7 +136,8 @@ export default function ExerciseContainer({
           setReloadData,
           status,
           exerciseEnabled: status === "unanswered",
-          setStatus,
+          points,
+          setPoints,
           getTelemetry,
           setTelemetry,
         }}
@@ -141,4 +154,13 @@ export default function ExerciseContainer({
       )}
     </Admonition>
   );
+}
+
+function pointsToStatus(points: number | null): Status {
+  if (points === null) return "unanswered";
+  return points < 100
+    ? points < 10
+      ? "failed"
+      : "partial-success"
+    : "success";
 }
