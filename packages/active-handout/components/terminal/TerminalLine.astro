@@ -1,0 +1,15 @@
+---
+interface Props {
+  input?: boolean;
+  progress?: boolean;
+}
+
+const { input, progress } = Astro.props;
+if (input && progress) {
+  throw new Error('The "input" and "progress" props cannot be used together');
+}
+---
+
+<span data-ty={input ? "input" : progress ? "progress" : ""}>
+  <slot />
+</span>

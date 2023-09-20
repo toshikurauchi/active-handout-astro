@@ -1,0 +1,26 @@
+---
+title: Terminal
+---
+
+This plugin renders a nice terminal on the page. It is just a wrapper to the opensource [termynal](https://github.com/ines/termynal) using its default configuration.
+
+<Terminal>
+  <TerminalLine input>pip install spaCy</TerminalLine>
+  <TerminalLine progress />
+  <TerminalLine>Successfully installed spacy</TerminalLine>
+</Terminal>
+
+## Syntax
+
+```md
+<Terminal>
+  <TerminalLine input>pip install spaCy</TerminalLine>
+  <TerminalLine progress />
+  <TerminalLine>Successfully installed spacy</TerminalLine>
+</Terminal>
+```
+
+Optional flags:
+
+- `input`: Animates an input on the terminal
+- `progress`: Generates a progress bar

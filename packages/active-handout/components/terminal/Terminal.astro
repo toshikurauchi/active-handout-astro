@@ -1,0 +1,11 @@
+---
+import ReactTermynal from "./ReactTermynal";
+---
+
+<ReactTermynal client:only>
+  <slot />
+</ReactTermynal>
+
+<style lang="scss">
+  @use "./termynal/termynal.css";
+</style>
