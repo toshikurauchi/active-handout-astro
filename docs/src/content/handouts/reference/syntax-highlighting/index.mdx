@@ -1,0 +1,42 @@
+---
+title: Syntax highlighting
+---
+
+You can wrap inline code between backticks (`` ` ``) to apply inline syntax highlighting. Example: `` `#!python print('Hello world')` `` will be rendered as `#!python print('Hello world')` (note that you have to start the code with `#!text #!LANGUAGE` for the highlighter to work).
+
+You can also use [Fenced Code Blocks](https://docs.astro.build/en/guides/markdown-content/#syntax-highlighting), i.e., wrap multiline code between triple backticks (` ``` `). Example:
+
+<TabGroup>
+<TabItem label="Result">
+
+```python
+def func(arg1, arg2):
+    """
+    Docstrings
+    """
+    m = max(arg1, arg2)  # Some comment
+    return m
+
+if __name__=='__main__':
+    print(func(21, 32))
+```
+
+</TabItem>
+<TabItem label="Source">
+
+````
+```python
+def func(arg1, arg2):
+    """
+    Docstrings
+    """
+    m = max(arg1, arg2)  # Some comment
+    return m
+
+if __name__=='__main__':
+    print(func(21, 32))
+```
+````
+
+</TabItem>
+</TabGroup>

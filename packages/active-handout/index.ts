@@ -13,6 +13,7 @@ import {
   type ActiveHandoutUserConfig,
 } from "./utils/user-config";
 import { errorMap } from "./utils/error-map";
+import { remarkInlinePrism } from "./remark/remark-inline-prism";
 
 export default function ActiveHandoutIntegration(
   opts: ActiveHandoutUserConfig
@@ -97,7 +98,7 @@ export default function ActiveHandoutIntegration(
 
           markdown: {
             syntaxHighlight: "prism",
-            remarkPlugins: [emoji],
+            remarkPlugins: [remarkInlinePrism, emoji],
             rehypePlugins: [
               rehypeAccessibleEmojis,
               rehypeSlug,

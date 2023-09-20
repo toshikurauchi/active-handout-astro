@@ -35,18 +35,19 @@ const className = `container ${classNames[aspect || "1:1"]}`;
 
 <style lang="scss">
   @use "sass:map";
+  @use "sass:math";
   $ratios: (
-    "1-1": 1 / 1,
-    "4-3": 4 / 3,
-    "3-4": 3 / 4,
-    "16-9": 16 / 9,
-    "9-16": 9 / 16,
-    "3-2": 3 / 2,
-    "2-3": 2 / 3,
-    "8-5": 8 / 5,
-    "5-8": 5 / 8,
-    "a4": 210 / 297,
-    "a4-landscape": 297 / 210,
+    "1-1": math.div(1, 1),
+    "4-3": math.div(4, 3),
+    "3-4": math.div(3, 4),
+    "16-9": math.div(16, 9),
+    "9-16": math.div(9, 16),
+    "3-2": math.div(3, 2),
+    "2-3": math.div(2, 3),
+    "8-5": math.div(8, 5),
+    "5-8": math.div(5, 8),
+    "a4": math.div(210, 297),
+    "a4-landscape": math.div(297, 210),
   );
 
   .container {
@@ -57,7 +58,7 @@ const className = `container ${classNames[aspect || "1:1"]}`;
     $header-height: 60px;
     @each $ratio, $value in $ratios {
       &.aspect-ratio-#{$ratio} {
-        padding-top: calc(100% * #{1 / $value} + $header-height);
+        padding-top: calc(100% * #{math.div(1, $value)} + $header-height);
       }
     }
 

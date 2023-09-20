@@ -108,3 +108,8 @@ ol ol ol {
 ol ol ol ol {
   list-style-type: decimal;
 }
+
+// We need the class*="language-" selector for specificity
+pre code[class*="language-"] {
+  white-space: pre-wrap;
+}
