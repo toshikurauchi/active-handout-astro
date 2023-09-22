@@ -129,11 +129,16 @@ export function getAutoIncrementedExerciseNumber(
     const previousExercise = exercises[slugIndex];
     if (
       previousExercise?.type !== exercise.type ||
-      previousExercise?.tags !== exercise.tags ||
-      previousExercise?.data !== exercise.data
+      JSON.stringify(previousExercise?.tags) !==
+        JSON.stringify(exercise.tags) ||
+      JSON.stringify(previousExercise?.data) !== JSON.stringify(exercise.data)
     ) {
       throw new Error(
-        `Exercise ${exercise.slug} already exists with different type, tags or data`
+        `Exercise ${
+          exercise.slug
+        } already exists with different type, tags or data.\n\nPrevious exercise:\n${JSON.stringify(
+          previousExercise
+        )}.\n\nNew exercise:\n${JSON.stringify(exercise)}.`
       );
     }
     return slugIndex + 1;

@@ -24,7 +24,7 @@ const props = await buildExerciseContainerProps(
   Astro.locals,
   handoutPath,
   exerciseType,
-  ["multiple-choice-exercise"],
+  ["multiple-choice"],
   (baseHTML: string) => {
     const { options, htmlBefore, htmlAfter } = rehypeExtractOptions(baseHTML);
     const cleanOptions = options.map((option) => option.htmlContent);

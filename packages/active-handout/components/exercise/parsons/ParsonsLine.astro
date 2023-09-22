@@ -1,0 +1,15 @@
+---
+interface Props {
+  indent?: number;
+  distractor?: boolean;
+}
+
+const { distractor, indent } = Astro.props;
+
+const classNames = ["parsons-line"];
+if (distractor) {
+  classNames.push("distractor");
+}
+---
+
+<li class={classNames.join(" ")} data-indent={indent || 0}><slot /></li>

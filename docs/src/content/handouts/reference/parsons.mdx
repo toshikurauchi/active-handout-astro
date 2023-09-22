@@ -1,0 +1,43 @@
+---
+title: Parsons problems
+---
+
+You can also create Parsons problems.
+
+<Parsons slug="parsons-code" withIndentation>
+
+<ParsonsLine>`#!python def teste():`</ParsonsLine>
+<ParsonsLine indent={1}>`#!python print('abc')`</ParsonsLine>
+<ParsonsLine indent={1}>`#!python for i in range(10):`</ParsonsLine>
+<ParsonsLine indent={2}>`#!python print(i+2)`</ParsonsLine>
+<ParsonsLine indent={1}>`#!python return 4`</ParsonsLine>
+
+</Parsons>
+
+The indentation is optional:
+
+<Parsons slug="parsons-without-indent">
+
+<ParsonsLine>`#!python print("line 1")`</ParsonsLine>
+<ParsonsLine>`#!python print("line 2")`</ParsonsLine>
+<ParsonsLine>`#!python print("line 3")`</ParsonsLine>
+<ParsonsLine>`#!python print("line 4")`</ParsonsLine>
+<ParsonsLine distractor>`#!python print("distractor")`</ParsonsLine>
+
+</Parsons>
+
+Parsons problems can also be used for non code tasks.
+
+<Parsons slug="parsons-no-code">
+Some text here
+
+<ParsonsLine>First line</ParsonsLine>
+<ParsonsLine>Second line</ParsonsLine>
+<ParsonsLine>Third line</ParsonsLine>
+<ParsonsLine>Fourth line</ParsonsLine>
+<ParsonsLine distractor>This is a distractor</ParsonsLine>
+<ParsonsLine distractor>This is also a distractor</ParsonsLine>
+
+More text at the end.
+
+</Parsons>

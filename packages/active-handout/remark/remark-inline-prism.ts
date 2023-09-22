@@ -9,13 +9,13 @@ export function remarkInlinePrism() {
       if (!value.trim().startsWith("#!")) {
         return node;
       }
-      const match = value.trim().match(/#!(\S*)\s+(.*)/);
+      const match = value.trim().match(/#!(\S*)\s(.*)/);
       const lang = match?.[1].trim();
       value = match?.[2];
       node.type = "html";
 
-      let { html, classLanguage } = runHighlighterWithAstro(lang, value);
-      let classes = [classLanguage];
+      const { html, classLanguage } = runHighlighterWithAstro(lang, value);
+      const classes = [classLanguage];
       node.value = `<code is:raw class="${classes.join(" ")}">${html}</code>`;
     });
   };

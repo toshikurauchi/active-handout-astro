@@ -3,31 +3,32 @@ import { SKIP, visit } from "unist-util-visit";
 import { toHtml } from "hast-util-to-html";
 import { extractTextRec } from "../../../utils/extract-text-from-node";
 
-export type Option = {
+export type ParsonsLine = {
   plainContent: string;
   htmlContent: string;
-  points: number;
+  distractor: boolean;
+  indent: number;
 };
 
-const optionsProcessor = rehype()
+const linesProcessor = rehype()
   .data("settings", { fragment: true })
   .use(function options() {
     return (tree, file) => {
-      file.data.options = [];
+      file.data.lines = [];
       file.data.htmlBefore = "";
       file.data.htmlAfter = "";
-      const options = file.data.options as Option[];
+      const lines = file.data.lines as ParsonsLine[];
 
-      let foundOptions = false;
+      let foundLines = false;
       visit(tree, "element", (node) => {
         const classNames = (node.properties?.className ||
           []) as unknown as string[];
         if (
           !classNames ||
           !Array.isArray(classNames) ||
-          !classNames.includes("multiple-choice-option")
+          !classNames.includes("parsons-line")
         ) {
-          if (foundOptions) {
+          if (foundLines) {
             file.data.htmlAfter += toHtml(node);
           } else {
             file.data.htmlBefore += toHtml(node);
@@ -35,33 +36,38 @@ const optionsProcessor = rehype()
           return SKIP;
         }
 
-        foundOptions = true;
+        foundLines = true;
 
-        const lines: string[] = [];
-        extractTextRec(node, lines);
+        const textLines: string[] = [];
+        extractTextRec(node, textLines);
 
-        const points = parseInt((node.properties?.dataPoints || "0") as string);
-        delete node.properties?.dataPoints;
+        let indent = 0;
+        if (node.properties.dataIndent) {
+          indent = node.properties.dataIndent;
+          delete node.properties.dataIndent;
+        }
 
-        options.push({
-          plainContent: lines.join("").trim(),
+        lines.push({
+          plainContent: textLines.join(""),
           htmlContent: toHtml(node.children),
-          points,
+          distractor: classNames.includes("distractor"),
+          indent,
         });
+        node.properties.className = "";
 
         return SKIP;
       });
     };
   });
 
-export function rehypeExtractOptions(exerciseHTML: string) {
-  const file = optionsProcessor.processSync({ value: exerciseHTML });
+export function rehypeExtractParsonsLines(exerciseHTML: string) {
+  const file = linesProcessor.processSync({ value: exerciseHTML });
   return {
-    options: file.data.options,
+    lines: file.data.lines,
     htmlBefore: file.data.htmlBefore,
     htmlAfter: file.data.htmlAfter,
   } as {
-    options: Option[];
+    lines: ParsonsLine[];
     htmlBefore: string;
     htmlAfter: string;
   };

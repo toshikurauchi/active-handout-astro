@@ -1,0 +1,48 @@
+---
+import { ExerciseContainerProps } from "../props";
+import { buildExerciseContainerProps } from "../server-telemetry";
+import ParsonsExercise from "./ReactComponent/ParsonsExercise";
+import { rehypeExtractParsonsLines } from "./rehype-extract-parsons-lines";
+
+interface Props extends ExerciseContainerProps {
+  withIndentation?: boolean;
+}
+
+const handoutPath = Astro.url.pathname;
+const exerciseType = "parsons-problem";
+
+const { withIndentation } = Astro.props;
+
+const props = await buildExerciseContainerProps(
+  await Astro.slots.render("default"),
+  Astro.props,
+  Astro.locals,
+  handoutPath,
+  exerciseType,
+  ["parsons-problem"],
+  (baseHTML: string) => {
+    const { lines, htmlBefore, htmlAfter } =
+      rehypeExtractParsonsLines(baseHTML);
+    return {
+      data: {
+        expected: lines
+          .filter((line) => !line.distractor)
+          .map(
+            ({ indent, plainContent }) => "    ".repeat(indent) + plainContent
+          )
+          .join("\n"),
+      },
+      extraProps: {
+        lines: lines.map(({ htmlContent }) => htmlContent),
+        htmlBefore,
+        htmlAfter,
+      },
+      newHTML: "",
+    };
+  }
+);
+---
+
+<div class="parsons-exercise-container">
+  <ParsonsExercise withIndentation={!!withIndentation} {...props} client:only />
+</div>

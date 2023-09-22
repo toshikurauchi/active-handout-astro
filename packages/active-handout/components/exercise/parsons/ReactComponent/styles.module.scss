@@ -1,0 +1,136 @@
+$indent-width: 2em;
+
+.parsonsBlockContainer {
+  display: grid;
+  grid-template-columns: repeat(2, calc(50% - 0.1em));
+  gap: 0.2em;
+
+  &:not(:first-child) {
+    margin-top: 1em;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 1em;
+  }
+}
+
+// The ul is for specificity
+ul.linesContainer {
+  padding: 0.5em;
+  border: 1px solid var(--clr-secondary);
+  border-radius: 0.2em;
+  margin: 0;
+
+  &.linesContainerActive {
+    background-color: var(--clr-secondary);
+  }
+}
+
+.parsonsLine {
+  display: flex;
+  margin-bottom: 0.2em;
+  cursor: move;
+  isolation: isolate;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.parsonsLineWithIndentation {
+    display: grid;
+    grid-template-columns: 1.5em auto 1.5em;
+
+    @for $i from 0 through 20 {
+      &[data-max-indent="#{$i}"] {
+        .indentationContainer {
+          grid-template-columns:
+            repeat(#{$i + 1}, $indent-width)
+            calc(100% - #{$i + 1} * $indent-width);
+        }
+      }
+
+      .parsonsLineIndent:nth-child(#{$i}) {
+        grid-column: #{$i} / calc(var(--max-indent) + 3);
+      }
+    }
+
+    .indentationContainer {
+      margin-top: 0;
+      padding: 0;
+      flex-grow: 1;
+      display: grid;
+      overflow-x: auto;
+
+      .parsonsLineIndent {
+        width: 100%;
+        grid-row: 1 / 2;
+      }
+    }
+  }
+}
+
+.parsonsLineIndent {
+  display: inline-block;
+  width: 1em;
+  height: 100%;
+  background-color: var(--clr-secondary);
+  filter: brightness(90%);
+  border-radius: 0.2em;
+  margin-right: 0.2em;
+}
+
+.parsonsLineContent {
+  display: flex;
+  flex-grow: 1;
+
+  &:not(pre) > code {
+    flex-grow: 1;
+    padding: 0.5em 1em;
+  }
+
+  & ~ .parsonsLineIndent {
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.indentationButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.2em;
+  background-color: transparent;
+  color: var(--clr-text);
+  cursor: pointer;
+
+  &:hover {
+    background-color: hsl(10, 10%, 10%, 5%);
+  }
+
+  &:disabled {
+    color: var(--clr-text-light);
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.indentedLineContainer {
+  display: flex;
+}
+
+:global(.draggable-parsons-line.draggable-source--is-dragging) {
+  opacity: 0;
+}
+
+:global(.draggable-parsons-line-nested.draggable-source--is-dragging) {
+  opacity: 0;
+
+  ~ :local(.parsonsLineIndent)::before {
+    display: block;
+  }
+}
