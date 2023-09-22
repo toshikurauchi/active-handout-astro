@@ -10,6 +10,7 @@ type InnerProps = {
   lines: string[];
   withIndentation: boolean;
   maxIndentation?: number | undefined;
+  singleColumn: boolean;
 };
 
 type ParsonsExerciseProps = ExerciseBaseProps & InnerProps;
@@ -21,6 +22,7 @@ export default function ParsonsExercise({
   answerHTML,
   withIndentation,
   maxIndentation,
+  singleColumn,
   ...props
 }: ParsonsExerciseProps) {
   const innerProps = {
@@ -30,6 +32,7 @@ export default function ParsonsExercise({
     answerHTML,
     withIndentation,
     maxIndentation,
+    singleColumn,
   };
   return (
     <ExerciseContainer {...props}>
@@ -44,6 +47,7 @@ function InnerComponent({
   lines,
   withIndentation,
   maxIndentation,
+  singleColumn,
 }: InnerProps) {
   const [studentAnswer, setStudentAnswer] = React.useState<string>("");
   console.log(studentAnswer);
@@ -56,6 +60,7 @@ function InnerComponent({
         lines={lines}
         withIndentation={withIndentation}
         maxIndentation={maxIndentation || 5}
+        singleColumn={singleColumn}
         onAnswerChanged={setStudentAnswer}
       />
 

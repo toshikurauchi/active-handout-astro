@@ -154,6 +154,24 @@ function activeHandoutI18nSchema() {
       "profile.unsaved-changes": z
         .string()
         .describe("Text shown when user has not saved the changes"),
+
+      "parsons.drag-from-here": z
+        .string()
+        .describe(
+          "Label for the box containing the available lines for a Parsons exercise"
+        ),
+
+      "parsons.drop-here": z
+        .string()
+        .describe(
+          "Label for the box containing the lines that the user has selected for a Parsons exercise"
+        ),
+
+      "parsons.sort-lines": z
+        .string()
+        .describe(
+          "Label for the box that contains the lines in a Parsons exercise when there is a single box"
+        ),
     })
     .partial();
 }

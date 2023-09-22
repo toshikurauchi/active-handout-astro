@@ -13,6 +13,19 @@ $indent-width: 2em;
   &:not(:last-child) {
     margin-bottom: 1em;
   }
+
+  &.parsonsBlockContainerSingleColumn {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.linesContainerBlock {
+  display: flex;
+  flex-direction: column;
 }
 
 // The ul is for specificity
@@ -22,6 +35,7 @@ ul.linesContainer {
   border-radius: 0.2em;
   margin: 0;
   min-height: var(--min-height, 0);
+  flex-grow: 1;
 
   &.linesContainerWithIndentation {
     padding-inline: 0;
@@ -30,6 +44,11 @@ ul.linesContainer {
   &.linesContainerActive {
     background-color: var(--clr-secondary);
   }
+}
+
+.blockTitle {
+  font-weight: bold;
+  color: var(--clr-text-light);
 }
 
 .parsonsLine {

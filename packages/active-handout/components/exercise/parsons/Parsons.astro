@@ -6,12 +6,14 @@ import { rehypeExtractParsonsLines } from "./rehype-extract-parsons-lines";
 
 interface Props extends ExerciseContainerProps {
   withIndentation?: boolean;
+  maxIndentation?: number;
+  singleColumn?: boolean;
 }
 
 const handoutPath = Astro.url.pathname;
 const exerciseType = "parsons-problem";
 
-const { withIndentation } = Astro.props;
+const { withIndentation, singleColumn, maxIndentation } = Astro.props;
 
 const props = await buildExerciseContainerProps(
   await Astro.slots.render("default"),
@@ -44,5 +46,11 @@ const props = await buildExerciseContainerProps(
 ---
 
 <div class="parsons-exercise-container">
-  <ParsonsExercise withIndentation={!!withIndentation} {...props} client:only />
+  <ParsonsExercise
+    withIndentation={!!withIndentation}
+    singleColumn={!!singleColumn}
+    maxIndentation={maxIndentation || 5}
+    {...props}
+    client:only
+  />
 </div>

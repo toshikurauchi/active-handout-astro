@@ -34,5 +34,8 @@
   "profile.displayName": "Nome",
   "profile.add-picture": "Adicionar foto",
   "profile.change-picture": "Mudar foto",
-  "profile.unsaved-changes": "Você tem alterações não salvas"
+  "profile.unsaved-changes": "Você tem alterações não salvas",
+  "parsons.drag-from-here": "Arraste as linhas aqui",
+  "parsons.drop-here": "Solte as linhas aqui",
+  "parsons.sort-lines": "Ordene as linhas abaixo"
 }
