@@ -4,6 +4,7 @@ $indent-width: 2em;
   display: grid;
   grid-template-columns: repeat(2, calc(50% - 0.1em));
   gap: 0.2em;
+  font-size: var(--fnt-sz--1);
 
   &:not(:first-child) {
     margin-top: 1em;
@@ -20,6 +21,11 @@ ul.linesContainer {
   border: 1px solid var(--clr-secondary);
   border-radius: 0.2em;
   margin: 0;
+  min-height: var(--min-height, 0);
+
+  &.linesContainerWithIndentation {
+    padding-inline: 0;
+  }
 
   &.linesContainerActive {
     background-color: var(--clr-secondary);
@@ -38,40 +44,14 @@ ul.linesContainer {
 
   &.parsonsLineWithIndentation {
     display: grid;
-    grid-template-columns: 1.5em auto 1.5em;
-
-    @for $i from 0 through 20 {
-      &[data-max-indent="#{$i}"] {
-        .indentationContainer {
-          grid-template-columns:
-            repeat(#{$i + 1}, $indent-width)
-            calc(100% - #{$i + 1} * $indent-width);
-        }
-      }
-
-      .parsonsLineIndent:nth-child(#{$i}) {
-        grid-column: #{$i} / calc(var(--max-indent) + 3);
-      }
-    }
-
-    .indentationContainer {
-      margin-top: 0;
-      padding: 0;
-      flex-grow: 1;
-      display: grid;
-      overflow-x: auto;
-
-      .parsonsLineIndent {
-        width: 100%;
-        grid-row: 1 / 2;
-      }
-    }
+    grid-template-columns: 1.5em 1fr 1.5em;
   }
 }
 
 .parsonsLineIndent {
   display: inline-block;
-  width: 1em;
+  width: 4ch;
+  min-width: 4ch;
   height: 100%;
   background-color: var(--clr-secondary);
   filter: brightness(90%);
@@ -80,17 +60,26 @@ ul.linesContainer {
 }
 
 .parsonsLineContent {
+  $inline-content-padding: 0.5em;
+
   display: flex;
   flex-grow: 1;
+  border: 1px solid var(--clr-secondary);
+  border-radius: 0.3em;
+  padding-inline: $inline-content-padding;
+  background-color: var(--clr-background);
 
   &:not(pre) > code {
     flex-grow: 1;
-    padding: 0.5em 1em;
-  }
+    padding: 0.2em 0.5em;
+    border: none;
 
-  & ~ .parsonsLineIndent {
-    &::before {
-      display: none;
+    &:first-child {
+      margin-left: -$inline-content-padding;
+    }
+
+    &:last-child {
+      margin-right: -$inline-content-padding;
     }
   }
 }
@@ -121,16 +110,9 @@ ul.linesContainer {
 
 .indentedLineContainer {
   display: flex;
+  overflow-x: auto;
 }
 
 :global(.draggable-parsons-line.draggable-source--is-dragging) {
   opacity: 0;
-}
-
-:global(.draggable-parsons-line-nested.draggable-source--is-dragging) {
-  opacity: 0;
-
-  ~ :local(.parsonsLineIndent)::before {
-    display: block;
-  }
 }

@@ -23,10 +23,53 @@ export default function ParsonsLineContainer({
   const [currentContainer, setCurrentContainer] =
     useState<HTMLUListElement | null>(null);
 
+  const updateAnswer = () => {
+    if (!selectedLinesList.current) {
+      return;
+    }
+
+    const selectedLines = [
+      ...selectedLinesList.current.querySelectorAll<HTMLLIElement>(
+        `.${Classes.draggable}:not(.draggable-mirror)`
+      ),
+    ];
+    const answer = selectedLines
+      .map(
+        (item) =>
+          `${"    ".repeat(parseInt(item.dataset.indentation || "0"))}${
+            item.textContent
+          }`
+      )
+      .join("\n");
+    onAnswerChanged(answer);
+  };
+
+  const observeResize = (element: HTMLUListElement) => {
+    const observer = new ResizeObserver(() => {
+      const previousMinHeightStr =
+        element.style.getPropertyValue("--min-height");
+      if (previousMinHeightStr) {
+        const previousMinHeight = parseFloat(previousMinHeightStr);
+        if (previousMinHeight > element.offsetHeight) {
+          element.style.setProperty(
+            "--min-height",
+            `${element.offsetHeight}px`
+          );
+        }
+      } else {
+        element.style.setProperty("--min-height", `${element.offsetHeight}px`);
+      }
+    });
+    observer.observe(element);
+  };
+
   useEffect(() => {
     if (!availableLinesList.current || !selectedLinesList.current) {
       return;
     }
+
+    observeResize(availableLinesList.current);
+    observeResize(selectedLinesList.current);
 
     if (!sortable.current) {
       sortable.current = new Sortable(
@@ -55,23 +98,22 @@ export default function ParsonsLineContainer({
           return;
         }
 
-        const selectedLines = [
-          ...selectedLinesList.current.querySelectorAll(
-            `.${Classes.draggable}:not(.draggable-mirror)`
-          ),
-        ];
-
-        const answer = selectedLines.map((item) => item.textContent).join("\n");
-        onAnswerChanged(answer);
+        updateAnswer();
       });
     }
   }, [availableLinesList.current, selectedLinesList.current]);
 
   const availablesContainerClasses = [Styles.linesContainer];
+  const selectedsContainerClasses = [Styles.linesContainer];
+
+  if (withIndentation) {
+    availablesContainerClasses.push(Styles.linesContainerWithIndentation);
+    selectedsContainerClasses.push(Styles.linesContainerWithIndentation);
+  }
+
   if (currentContainer && currentContainer === availableLinesList.current) {
     availablesContainerClasses.push(Styles.linesContainerActive);
   }
-  const selectedsContainerClasses = [Styles.linesContainer];
   if (currentContainer && currentContainer === selectedLinesList.current) {
     selectedsContainerClasses.push(Styles.linesContainerActive);
   }
@@ -88,6 +130,7 @@ export default function ParsonsLineContainer({
               line={line}
               withIndentation={withIndentation}
               maxIndentation={maxIndentation}
+              onIndentationChanged={updateAnswer}
               key={`parsons-line--${line}-${index}`}
             />
           );
