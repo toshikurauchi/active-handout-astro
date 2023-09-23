@@ -48,7 +48,6 @@ ul.linesContainer {
 
 .blockTitle {
   font-weight: bold;
-  color: var(--clr-text-light);
 }
 
 .parsonsLine {
@@ -72,8 +71,7 @@ ul.linesContainer {
   width: 4ch;
   min-width: 4ch;
   height: 100%;
-  background-color: var(--clr-secondary);
-  filter: brightness(90%);
+  background-color: var(--clr-code-background, var(--clr-secondary));
   border-radius: 0.2em;
   margin-right: 0.2em;
 }

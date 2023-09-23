@@ -5,6 +5,7 @@ import { Classes } from "./draggable-types";
 import ParsonsLine from "./ParsonsLine";
 import config from "virtual:active-handout/user-config";
 import { useTranslations } from "../../../../utils/translations";
+import { INDENTATION } from "../indentation";
 
 const t = useTranslations(config.lang);
 
@@ -42,7 +43,7 @@ export default function ParsonsLineContainer({
     const answer = selectedLines
       .map(
         (item) =>
-          `${"    ".repeat(parseInt(item.dataset.indentation || "0"))}${
+          `${INDENTATION.repeat(parseInt(item.dataset.indentation || "0"))}${
             item.textContent
           }`
       )

@@ -28,6 +28,10 @@
  * --syntax-cursor-line: hsla(220, 100%, 80%, 0.04);
  */
 
+:root {
+  --clr-code-background: hsl(220, 13%, 18%);
+}
+
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
   border: 1px solid hsl(220, 13%, 5%);

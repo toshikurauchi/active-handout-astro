@@ -3,6 +3,7 @@ import { ExerciseContainerProps } from "../props";
 import { buildExerciseContainerProps } from "../server-telemetry";
 import ParsonsExercise from "./ReactComponent/ParsonsExercise";
 import { rehypeExtractParsonsLines } from "./rehype-extract-parsons-lines";
+import { INDENTATION } from "./indentation";
 
 interface Props extends ExerciseContainerProps {
   withIndentation?: boolean;
@@ -30,7 +31,8 @@ const props = await buildExerciseContainerProps(
         expected: lines
           .filter((line) => !line.distractor)
           .map(
-            ({ indent, plainContent }) => "    ".repeat(indent) + plainContent
+            ({ indent, plainContent }) =>
+              INDENTATION.repeat(indent) + plainContent
           )
           .join("\n"),
       },
