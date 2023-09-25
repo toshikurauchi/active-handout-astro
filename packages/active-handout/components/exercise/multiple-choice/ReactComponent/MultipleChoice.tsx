@@ -11,7 +11,6 @@ import Options from "./Options";
 type MultipleChoiceExerciseProps = ExerciseBaseProps & {
   htmlBefore: string;
   htmlAfter: string;
-  answerHTML: string;
   options: string[];
   columns: ColumnCount;
   letterPosition: LetterPosition;

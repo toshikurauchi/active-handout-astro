@@ -12,7 +12,6 @@ import { INDENTATION } from "../indentation";
 type InnerProps = {
   htmlBefore: string;
   htmlAfter: string;
-  answerHTML: string;
   lines: ParsonsLineData[];
   registryKey: string;
   withIndentation: boolean;
@@ -26,7 +25,6 @@ export default function ParsonsExercise({
   htmlBefore,
   htmlAfter,
   lines,
-  answerHTML,
   withIndentation,
   maxIndentation,
   singleColumn,
@@ -36,7 +34,6 @@ export default function ParsonsExercise({
     htmlBefore,
     htmlAfter,
     lines,
-    answerHTML,
     withIndentation,
     maxIndentation,
     singleColumn,
