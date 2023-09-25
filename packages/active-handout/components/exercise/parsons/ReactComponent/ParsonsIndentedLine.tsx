@@ -6,16 +6,24 @@ import ChevronRight from "../../icons/ChevronRight";
 
 type ParsonsIndentedLineProps = {
   line: string;
+  indent?: number | undefined;
   maxIndentation: number;
+  disabled: boolean;
   onIndentationChanged?: ((indentation: number) => void) | undefined;
 };
 
 export default function ParsonsIndentedLine({
   line,
+  indent,
   maxIndentation,
+  disabled,
   onIndentationChanged,
 }: ParsonsIndentedLineProps) {
-  const [indentation, setIndentation] = useState<number>(0);
+  const [indentation, setIndentation] = useState<number>(indent || 0);
+
+  useEffect(() => {
+    setIndentation(indent || 0);
+  }, [indent]);
 
   useEffect(() => {
     if (onIndentationChanged) {
@@ -47,7 +55,7 @@ export default function ParsonsIndentedLine({
       <button
         onClick={handleDecreaseIndent}
         className={Styles.indentationButton}
-        disabled={indentation <= 0}
+        disabled={indentation <= 0 || disabled}
       >
         <ChevronLeft />
       </button>
@@ -68,7 +76,7 @@ export default function ParsonsIndentedLine({
       <button
         onClick={handleIncreaseIndent}
         className={Styles.indentationButton}
-        disabled={indentation >= maxIndentation}
+        disabled={indentation >= maxIndentation || disabled}
       >
         <ChevronRight />
       </button>

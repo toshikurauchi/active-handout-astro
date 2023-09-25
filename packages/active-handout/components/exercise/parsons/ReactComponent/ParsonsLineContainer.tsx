@@ -1,28 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Plugins, Sortable } from "@shopify/draggable";
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
+import { DragStartEvent, Plugins, Sortable } from "@shopify/draggable";
 import Styles from "./styles.module.scss";
 import { Classes } from "./draggable-types";
 import ParsonsLine from "./ParsonsLine";
 import config from "virtual:active-handout/user-config";
 import { useTranslations } from "../../../../utils/translations";
 import { INDENTATION } from "../indentation";
+import type { ParsonsLineData } from "./parsons-types";
 
 const t = useTranslations(config.lang);
 
 type ParsonsLineContainerProps = {
-  lines: string[];
+  availableLines: ParsonsLineData[];
+  selectedLines: ParsonsLineData[];
   withIndentation: boolean;
   onAnswerChanged: (answer: string) => void;
   maxIndentation: number;
   singleColumn: boolean;
+  disabled: boolean;
 };
 
 export default function ParsonsLineContainer({
-  lines,
+  availableLines,
+  selectedLines,
   withIndentation,
   onAnswerChanged,
   maxIndentation,
   singleColumn,
+  disabled,
 }: ParsonsLineContainerProps) {
   const sortable = useRef<Sortable | null>(null);
   const availableLinesList = useRef<HTMLUListElement>(null);
@@ -102,6 +107,16 @@ export default function ParsonsLineContainer({
         plugins: [Plugins.ResizeMirror],
       });
 
+      sortable.current.on("drag:start", (event: DragStartEvent) => {
+        const container = event.sourceContainer.closest<HTMLDivElement>(
+          `.${Styles.parsonsBlockContainer}`
+        );
+        const disabled = container?.dataset.disabled === "true";
+        if (disabled) {
+          event.cancel();
+        }
+      });
+
       sortable.current.on("drag:over:container", (event: any) => {
         const { overContainer } = event;
         if (overContainer !== currentContainer) {
@@ -136,17 +151,15 @@ export default function ParsonsLineContainer({
     selectedsContainerClasses.push(Styles.linesContainerActive);
   }
 
-  const lineNodes = lines.map((line, index) => {
-    return (
-      <ParsonsLine
-        line={line}
-        withIndentation={withIndentation}
-        maxIndentation={maxIndentation}
-        onIndentationChanged={updateAnswer}
-        key={`parsons-line--${line}-${index}`}
-      />
-    );
-  });
+  const [availableLineNodes, selectedLineNodes] = buildLineNodes(
+    availableLines,
+    selectedLines,
+    withIndentation,
+    maxIndentation,
+    singleColumn,
+    disabled,
+    updateAnswer
+  );
 
   const blockClassNames = [Styles.parsonsBlockContainer];
   if (singleColumn) {
@@ -154,7 +167,7 @@ export default function ParsonsLineContainer({
   }
 
   return (
-    <div className={blockClassNames.join(" ")}>
+    <div className={blockClassNames.join(" ")} data-disabled={disabled}>
       {!singleColumn && (
         <div className={Styles.linesContainerBlock}>
           <span className={Styles.blockTitle}>
@@ -164,7 +177,7 @@ export default function ParsonsLineContainer({
             ref={availableLinesList}
             className={availablesContainerClasses.join(" ")}
           >
-            {lineNodes}
+            {availableLineNodes}
           </ul>
         </div>
       )}
@@ -176,9 +189,51 @@ export default function ParsonsLineContainer({
           ref={selectedLinesList}
           className={selectedsContainerClasses.join(" ")}
         >
-          {singleColumn && lineNodes}
+          {selectedLineNodes}
         </ul>
       </div>
     </div>
   );
+}
+
+function buildLineNodes(
+  availableLines: ParsonsLineData[],
+  selectedLines: ParsonsLineData[],
+  withIndentation: boolean,
+  maxIndentation: number,
+  singleColumn: boolean,
+  disabled: boolean,
+  updateAnswer: () => void
+) {
+  const props = {
+    withIndentation,
+    maxIndentation,
+    disabled,
+    onIndentationChanged: updateAnswer,
+  };
+  let availableLineNodes: ReactNode[] = availableLines.map((line, index) => {
+    return (
+      <ParsonsLine
+        line={line.htmlContent}
+        key={`parsons-line--${line}-${index}`}
+        {...props}
+      />
+    );
+  });
+  let selectedLineNodes: ReactNode[] = selectedLines.map((line, index) => {
+    return (
+      <ParsonsLine
+        line={line.htmlContent}
+        indent={line.indent}
+        key={`parsons-line--${line}-${index}`}
+        {...props}
+      />
+    );
+  });
+  if (singleColumn) {
+    selectedLineNodes = availableLineNodes.concat(selectedLineNodes);
+    availableLineNodes = [];
+  }
+
+  return [availableLineNodes, selectedLineNodes];
 }

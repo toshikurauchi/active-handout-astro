@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import type { ExerciseBaseProps } from "../../props";
 import ExerciseContainer, {
   ExerciseContext,
@@ -6,12 +6,14 @@ import ExerciseContainer, {
 import ParsonsLineContainer from "./ParsonsLineContainer";
 import ExerciseSubmitButton from "../../submit-button/ExerciseSubmitButton";
 import { getAnswerPointsFromLocalStorage } from "./utils";
+import type { ParsonsLineData } from "./parsons-types";
+import { INDENTATION } from "../indentation";
 
 type InnerProps = {
   htmlBefore: string;
   htmlAfter: string;
   answerHTML: string;
-  lines: string[];
+  lines: ParsonsLineData[];
   registryKey: string;
   withIndentation: boolean;
   maxIndentation?: number | undefined;
@@ -66,6 +68,10 @@ function InnerComponent({
     exerciseEnabled,
   } = useContext(ExerciseContext);
 
+  const [availableLines, setAvailableLines] =
+    useState<ParsonsLineData[]>(lines);
+  const [selectedLines, setSelectedLines] = useState<ParsonsLineData[]>([]);
+
   // Update points and options status when requested by container
   useEffect(() => {
     if (!reloadData) return;
@@ -73,6 +79,13 @@ function InnerComponent({
     getTelemetry().then((telemetry) => {
       if (telemetry) {
         setPoints(telemetry.percentComplete);
+        const [newAvailableLines, newSelectedLines] =
+          splitLinesIntoAvailableAndSelected(
+            lines,
+            telemetry.data.studentAnswer
+          );
+        setAvailableLines(newAvailableLines);
+        setSelectedLines(newSelectedLines);
       } else {
         setPoints(null);
       }
@@ -100,11 +113,13 @@ function InnerComponent({
       {htmlBefore && <div dangerouslySetInnerHTML={{ __html: htmlBefore }} />}
 
       <ParsonsLineContainer
-        lines={lines}
+        availableLines={availableLines}
+        selectedLines={selectedLines}
         withIndentation={withIndentation}
         maxIndentation={maxIndentation || 5}
         singleColumn={singleColumn}
         onAnswerChanged={setStudentAnswer}
+        disabled={!exerciseEnabled}
       />
 
       {htmlAfter && <div dangerouslySetInnerHTML={{ __html: htmlAfter }} />}
@@ -112,4 +127,41 @@ function InnerComponent({
       <ExerciseSubmitButton onClick={handleClick} disabled={!exerciseEnabled} />
     </div>
   );
+}
+
+function splitLinesIntoAvailableAndSelected(
+  lines: ParsonsLineData[],
+  studentAnswer: string
+): [ParsonsLineData[], ParsonsLineData[]] {
+  let newAvailableLines: ParsonsLineData[] = [...lines];
+  const newSelectedLines: ParsonsLineData[] = [];
+
+  for (const targetLineWithIndent of studentAnswer.split("\n")) {
+    const indent = countIndentation(targetLineWithIndent);
+    const targetLine = targetLineWithIndent.trim();
+    const filteredAvailableLines = [];
+    let found = false;
+    for (const line of newAvailableLines) {
+      if (!found && targetLine === line.plainContent) {
+        newSelectedLines.push({ ...line, indent });
+      } else {
+        filteredAvailableLines.push(line);
+      }
+    }
+    newAvailableLines = filteredAvailableLines;
+  }
+
+  return [newAvailableLines, newSelectedLines];
+}
+
+function countIndentation(line: string): number {
+  let spaces = 0;
+  for (const c of line) {
+    if (c === " ") {
+      spaces++;
+    } else {
+      break;
+    }
+  }
+  return spaces / INDENTATION.length;
 }

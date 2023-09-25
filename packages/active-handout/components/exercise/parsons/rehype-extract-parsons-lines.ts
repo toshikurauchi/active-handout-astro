@@ -2,13 +2,7 @@ import { rehype } from "rehype";
 import { SKIP, visit } from "unist-util-visit";
 import { toHtml } from "hast-util-to-html";
 import { extractTextRec } from "../../../utils/extract-text-from-node";
-
-export type ParsonsLine = {
-  plainContent: string;
-  htmlContent: string;
-  distractor: boolean;
-  indent: number;
-};
+import type { ParsonsCompleteLineData } from "./ReactComponent/parsons-types";
 
 const linesProcessor = rehype()
   .data("settings", { fragment: true })
@@ -17,7 +11,7 @@ const linesProcessor = rehype()
       file.data.lines = [];
       file.data.htmlBefore = "";
       file.data.htmlAfter = "";
-      const lines = file.data.lines as ParsonsLine[];
+      const lines = file.data.lines as ParsonsCompleteLineData[];
 
       let foundLines = false;
       visit(tree, "element", (node) => {
@@ -67,7 +61,7 @@ export function rehypeExtractParsonsLines(exerciseHTML: string) {
     htmlBefore: file.data.htmlBefore,
     htmlAfter: file.data.htmlAfter,
   } as {
-    lines: ParsonsLine[];
+    lines: ParsonsCompleteLineData[];
     htmlBefore: string;
     htmlAfter: string;
   };

@@ -5,15 +5,19 @@ import ParsonsIndentedLine from "./ParsonsIndentedLine";
 
 type ParsonsLineProps = {
   line: string;
+  indent?: number;
   withIndentation: boolean;
   maxIndentation: number;
+  disabled: boolean;
   onIndentationChanged?: ((indentation: number) => void) | undefined;
 };
 
 export default function ParsonsLine({
   line,
+  indent,
   withIndentation,
   maxIndentation,
+  disabled,
   onIndentationChanged,
 }: ParsonsLineProps) {
   const classNames = [Classes.draggable, Styles.parsonsLine];
@@ -22,7 +26,9 @@ export default function ParsonsLine({
     return (
       <ParsonsIndentedLine
         line={line}
+        indent={indent}
         maxIndentation={maxIndentation}
+        disabled={disabled}
         onIndentationChanged={onIndentationChanged}
       />
     );

@@ -4,6 +4,7 @@ import { buildExerciseContainerProps } from "../server-telemetry";
 import ParsonsExercise from "./ReactComponent/ParsonsExercise";
 import { rehypeExtractParsonsLines } from "./rehype-extract-parsons-lines";
 import { INDENTATION } from "./indentation";
+import type { ParsonsLineData } from "./ReactComponent/parsons-types";
 
 interface Props extends ExerciseContainerProps {
   withIndentation?: boolean;
@@ -37,7 +38,14 @@ const props = await buildExerciseContainerProps(
           .join("\n"),
       },
       extraProps: {
-        lines: lines.map(({ htmlContent }) => htmlContent),
+        lines: lines.map(
+          ({ htmlContent, plainContent }) =>
+            ({
+              htmlContent,
+              plainContent,
+              indent: 0,
+            }) as ParsonsLineData
+        ),
         htmlBefore,
         htmlAfter,
       },

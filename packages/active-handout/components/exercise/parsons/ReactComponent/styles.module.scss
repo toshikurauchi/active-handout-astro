@@ -50,6 +50,12 @@ ul.linesContainer {
   font-weight: bold;
 }
 
+[data-disabled="true"] {
+  .parsonsLine {
+    cursor: default;
+  }
+}
+
 .parsonsLine {
   display: flex;
   margin-bottom: 0.2em;
