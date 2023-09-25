@@ -38,14 +38,16 @@ const props = await buildExerciseContainerProps(
           .join("\n"),
       },
       extraProps: {
-        lines: lines.map(
-          ({ htmlContent, plainContent }) =>
-            ({
-              htmlContent,
-              plainContent,
-              indent: 0,
-            }) as ParsonsLineData
-        ),
+        lines: lines
+          .map(
+            ({ htmlContent, plainContent }) =>
+              ({
+                htmlContent,
+                plainContent,
+                indent: 0,
+              }) as ParsonsLineData
+          )
+          .sort(() => Math.random() - 0.5), // Shuffle
         htmlBefore,
         htmlAfter,
       },
