@@ -172,6 +172,16 @@ function activeHandoutI18nSchema() {
         .describe(
           "Label for the box that contains the lines in a Parsons exercise when there is a single box"
         ),
+
+      "parsons.passing-tests": z
+        .string()
+        .describe(
+          "String shown on answer box with the number of passing tests (must have the following placeholders: {passingTests}, {totalTests}, {percentComplete})"
+        ),
+
+      "parsons.exception": z
+        .string()
+        .describe("String shown on answer box when an exception occurs"),
     })
     .partial();
 }

@@ -1,5 +1,6 @@
 ---
 title: Parsons problems
+usesPythonRuntime: true
 ---
 
 You can also create Parsons problems. For more details and examples, please refer to the following resources:
@@ -40,6 +41,21 @@ Print the lines in ascending order. The string `distractor` should not be printe
 <ParsonsLine>`#!python print("line 2")`</ParsonsLine>
 <ParsonsLine>`#!python print("line 3")`</ParsonsLine>
 <ParsonsLine>`#!python print("line 4")`</ParsonsLine>
+<ParsonsLine distractor>`#!python print("distractor")`</ParsonsLine>
+
+</Parsons>
+
+If more than one answer is valid, you can also use Python unittests!
+
+<Parsons slug="parsons-with-unittests" withIndentation pythonTestsSrc="/parsons/unit_test_example.py">
+
+Print the lines in ascending order. The string `distractor` should not be printed.
+
+<ParsonsLine>`#!python def add_two(n):`</ParsonsLine>
+<ParsonsLine>`#!python n += 2`</ParsonsLine>
+<ParsonsLine>`#!python return n`</ParsonsLine>
+<ParsonsLine>`#!python return n + 2`</ParsonsLine>
+<ParsonsLine>`#!python return 2`</ParsonsLine>
 <ParsonsLine distractor>`#!python print("distractor")`</ParsonsLine>
 
 </Parsons>

@@ -1,4 +1,9 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import config from "virtual:active-handout/user-config";
 import Styles from "./styles.module.scss";
 import { useTranslations } from "../../../utils/translations";
@@ -23,6 +28,8 @@ export const ExerciseContext = createContext<{
   exerciseEnabled: boolean;
   points: number | null;
   setPoints: React.Dispatch<React.SetStateAction<number | null>>;
+  extraAnswerContent: ReactNode;
+  setExtraAnswerContent: React.Dispatch<React.SetStateAction<ReactNode>>;
   getTelemetry: () => Promise<TelemetryData | null | undefined>;
   setTelemetry: (
     percentComplete: number,
@@ -35,6 +42,8 @@ export const ExerciseContext = createContext<{
   exerciseEnabled: true,
   points: 0,
   setPoints: () => {},
+  extraAnswerContent: null,
+  setExtraAnswerContent: () => {},
   getTelemetry: async () => null,
   setTelemetry: async () => null,
 });
@@ -60,6 +69,7 @@ export default function ExerciseContainer({
   const [points, setPoints] = useState<number | null>(
     typeof initialPoints === "undefined" ? null : initialPoints
   );
+  const [extraAnswerContent, setExtraAnswerContent] = useState<ReactNode>(null);
 
   useEffect(() => {
     if (points === null) {
@@ -138,6 +148,8 @@ export default function ExerciseContainer({
           exerciseEnabled: status === "unanswered",
           points,
           setPoints,
+          extraAnswerContent,
+          setExtraAnswerContent,
           getTelemetry,
           setTelemetry,
         }}
@@ -145,9 +157,10 @@ export default function ExerciseContainer({
         {children}
       </ExerciseContext.Provider>
 
-      {answerHTML && (
+      {(answerHTML || extraAnswerContent) && (
         <AnswerReact
-          answerHTML={answerHTML}
+          answerHTML={answerHTML || ""}
+          extraAnswerContent={extraAnswerContent}
           visible={status !== "unanswered"}
           status={status}
         />

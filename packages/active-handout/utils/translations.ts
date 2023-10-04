@@ -17,7 +17,16 @@ export function useTranslations(lang: string | undefined) {
   if (!dictionary) {
     throw new Error(`Language ${lang} is not available.`);
   }
-  const t = <K extends keyof typeof dictionary>(key: K) => dictionary[key];
+  const t = <K extends keyof typeof dictionary>(key: K, args?: any) => {
+    let value = dictionary[key];
+    if (!args) return value;
+
+    // Replace placeholders with values.
+    for (const [k, v] of Object.entries(args) as [string, string][]) {
+      value = value.replace(`{${k}}`, v);
+    }
+    return value;
+  };
   t.pick = (startOfKey: string) =>
     Object.fromEntries(
       Object.entries(dictionary).filter(([k]) => k.startsWith(startOfKey))

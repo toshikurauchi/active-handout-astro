@@ -5,9 +5,21 @@ import ExerciseContainer, {
 } from "../../container/ExerciseContainer";
 import ParsonsLineContainer from "./ParsonsLineContainer";
 import ExerciseSubmitButton from "../../submit-button/ExerciseSubmitButton";
-import { getAnswerPointsFromLocalStorage } from "./utils";
+import {
+  getAnswerPointsFromLocalStorage,
+  loadAndRunPythonTests,
+  splitLinesIntoAvailableAndSelected,
+} from "./utils";
 import type { ParsonsLineData } from "./parsons-types";
-import { INDENTATION } from "../indentation";
+import {
+  initializePython,
+  registerPythonResultListener,
+} from "../../../python-local-server/python-utils";
+import type { TelemetryData } from "../../../../db/telemetry/model";
+import config from "virtual:active-handout/user-config";
+import { useTranslations } from "../../../../utils/translations";
+
+const t = useTranslations(config.lang);
 
 type InnerProps = {
   htmlBefore: string;
@@ -16,7 +28,9 @@ type InnerProps = {
   registryKey: string;
   withIndentation: boolean;
   maxIndentation?: number | undefined;
+  pythonTestsSrc?: string | undefined;
   singleColumn: boolean;
+  slug: string;
 };
 
 type ParsonsExerciseProps = ExerciseBaseProps & InnerProps;
@@ -27,6 +41,7 @@ export default function ParsonsExercise({
   lines,
   withIndentation,
   maxIndentation,
+  pythonTestsSrc,
   singleColumn,
   ...props
 }: ParsonsExerciseProps) {
@@ -36,11 +51,16 @@ export default function ParsonsExercise({
     lines,
     withIndentation,
     maxIndentation,
+    pythonTestsSrc,
     singleColumn,
   };
   return (
     <ExerciseContainer {...props}>
-      <InnerComponent {...innerProps} registryKey={props.registryKey} />
+      <InnerComponent
+        {...innerProps}
+        registryKey={props.registryKey}
+        slug={props.slug}
+      />
     </ExerciseContainer>
   );
 }
@@ -52,7 +72,9 @@ function InnerComponent({
   registryKey,
   withIndentation,
   maxIndentation,
+  pythonTestsSrc,
   singleColumn,
+  slug,
 }: InnerProps) {
   const [studentAnswer, setStudentAnswer] = React.useState<string>("");
 
@@ -60,6 +82,7 @@ function InnerComponent({
     reloadData,
     setReloadData,
     setPoints,
+    setExtraAnswerContent,
     getTelemetry,
     setTelemetry,
     exerciseEnabled,
@@ -68,6 +91,12 @@ function InnerComponent({
   const [availableLines, setAvailableLines] =
     useState<ParsonsLineData[]>(lines);
   const [selectedLines, setSelectedLines] = useState<ParsonsLineData[]>([]);
+
+  useEffect(() => {
+    if (pythonTestsSrc) {
+      initializePython();
+    }
+  }, [pythonTestsSrc]);
 
   // Update points and options status when requested by container
   useEffect(() => {
@@ -83,6 +112,11 @@ function InnerComponent({
           );
         setAvailableLines(newAvailableLines);
         setSelectedLines(newSelectedLines);
+
+        const newExtraAnswer = getExtraAnswer(telemetry);
+        if (newExtraAnswer) {
+          setExtraAnswerContent(newExtraAnswer);
+        }
       } else {
         setPoints(null);
       }
@@ -91,18 +125,57 @@ function InnerComponent({
     });
   }, [reloadData]);
 
-  const handleClick = () => {
-    let percentComplete = getAnswerPointsFromLocalStorage(
-      registryKey,
-      studentAnswer
-    );
-    setTelemetry(percentComplete, {
-      studentAnswer,
-    }).then((telemetry) => {
-      if (telemetry) {
-        setPoints(telemetry.percentComplete);
+  useEffect(() => {
+    registerPythonResultListener(slug, (data: any) => {
+      let percentComplete;
+      const totalTests = data.totalTests;
+      const exception = data.exception;
+      let passingTests = 0;
+      if (data.success) {
+        percentComplete = 100;
+        passingTests = totalTests;
+      } else if ((data.failures || data.errors) && totalTests) {
+        passingTests =
+          totalTests - (data.failures.size || 0) + (data.errors.size || 0);
+        percentComplete = (100 * passingTests) / totalTests;
+      } else {
+        passingTests = 0;
+        percentComplete = 0;
       }
+      setTelemetry(percentComplete, {
+        studentAnswer,
+        totalTests,
+        passingTests,
+        exception,
+      }).then((telemetry) => {
+        if (telemetry) {
+          setPoints(telemetry.percentComplete);
+
+          const newExtraAnswer = getExtraAnswer(telemetry);
+          if (newExtraAnswer) {
+            setExtraAnswerContent(newExtraAnswer);
+          }
+        }
+      });
     });
+  }, []);
+
+  const handleClick = () => {
+    if (pythonTestsSrc) {
+      loadAndRunPythonTests(slug, pythonTestsSrc, studentAnswer);
+    } else {
+      let percentComplete = getAnswerPointsFromLocalStorage(
+        registryKey,
+        studentAnswer
+      );
+      setTelemetry(percentComplete, {
+        studentAnswer,
+      }).then((telemetry) => {
+        if (telemetry) {
+          setPoints(telemetry.percentComplete);
+        }
+      });
+    }
   };
 
   return (
@@ -126,39 +199,27 @@ function InnerComponent({
   );
 }
 
-function splitLinesIntoAvailableAndSelected(
-  lines: ParsonsLineData[],
-  studentAnswer: string
-): [ParsonsLineData[], ParsonsLineData[]] {
-  let newAvailableLines: ParsonsLineData[] = [...lines];
-  const newSelectedLines: ParsonsLineData[] = [];
+function getExtraAnswer(telemetry: TelemetryData) {
+  const totalTests = telemetry.data.totalTests;
+  const exception = telemetry.data.exception;
 
-  for (const targetLineWithIndent of studentAnswer.split("\n")) {
-    const indent = countIndentation(targetLineWithIndent);
-    const targetLine = targetLineWithIndent.trim();
-    const filteredAvailableLines = [];
-    let found = false;
-    for (const line of newAvailableLines) {
-      if (!found && targetLine === line.plainContent) {
-        newSelectedLines.push({ ...line, indent });
-      } else {
-        filteredAvailableLines.push(line);
-      }
-    }
-    newAvailableLines = filteredAvailableLines;
+  if (exception) {
+    return (
+      <>
+        <p>{t("parsons.exception")}</p>
+        <pre>{exception}</pre>
+      </>
+    );
   }
 
-  return [newAvailableLines, newSelectedLines];
-}
-
-function countIndentation(line: string): number {
-  let spaces = 0;
-  for (const c of line) {
-    if (c === " ") {
-      spaces++;
-    } else {
-      break;
-    }
-  }
-  return spaces / INDENTATION.length;
+  if (!totalTests) return null;
+  return (
+    <p>
+      {t("parsons.passing-tests", {
+        passingTests: telemetry.data.passingTests,
+        totalTests,
+        percentComplete: telemetry.percentComplete.toFixed(2),
+      })}
+    </p>
+  );
 }

@@ -14,18 +14,20 @@ import Header from "../components/header/Header.astro";
 import Breadcrumbs from "../components/breadcrumbs/Breadcrumbs.astro";
 import CopyButtonInjector from "../components/copy-button-injector/CopyButtonInjector.astro";
 import Notifier from "../components/notifier/Notifier.astro";
+import SetupPyScript from "../components/python-local-server/SetupPyScript.astro";
 
 type Props = {
   headings?: MarkdownHeading[];
   title: string;
   template: Handout["template"];
+  usesPythonRuntime?: Handout["usesPythonRuntime"];
 };
 
-const { template, title, headings } = Astro.props;
+const { template, title, headings, usesPythonRuntime } = Astro.props;
 const isSplash = template === "splash";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -50,5 +52,6 @@ const isSplash = template === "splash";
     </main>
     <CopyButtonInjector />
     <Notifier />
+    {usesPythonRuntime && <SetupPyScript />}
   </body>
 </html>

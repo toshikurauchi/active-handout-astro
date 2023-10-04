@@ -1,15 +1,17 @@
-import React from "react";
+import React, { type ReactNode } from "react";
 import Styles from "./styles.module.scss";
 import type { Status } from "../props";
 
 type AnswerReactProps = {
   answerHTML: string;
+  extraAnswerContent?: ReactNode;
   visible: boolean;
   status: Status;
 };
 
 export default function AnswerReact({
   answerHTML,
+  extraAnswerContent,
   visible,
   status,
 }: AnswerReactProps) {
@@ -19,7 +21,8 @@ export default function AnswerReact({
   return (
     <div className={className}>
       <div className={Styles.exerciseAnswerTitle}>Answer</div>
-      <div dangerouslySetInnerHTML={{ __html: answerHTML }} />
+      {answerHTML && <div dangerouslySetInnerHTML={{ __html: answerHTML }} />}
+      {extraAnswerContent && <div>{extraAnswerContent}</div>}
     </div>
   );
 }

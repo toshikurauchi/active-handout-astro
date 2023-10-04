@@ -20,6 +20,7 @@ let { entry } = Astro.props;
 let requireLogin = config.auth && config.defaultRequireLogin;
 let title: string = "";
 let template: Handout["template"] = "splash";
+let usesPythonRuntime: Handout["usesPythonRuntime"] = false;
 
 // This may happen if we are using SSR instead of SSG, so getStaticProps is not called
 if (!entry) {
@@ -52,12 +53,13 @@ if (entry) {
   Content = renderedEntry.Content;
   headings = renderedEntry.headings;
   template = entry.data.template;
+  usesPythonRuntime = entry.data.usesPythonRuntime || false;
 }
 if (!title) {
   title = entry.data.title || headings[0]?.text || "";
 }
 ---
 
-<Page title={title} {template} {headings}>
+<Page title={title} {template} {headings} {usesPythonRuntime}>
   <Content />
 </Page>

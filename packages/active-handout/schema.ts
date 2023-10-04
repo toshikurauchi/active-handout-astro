@@ -33,6 +33,13 @@ export function handoutSchema() {
           "Require login to view this page (default value is taken from project settings)",
       })
       .optional(),
+
+    usesPythonRuntime: z
+      .boolean({
+        description:
+          "Uses Python in the browser, with PyScript (enable this to run Python tests for Parsons Problems)",
+      })
+      .optional(),
   });
 }
 

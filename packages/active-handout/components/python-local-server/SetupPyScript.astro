@@ -1,0 +1,98 @@
+<Fragment>
+  <link
+    rel="stylesheet"
+    href="https://pyscript.net/latest/pyscript.css"
+    is:global
+  />
+
+  <div id="python-server"></div>
+
+  <py-config
+    set:html={`
+terminal = false
+[splashscreen]
+    enabled = false
+`}
+  />
+
+  <py-script
+    set:html={`
+from js import document, Object, CustomEvent
+import sys
+from types import ModuleType
+from io import StringIO
+from pyodide.ffi import create_proxy, to_js
+import json
+
+def to_js_object(map_data):
+    return Object.fromEntries(to_js(map_data))
+
+def dispatchPythonResult(key, data):
+    event = CustomEvent.new("PythonResult", to_js_object({
+      "detail": to_js_object({
+          "key": key,
+          "data": to_js_object(data)
+      })
+    }))
+    document.getElementById("python-server").dispatchEvent(event)
+
+def run_python_code(event):
+    code = event.detail.code
+    try:
+        exec(code)
+    except Exception as e:
+        pass
+
+def serialize_failures(failures):
+    return {test_case.id(): traceback for test_case, traceback in failures}
+
+_answer = None  # This was the only way I could get the tests to work with pyscript
+def run_python_tests(event):
+    global _answer
+    code = event.detail.code
+    test_code = event.detail.testCode.replace('import _answer', '')
+    slug = event.detail.slug
+
+    try:
+        module = ModuleType("_answer")
+        module.__file__ = module.__name__ + '.py'
+        exec(code, module.__dict__)
+        sys.modules[module.__name__] = module
+        _answer = module
+
+        exec(test_code, globals())
+
+        stream = StringIO()
+        runner = unittest.TextTestRunner(stream=stream)
+        result = runner.run(unittest.defaultTestLoader.loadTestsFromTestCase(ParsonsTestCase))
+        stream.seek(0)
+        success = result.wasSuccessful()
+
+        result_data = {
+            'success': success,
+            'failures': serialize_failures(result.failures),
+            'errors': serialize_failures(result.errors),
+            'exception': None,
+            'totalTests': result.testsRun
+        }
+
+    except Exception as e:
+        result_data = {
+            'success': False,
+            'failures': {},
+            'errors': {},
+            'exception': str(e),
+            'totalTests': 0
+        }
+
+    dispatchPythonResult(slug, result_data);
+
+
+server = document.getElementById("python-server")
+server.addEventListener("RunPythonCode", create_proxy(run_python_code))
+server.addEventListener("RunPythonTests", create_proxy(run_python_tests))
+`}
+  />
+
+  <script src="./load-pyscript.ts"></script>
+</Fragment>

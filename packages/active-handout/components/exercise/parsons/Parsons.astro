@@ -10,12 +10,14 @@ interface Props extends ExerciseContainerProps {
   withIndentation?: boolean;
   maxIndentation?: number;
   singleColumn?: boolean;
+  pythonTestsSrc?: string;
 }
 
 const handoutPath = Astro.url.pathname;
 const exerciseType = "parsons-problem";
 
-const { withIndentation, singleColumn, maxIndentation } = Astro.props;
+const { withIndentation, singleColumn, maxIndentation, pythonTestsSrc } =
+  Astro.props;
 
 const props = await buildExerciseContainerProps(
   await Astro.slots.render("default"),
@@ -62,6 +64,7 @@ const props = await buildExerciseContainerProps(
     withIndentation={!!withIndentation}
     singleColumn={!!singleColumn}
     maxIndentation={maxIndentation || 5}
+    pythonTestsSrc={pythonTestsSrc}
     {...props}
     client:only
   />
