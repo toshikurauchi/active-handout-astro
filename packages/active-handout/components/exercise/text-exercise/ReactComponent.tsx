@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import config from "virtual:active-handout/user-config";
-import { useTranslations } from "../../../utils/translations";
 import ExerciseContainer, {
   ExerciseContext,
 } from "../container/ExerciseContainer";
@@ -8,8 +6,6 @@ import type { ExerciseBaseProps } from "../props";
 import Styles from "./styles.module.scss";
 import FormInput from "../../form-input/ReactFormInput";
 import ExerciseSubmitButton from "../submit-button/ExerciseSubmitButton";
-
-const t = useTranslations(config.lang);
 
 type TextExerciseProps = ExerciseBaseProps & {
   inputType?: string | undefined;
@@ -27,6 +23,7 @@ export default function TextExercise({ ...props }: TextExerciseProps) {
 function InnerComponent({
   latestSubmission,
   baseHTML,
+  validation,
   inputType,
   multiline,
 }: TextExerciseProps) {
@@ -52,7 +49,7 @@ function InnerComponent({
       } else {
         setStudentInput(null);
       }
-      setPoints(telemetry?.percentComplete || null);
+      setPoints(telemetry ? telemetry.percentComplete : null);
 
       setReloadData(false);
     });
@@ -63,10 +60,17 @@ function InnerComponent({
   };
 
   const handleClick = () => {
-    const percentComplete = studentInput ? 100 : 0;
+    let percentComplete = studentInput ? 100 : 0;
+    if (
+      validation &&
+      studentInput &&
+      !studentInput.match(new RegExp(validation))
+    ) {
+      percentComplete = 0;
+    }
     setTelemetry(percentComplete, { studentInput }).then((telemetryData) => {
       setStudentInput(telemetryData?.data?.studentInput || null);
-      setPoints(telemetryData?.percentComplete || null);
+      setPoints(telemetryData ? telemetryData.percentComplete : null);
     });
   };
 

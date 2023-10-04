@@ -59,3 +59,25 @@ Text of the single line answer question.
     Correct answer here. Take into account that students will phrase their answers differently and try to include elements that will let them evaluate their own answers.
   </Answer>
 </TextExercise>
+
+### With validation
+
+You can use [regular expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions) to validate student input. If you provide a `validation` attribute, the exercise will evaluate it as a regex and try to match to the student's answer.
+
+```
+<TextExercise slug="with-regex" validation="[aA].+">
+Answer validated with a regex. Write a word that starts with the letter A.
+
+  <Answer>
+    Correct answer here. Take into account that students will phrase their answers differently and try to include elements that will let them evaluate their own answers.
+  </Answer>
+</TextExercise>
+```
+
+<TextExercise slug="with-regex" validation="[aA].+">
+Answer validated with a regex. Write a word that starts with the letter A.
+
+  <Answer>
+    Correct answer here. Take into account that students will phrase their answers differently and try to include elements that will let them evaluate their own answers.
+  </Answer>
+</TextExercise>
