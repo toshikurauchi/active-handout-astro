@@ -1,0 +1,34 @@
+---
+import { buildExerciseContainerProps } from "../server-telemetry";
+import ReactTextExercise from "./ReactComponent";
+import type { ExerciseContainerProps } from "../props";
+
+const handoutPath = Astro.url.pathname;
+
+interface Props extends ExerciseContainerProps {
+  exerciseType?: string;
+  inputType?: string;
+  multiline?: boolean;
+}
+
+const exerciseType = Astro.props.exerciseType || "text-exercise";
+
+const { multiline } = Astro.props;
+
+const props = await buildExerciseContainerProps(
+  await Astro.slots.render("default"),
+  Astro.props,
+  Astro.locals,
+  handoutPath,
+  exerciseType,
+  [exerciseType],
+  () => ({
+    data: {},
+    extraProps: { multiline: !!multiline },
+  })
+);
+---
+
+<ReactTextExercise {...props} client:visible>
+  <slot />
+</ReactTextExercise>

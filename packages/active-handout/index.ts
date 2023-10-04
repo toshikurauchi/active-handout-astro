@@ -143,6 +143,7 @@ export default function ActiveHandoutIntegration(
         "@toshikurauchi/active-handout/components/terminal/TerminalLine.astro",
         "@toshikurauchi/active-handout/components/exercise/parsons/Parsons.astro",
         "@toshikurauchi/active-handout/components/exercise/parsons/ParsonsLine.astro",
+        "@toshikurauchi/active-handout/components/exercise/text-exercise/TextExercise.astro",
         "@toshikurauchi/active-handout/components/exercise/answer/Answer.astro",
         "@toshikurauchi/active-handout/components/exercise/progress-exercise/ProgressExercise.astro",
         "@toshikurauchi/active-handout/components/exercise/multiple-choice/MultipleChoice.astro",
