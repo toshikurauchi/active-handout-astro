@@ -1,8 +1,8 @@
 import React, { type CSSProperties, useState, useEffect } from "react";
 import { Classes } from "./draggable-types";
 import Styles from "./styles.module.scss";
-import ChevronLeft from "../../icons/ChevronLeft";
-import ChevronRight from "../../icons/ChevronRight";
+import ChevronLeft from "../../../icons/ChevronLeft";
+import ChevronRight from "../../../icons/ChevronRight";
 
 type ParsonsIndentedLineProps = {
   line: string;
