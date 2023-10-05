@@ -3,7 +3,6 @@ import type { MarkdownHeading } from "astro";
 import { getNavEntries } from "../../utils/routing";
 import NavMenu from "../nav-menu/NavMenu.astro";
 import UserMenu from "../user-menu/UserMenu.astro";
-import ClearTelemetryButton from "../exercise/clear-telemetry/ClearTelemetryButton";
 import config from "virtual:active-handout/user-config";
 import type { DecodedIdToken } from "firebase-admin/auth";
 
@@ -42,7 +41,6 @@ const navEntries = getNavEntries(slug);
       {websiteTitle}
     </a>
     <div class="right-header">
-      <ClearTelemetryButton client:load />
       {
         user && (
           <div class="user-menu">

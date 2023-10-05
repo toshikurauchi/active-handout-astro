@@ -14,6 +14,10 @@ function activeHandoutI18nSchema() {
       "msg.answer": z.string().describe("Text for the word “Answer”"),
       "msg.or": z.string().describe("Text for the word “or”"),
 
+      "msg.exercise-edit": z
+        .string()
+        .describe("Text for the button that edits the exercise answer"),
+
       "msg.exercise-clear": z
         .string()
         .describe("Text for the button that clears exercise answer"),

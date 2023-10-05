@@ -131,7 +131,7 @@ export default function ExerciseContainer({
               <Button
                 transparent
                 onClick={handleEditAnswer}
-                tooltip={t("msg.exercise-clear")}
+                tooltip={t("msg.exercise-edit")}
               >
                 <Edit className={`${Styles.icon} ${Styles.actionIcon}`} />
               </Button>

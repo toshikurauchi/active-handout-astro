@@ -1,6 +1,7 @@
 {
   "msg.answer": "Answer",
   "msg.or": "or",
+  "msg.exercise-edit": "Edit answer",
   "msg.exercise-clear": "Clear answer",
   "msg.all-exercises-clear": "Clear all answers",
   "msg.all-exercises-cleared": "Answers cleared",

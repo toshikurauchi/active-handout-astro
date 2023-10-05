@@ -1,6 +1,7 @@
 {
   "msg.answer": "Resposta",
   "msg.or": "ou",
+  "msg.exercise-edit": "Editar resposta",
   "msg.exercise-clear": "Apagar resposta",
   "msg.all-exercises-clear": "Apagar respostas",
   "msg.all-exercises-cleared": "Respostas apagadas",
