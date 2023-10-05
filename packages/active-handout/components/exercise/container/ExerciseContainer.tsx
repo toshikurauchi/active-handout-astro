@@ -18,6 +18,7 @@ import { clearTelemetry } from "../exercise-utils";
 import AnswerReact from "../answer/AnswerReact";
 import { fetchTelemetry, postTelemetry } from "../exercise-utils";
 import type { TelemetryData } from "../../../db/telemetry/model";
+import Edit from "../../icons/Edit";
 
 const t = useTranslations(config.lang);
 
@@ -57,6 +58,7 @@ export default function ExerciseContainer({
   latestSubmission,
   exerciseType,
   answerHTML,
+  allowsEditing,
   children,
 }: ExerciseBaseProps) {
   // Start reloading data as soon as the component is mounted
@@ -85,6 +87,11 @@ export default function ExerciseContainer({
     });
   };
 
+  const handleEditAnswer = () => {
+    setStatus("unanswered");
+    setPoints(null);
+  };
+
   useEffect(() => {
     document.addEventListener("ClearTelemetry", () => {
       handleClearExercise();
@@ -111,6 +118,8 @@ export default function ExerciseContainer({
     ).then(() => fetchTelemetry(handoutPath, slug));
   };
 
+  const exerciseEnabled = status === "unanswered";
+
   return (
     <Admonition
       title={`${t("exercise.title")} ${exerciseNumber}`}
@@ -118,12 +127,21 @@ export default function ExerciseContainer({
       renderTitleRight={() =>
         status === "unanswered" ? null : (
           <>
+            {allowsEditing && !exerciseEnabled && (
+              <Button
+                transparent
+                onClick={handleEditAnswer}
+                tooltip={t("msg.exercise-clear")}
+              >
+                <Edit className={`${Styles.icon} ${Styles.actionIcon}`} />
+              </Button>
+            )}
             <Button
               transparent
               onClick={handleClearExercise}
               tooltip={t("msg.exercise-clear")}
             >
-              <Trash className={`${Styles.icon} ${Styles.trashIcon}`} />
+              <Trash className={`${Styles.icon} ${Styles.actionIcon}`} />
             </Button>
             {status === "success" && (
               <CorrectIcon className={`${Styles.icon} ${Styles.correctIcon}`} />
@@ -145,7 +163,7 @@ export default function ExerciseContainer({
           reloadData,
           setReloadData,
           status,
-          exerciseEnabled: status === "unanswered",
+          exerciseEnabled,
           points,
           setPoints,
           extraAnswerContent,

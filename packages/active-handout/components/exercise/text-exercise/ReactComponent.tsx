@@ -15,7 +15,7 @@ type TextExerciseProps = ExerciseBaseProps & {
 
 export default function TextExercise({ ...props }: TextExerciseProps) {
   return (
-    <ExerciseContainer {...props}>
+    <ExerciseContainer allowsEditing {...props}>
       <InnerComponent {...props}></InnerComponent>
     </ExerciseContainer>
   );

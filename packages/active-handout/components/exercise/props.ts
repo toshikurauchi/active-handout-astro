@@ -16,6 +16,7 @@ export type ExerciseBaseProps = {
   baseHTML: string;
   latestSubmission?: TelemetryDataCache | null | undefined;
   children?: React.ReactNode;
+  allowsEditing?: boolean;
 };
 
 export type Status = "unanswered" | "success" | "partial-success" | "failed";
