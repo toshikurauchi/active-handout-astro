@@ -161,6 +161,7 @@ export default function ActiveHandoutIntegration(
         "@toshikurauchi/active-handout/components/pdf-viewer/PDFViewer.astro",
         "@toshikurauchi/active-handout/components/tabs/TabGroup.astro",
         "@toshikurauchi/active-handout/components/tabs/TabItem.astro",
+        "@toshikurauchi/active-handout/components/video/Video.astro",
       ],
     }),
     react(),
