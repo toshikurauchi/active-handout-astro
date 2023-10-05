@@ -1,5 +1,11 @@
+---
+import config from "virtual:active-handout/user-config";
+import { useTranslations } from "../../../utils/translations";
+const t = useTranslations(config.lang);
+---
+
 <div class="exerciseAnswer">
-  <div class="exerciseAnswerTitle">Answer</div>
+<div class="exerciseAnswerTitle">{t("msg.answer")}</div>
   <slot />
 </div>
 

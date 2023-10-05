@@ -5,6 +5,7 @@ import ExerciseContainer, {
 } from "../../container/ExerciseContainer";
 import ParsonsLineContainer from "./ParsonsLineContainer";
 import ExerciseSubmitButton from "../../submit-button/ExerciseSubmitButton";
+import Styles from "./styles.module.scss";
 import {
   getAnswerPointsFromLocalStorage,
   loadAndRunPythonTests,
@@ -207,7 +208,7 @@ function getExtraAnswer(telemetry: TelemetryData) {
     return (
       <>
         <p>{t("parsons.exception")}</p>
-        <pre>{exception}</pre>
+        <pre className={Styles.exceptionText}>{exception}</pre>
       </>
     );
   }

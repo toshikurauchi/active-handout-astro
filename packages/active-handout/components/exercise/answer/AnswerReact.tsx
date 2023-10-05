@@ -1,6 +1,10 @@
 import React, { type ReactNode } from "react";
+import config from "virtual:active-handout/user-config";
+import { useTranslations } from "../../../utils/translations";
 import Styles from "./styles.module.scss";
 import type { Status } from "../props";
+
+const t = useTranslations(config.lang);
 
 type AnswerReactProps = {
   answerHTML: string;
@@ -20,7 +24,7 @@ export default function AnswerReact({
   const className = `${Styles.exerciseAnswer} ${classForStatus(status)}`.trim();
   return (
     <div className={className}>
-      <div className={Styles.exerciseAnswerTitle}>Answer</div>
+      <div className={Styles.exerciseAnswerTitle}>{t("msg.answer")}</div>
       {answerHTML && <div dangerouslySetInnerHTML={{ __html: answerHTML }} />}
       {extraAnswerContent && <div>{extraAnswerContent}</div>}
     </div>

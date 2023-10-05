@@ -87,6 +87,11 @@ export default function ActiveHandoutIntegration(
               entryPoint:
                 "@toshikurauchi/active-handout/pages/api/auto-grade/multiple-choice.ts",
             });
+            injectRoute({
+              pattern: "api/auto-grade/parsons-problem",
+              entryPoint:
+                "@toshikurauchi/active-handout/pages/api/auto-grade/parsons-problem.ts",
+            });
           }
         }
 

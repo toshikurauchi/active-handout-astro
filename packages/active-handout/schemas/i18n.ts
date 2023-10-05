@@ -11,6 +11,7 @@ export function builtinI18nSchema() {
 function activeHandoutI18nSchema() {
   return z
     .object({
+      "msg.answer": z.string().describe("Text for the word “Answer”"),
       "msg.or": z.string().describe("Text for the word “or”"),
 
       "msg.exercise-clear": z

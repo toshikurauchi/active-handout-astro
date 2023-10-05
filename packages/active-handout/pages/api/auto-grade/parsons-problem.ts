@@ -16,10 +16,17 @@ export const GET: APIRoute = async ({ url }) => {
   }
 
   let percentComplete = 0;
-  const selectedOption = data.option;
-  if (typeof selectedOption !== "undefined" && exercise.data.options) {
-    percentComplete = exercise.data?.options?.[selectedOption]?.points || 0;
+  const { studentAnswer, totalTests, passingTests, exception } = data;
+  if (exercise.data.hasTests) {
+    if (exception || !totalTests) {
+      percentComplete = 0;
+    } else {
+      percentComplete = (passingTests / totalTests) * 100;
+    }
+  } else {
+    percentComplete = studentAnswer === exercise.data.expected ? 100 : 0;
   }
+  console.log("percentComplete", percentComplete, data);
 
   return new Response(
     JSON.stringify({

@@ -1,5 +1,5 @@
 ---
-import { ExerciseContainerProps } from "../props";
+import type { ExerciseContainerProps } from "../props";
 import { buildExerciseContainerProps } from "../server-telemetry";
 import ParsonsExercise from "./ReactComponent/ParsonsExercise";
 import { rehypeExtractParsonsLines } from "./rehype-extract-parsons-lines";
@@ -31,6 +31,7 @@ const props = await buildExerciseContainerProps(
       rehypeExtractParsonsLines(baseHTML);
     return {
       data: {
+        hasTests: !!pythonTestsSrc,
         expected: lines
           .filter((line) => !line.distractor)
           .map(

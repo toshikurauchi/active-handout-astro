@@ -4,7 +4,6 @@ $indent-width: 2em;
   display: grid;
   grid-template-columns: repeat(2, calc(50% - 0.1em));
   gap: 0.2em;
-  font-size: var(--fnt-sz--1);
 
   &:not(:first-child) {
     margin-top: 1em;
@@ -26,6 +25,7 @@ $indent-width: 2em;
 .linesContainerBlock {
   display: flex;
   flex-direction: column;
+  font-size: var(--fnt-sz--1);
 }
 
 // The ul is for specificity
@@ -138,4 +138,8 @@ ul.linesContainer {
 
 :global(.draggable-parsons-line.draggable-source--is-dragging) {
   opacity: 0;
+}
+
+.exceptionText {
+  white-space: pre-wrap;
 }
