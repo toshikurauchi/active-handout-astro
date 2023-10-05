@@ -51,7 +51,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "react-textarea-autosize": "^8.5.3",
     "rehype": "^13.0.1",
     "rehype-accessible-emojis": "^0.3.2",
     "rehype-autolink-headings": "^7.0.0",

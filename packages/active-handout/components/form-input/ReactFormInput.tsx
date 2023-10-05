@@ -1,7 +1,7 @@
-import React, { type HTMLAttributes, type TextareaHTMLAttributes } from "react";
-import TextareaAutosize from "react-textarea-autosize";
+import React, { type HTMLAttributes } from "react";
 import Styles from "./styles.module.scss";
 import ErrorMsg from "../error-msg/ReactErrorMsg";
+import TextareaAutosize from "./TextareaAutosize";
 
 type FormInputProps = {
   labelText?: string;
@@ -27,8 +27,8 @@ export default function FormInput({
       {!multiline && <input {...props} />}
       {!!multiline && (
         <TextareaAutosize
-          minRows={minLines || 1}
-          {...(props as Omit<HTMLAttributes<HTMLTextAreaElement>, "style">)}
+          minLines={minLines || 1}
+          {...(props as HTMLAttributes<HTMLTextAreaElement>)}
         />
       )}
       {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}

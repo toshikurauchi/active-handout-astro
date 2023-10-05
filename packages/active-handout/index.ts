@@ -92,6 +92,11 @@ export default function ActiveHandoutIntegration(
               entryPoint:
                 "@toshikurauchi/active-handout/pages/api/auto-grade/parsons-problem.ts",
             });
+            injectRoute({
+              pattern: "api/auto-grade/text-exercise",
+              entryPoint:
+                "@toshikurauchi/active-handout/pages/api/auto-grade/text-exercise.ts",
+            });
           }
         }
 

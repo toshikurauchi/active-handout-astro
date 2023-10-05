@@ -129,6 +129,7 @@ function InnerComponent({
   useEffect(() => {
     registerPythonResultListener(slug, (data: any) => {
       let percentComplete;
+      const code = data.code;
       const totalTests = data.totalTests;
       const exception = data.exception;
       let passingTests = 0;
@@ -144,7 +145,7 @@ function InnerComponent({
         percentComplete = 0;
       }
       setTelemetry(percentComplete, {
-        studentAnswer,
+        studentAnswer: code,
         totalTests,
         passingTests,
         exception,

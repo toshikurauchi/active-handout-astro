@@ -10,6 +10,7 @@ import ExerciseSubmitButton from "../submit-button/ExerciseSubmitButton";
 type TextExerciseProps = ExerciseBaseProps & {
   inputType?: string | undefined;
   multiline: boolean;
+  validation?: string | undefined;
 };
 
 export default function TextExercise({ ...props }: TextExerciseProps) {
@@ -27,8 +28,8 @@ function InnerComponent({
   inputType,
   multiline,
 }: TextExerciseProps) {
-  const [studentInput, setStudentInput] = useState(
-    latestSubmission?.data?.studentInput || null
+  const [studentAnswer, setStudentAnswer] = useState(
+    latestSubmission?.data?.studentAnswer || null
   );
 
   const {
@@ -44,10 +45,10 @@ function InnerComponent({
     if (!reloadData) return;
 
     getTelemetry().then((telemetry) => {
-      if (telemetry?.data?.studentInput) {
-        setStudentInput(telemetry?.data?.studentInput);
+      if (telemetry?.data?.studentAnswer) {
+        setStudentAnswer(telemetry?.data?.studentAnswer);
       } else {
-        setStudentInput(null);
+        setStudentAnswer(null);
       }
       setPoints(telemetry ? telemetry.percentComplete : null);
 
@@ -56,20 +57,20 @@ function InnerComponent({
   }, [reloadData]);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setStudentInput(event.target.value);
+    setStudentAnswer(event.target.value);
   };
 
   const handleClick = () => {
-    let percentComplete = studentInput ? 100 : 0;
+    let percentComplete = studentAnswer ? 100 : 0;
     if (
       validation &&
-      studentInput &&
-      !studentInput.match(new RegExp(validation))
+      studentAnswer &&
+      !studentAnswer.match(new RegExp(validation))
     ) {
       percentComplete = 0;
     }
-    setTelemetry(percentComplete, { studentInput }).then((telemetryData) => {
-      setStudentInput(telemetryData?.data?.studentInput || null);
+    setTelemetry(percentComplete, { studentAnswer }).then((telemetryData) => {
+      setStudentAnswer(telemetryData?.data?.studentAnswer || null);
       setPoints(telemetryData ? telemetryData.percentComplete : null);
     });
   };
@@ -85,13 +86,13 @@ function InnerComponent({
         multiline={!!multiline}
         minLines={3} // Will be ignored if single line, so we're good
         onChange={handleTextChange}
-        value={studentInput || ""}
+        value={studentAnswer || ""}
         disabled={!exerciseEnabled}
       ></FormInput>
 
       <ExerciseSubmitButton
         onClick={handleClick}
-        disabled={!exerciseEnabled || !studentInput}
+        disabled={!exerciseEnabled || !studentAnswer}
       />
     </>
   );

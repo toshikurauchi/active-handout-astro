@@ -1,18 +1,10 @@
 import type { APIRoute } from "astro";
-import { getExercise } from "../../../db/exercise/queries";
+import { loadExerciseOrError } from "./utils";
 
 export const GET: APIRoute = async ({ url }) => {
-  const handoutPath = url.searchParams.get("handoutPath")?.toString();
-  const exerciseSlug = url.searchParams.get("exerciseSlug")?.toString();
-  const data = JSON.parse(url.searchParams.get("data")?.toString() || "{}");
-
-  if (!handoutPath || !exerciseSlug) {
-    return new Response("Missing form data", { status: 400 });
-  }
-
-  const exercise = await getExercise(exerciseSlug, handoutPath);
-  if (!exercise) {
-    return new Response("Exercise not found", { status: 404 });
+  const { data, exercise, response } = await loadExerciseOrError(url);
+  if (response) {
+    return response;
   }
 
   let percentComplete = 0;
@@ -26,7 +18,6 @@ export const GET: APIRoute = async ({ url }) => {
   } else {
     percentComplete = studentAnswer === exercise.data.expected ? 100 : 0;
   }
-  console.log("percentComplete", percentComplete, data);
 
   return new Response(
     JSON.stringify({

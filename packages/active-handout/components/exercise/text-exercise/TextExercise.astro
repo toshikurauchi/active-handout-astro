@@ -24,7 +24,7 @@ const props = await buildExerciseContainerProps(
   exerciseType,
   [exerciseType],
   () => ({
-    data: {},
+    data: { validation: validation || "" },
     extraProps: { multiline: !!multiline, validation },
   })
 );

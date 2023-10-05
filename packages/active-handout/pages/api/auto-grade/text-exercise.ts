@@ -7,10 +7,16 @@ export const GET: APIRoute = async ({ url }) => {
     return response;
   }
 
+  const validation = exercise.data.validation;
+
   let percentComplete = 0;
-  const selectedOption = data.option;
-  if (typeof selectedOption !== "undefined" && exercise.data.options) {
-    percentComplete = exercise.data?.options?.[selectedOption]?.points || 0;
+  const { studentAnswer } = data;
+  if (studentAnswer) {
+    if (validation && !studentAnswer.match(new RegExp(validation))) {
+      percentComplete = 0;
+    } else {
+      percentComplete = 100;
+    }
   }
 
   return new Response(
