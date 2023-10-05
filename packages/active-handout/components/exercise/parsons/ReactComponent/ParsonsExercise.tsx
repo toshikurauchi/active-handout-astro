@@ -56,7 +56,7 @@ export default function ParsonsExercise({
     singleColumn,
   };
   return (
-    <ExerciseContainer {...props}>
+    <ExerciseContainer allowsEditing {...props}>
       <InnerComponent
         {...innerProps}
         registryKey={props.registryKey}
@@ -120,6 +120,8 @@ function InnerComponent({
         }
       } else {
         setPoints(null);
+        setAvailableLines(lines);
+        setSelectedLines([]);
       }
 
       setReloadData(false);
