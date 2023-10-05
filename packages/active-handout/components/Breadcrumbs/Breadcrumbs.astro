@@ -24,6 +24,10 @@ const breadcrumbs = getBreadcrumbEntries(slug);
     list-style: none;
     color: var(--clr-text-light);
     font-weight: 400;
+
+    @media print {
+      display: none;
+    }
   }
 
   .breadcrumb {

@@ -1,0 +1,60 @@
+@media print {
+  :root {
+    --fnt-sz--1: 0.77rem;
+    --fnt-sz--1: 0.87rem;
+    --fnt-sz-0: 1.04rem;
+    --fnt-sz-1: 1.13rem;
+    --fnt-sz-2: 1.2rem;
+    --fnt-sz-3: 1.28rem;
+    --fnt-sz-4: 1.37rem;
+    --fnt-sz-5: 1.46rem;
+
+    --content-top-padding: 0.5rem;
+    --content-bottom-padding: 1rem;
+    --default-block-padding: 0.2em;
+    --default-inline-padding: 0.4em;
+    --default-top-margin: 0.5em;
+  }
+
+  .anchor-icon {
+    display: none;
+  }
+
+  @page {
+    margin: 15mm 15mm 15mm 15mm;
+  }
+
+  body,
+  .main-content {
+    --header-height: 0;
+  }
+
+  p,
+  ul,
+  ol {
+    &:not(:first-child) {
+      margin-top: 0.5em;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+    margin: 1em 0 0;
+  }
+
+  /* Code blocks */
+  pre[class*="language-"] {
+    padding: 0.5em !important;
+    margin: 0.2em 0;
+  }
+
+  code,
+  pre {
+    font-size: var(--fnt-sz--1);
+  }
+}

@@ -3,6 +3,7 @@
 @use "./typeset.scss";
 @use "./colors.scss";
 @use "./task-list.scss";
+@use "./print.scss";
 
 body {
   background-color: var(--clr-background);
