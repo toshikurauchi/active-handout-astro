@@ -12,10 +12,7 @@ import {
   splitLinesIntoAvailableAndSelected,
 } from "./utils";
 import type { ParsonsLineData } from "./parsons-types";
-import {
-  initializePython,
-  registerPythonResultListener,
-} from "../../../python-local-server/python-utils";
+import { registerPythonResultListener } from "../../../python-local-server/python-utils";
 import type { TelemetryData } from "../../../../db/telemetry/model";
 import config from "virtual:active-handout/user-config";
 import { useTranslations } from "../../../../utils/translations";
@@ -92,12 +89,6 @@ function InnerComponent({
   const [availableLines, setAvailableLines] =
     useState<ParsonsLineData[]>(lines);
   const [selectedLines, setSelectedLines] = useState<ParsonsLineData[]>([]);
-
-  useEffect(() => {
-    if (pythonTestsSrc) {
-      initializePython();
-    }
-  }, [pythonTestsSrc]);
 
   // Update points and options status when requested by container
   useEffect(() => {

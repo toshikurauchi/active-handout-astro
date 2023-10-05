@@ -1,10 +1,3 @@
-export function initializePython() {
-  const pythonServerElement = getServerElement();
-
-  const event = new CustomEvent("InitializePython");
-  pythonServerElement?.dispatchEvent(event);
-}
-
 export function runPythonCode(slug: string, code: string) {
   const pythonServerElement = getServerElement();
 
