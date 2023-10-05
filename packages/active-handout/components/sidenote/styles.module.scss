@@ -54,7 +54,7 @@ $color: var(--clr-primary);
     opacity: 1;
     background-color: var(--clr-background);
     left: var(--main-content-left);
-    z-index: var(--sidenote-z-index, 9999999);
+    z-index: var(--sidenote-z-index, 499);
     transition:
       left 0.2s ease-in-out,
       opacity 0.2s ease-in-out,
@@ -89,7 +89,7 @@ $color: var(--clr-primary);
     inset: 0;
     background: black;
     opacity: 0.5;
-    z-index: 9999998;
+    z-index: 498;
   }
 }
 
@@ -110,7 +110,7 @@ $color: var(--clr-primary);
 
   &.sidenoteLineVisible {
     opacity: 1;
-    z-index: 9999998;
+    z-index: 498;
     width: calc(
       var(--main-content-right) - var(--sidenote-right) +
         ($sidenote-inline-margin - $toggle-button-size / 2)

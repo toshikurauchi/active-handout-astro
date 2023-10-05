@@ -6,7 +6,7 @@ export function buildAnchorId(baseId: string) {
   return `sidenote-anchor-${baseId}`;
 }
 
-const BASE_Z_INDEX = 9999999;
+const BASE_Z_INDEX = 499;
 
 export function updateZIndex(sidenote: HTMLElement | null, open: boolean) {
   if (!sidenote) return;
