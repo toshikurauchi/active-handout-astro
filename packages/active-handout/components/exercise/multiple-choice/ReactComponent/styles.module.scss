@@ -67,8 +67,8 @@ $option-padding: 0.5em;
 
   &:disabled {
     cursor: default;
-    --option-background: hsl(0, 0%, 90%);
-    --option-color: #000;
+    --option-background: var(--clr-disabled);
+    --option-color: var(--clr-text);
     --option-letter-background: hsl(0, 0%, 40%);
     --option-letter-color: #fff;
   }

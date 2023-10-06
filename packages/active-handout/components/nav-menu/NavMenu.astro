@@ -79,7 +79,7 @@ const { entries, nested, headings } = Astro.props;
       display: grid;
       place-items: center;
       left: -1.5em;
-      color: var(--clr-accent);
+      color: var(--clr-text-light);
       transition: transform 0.1s ease-in-out;
       transform-origin: center center;
       cursor: pointer;
@@ -117,29 +117,28 @@ const { entries, nested, headings } = Astro.props;
     }
 
     &.headings {
-      list-style: disc;
+      list-style: none;
       background-color: #eee6;
-      padding: 0.5rem;
+      padding: 0.5rem 1rem;
       margin-left: 0;
       border-radius: 0 0 0.5em 0.5em;
 
       li {
         display: list-item;
         line-height: 1.1;
-        margin-bottom: 0.5em;
+        margin-bottom: 1em;
 
         &::marker {
-          color: var(--clr-accent);
+          color: var(--clr-text-light);
+        }
+
+        &:hover {
+          transform: scale(1.01);
         }
       }
 
       a {
         padding: 0;
-
-        &:hover {
-          background: none;
-          text-decoration: underline solid var(--clr-accent);
-        }
       }
     }
   }
@@ -152,7 +151,7 @@ const { entries, nested, headings } = Astro.props;
   a {
     position: relative;
     text-decoration: none;
-    padding: 0.5em 0.5rem;
+    padding: 0.5em 1rem;
     border-radius: 0.5em;
     line-height: 1.1;
 
@@ -173,7 +172,7 @@ const { entries, nested, headings } = Astro.props;
 
   @for $i from 1 through 6 {
     .heading-#{$i} {
-      margin-left: calc(1.5rem * #{max($i - 1, 0)});
+      margin-left: calc(0.5rem * #{max($i - 2, 0)});
     }
   }
 </style>

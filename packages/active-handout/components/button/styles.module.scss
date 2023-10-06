@@ -68,7 +68,8 @@ $border-radius: 0.2em;
 
   &:disabled {
     cursor: default;
-    --btn-background-color: hsl(0, 0%, 90%);
+    --btn-background-color: var(--clr-disabled);
+    --btn-text-color: var(--clr-text-disabled);
   }
 
   img {
