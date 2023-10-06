@@ -5,6 +5,7 @@ import NavMenu from "../nav-menu/NavMenu.astro";
 import UserMenu from "../user-menu/UserMenu.astro";
 import config from "virtual:active-handout/user-config";
 import type { DecodedIdToken } from "firebase-admin/auth";
+import ThemeIcon from "../ThemeIcon.astro";
 
 interface Props {
   websiteTitle: string;
@@ -41,6 +42,7 @@ const navEntries = getNavEntries(slug);
       {websiteTitle}
     </a>
     <div class="right-header">
+      <ThemeIcon />
       {
         user && (
           <div class="user-menu">
