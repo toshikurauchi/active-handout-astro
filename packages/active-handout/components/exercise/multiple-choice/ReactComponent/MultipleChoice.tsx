@@ -41,6 +41,7 @@ function InnerComponent(props: MultipleChoiceExerciseProps) {
     letterPosition,
   } = props;
 
+  const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(
     latestSubmission?.data?.option ?? null
   );
@@ -75,6 +76,7 @@ function InnerComponent(props: MultipleChoiceExerciseProps) {
     // This shouldn't happen, but just in case
     if (selectedOption === null) return;
 
+    setLoading(true);
     let percentComplete = getOptionPointsFromLocalStorage(
       registryKey,
       selectedOption
@@ -85,6 +87,7 @@ function InnerComponent(props: MultipleChoiceExerciseProps) {
       if (telemetry) {
         setPoints(telemetry.percentComplete);
       }
+      setLoading(false);
     });
   };
 
@@ -105,6 +108,7 @@ function InnerComponent(props: MultipleChoiceExerciseProps) {
 
       <ExerciseSubmitButton
         onClick={handleClick}
+        loading={loading}
         disabled={selectedOption === null || !exerciseEnabled}
       />
     </div>

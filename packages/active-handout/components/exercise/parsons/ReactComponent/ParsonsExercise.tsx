@@ -75,6 +75,7 @@ function InnerComponent({
   slug,
 }: InnerProps) {
   const [studentAnswer, setStudentAnswer] = React.useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const {
     reloadData,
@@ -151,11 +152,13 @@ function InnerComponent({
             setExtraAnswerContent(newExtraAnswer);
           }
         }
+        setLoading(false);
       });
     });
   }, []);
 
   const handleClick = () => {
+    setLoading(true);
     if (pythonTestsSrc) {
       loadAndRunPythonTests(slug, pythonTestsSrc, studentAnswer);
     } else {
@@ -169,6 +172,7 @@ function InnerComponent({
         if (telemetry) {
           setPoints(telemetry.percentComplete);
         }
+        setLoading(false);
       });
     }
   };
@@ -189,7 +193,11 @@ function InnerComponent({
 
       {htmlAfter && <div dangerouslySetInnerHTML={{ __html: htmlAfter }} />}
 
-      <ExerciseSubmitButton onClick={handleClick} disabled={!exerciseEnabled} />
+      <ExerciseSubmitButton
+        onClick={handleClick}
+        disabled={!exerciseEnabled}
+        loading={loading}
+      />
     </div>
   );
 }

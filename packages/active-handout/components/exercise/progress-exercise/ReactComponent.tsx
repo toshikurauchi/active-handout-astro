@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import config from "virtual:active-handout/user-config";
 import { useTranslations } from "../../../utils/translations";
-import Button from "../../button/ReactButton";
 import ExerciseContainer, {
   ExerciseContext,
 } from "../container/ExerciseContainer";
 import type { ExerciseBaseProps } from "../props";
-import Styles from "./styles.module.scss";
+import ExerciseSubmitButton from "../submit-button/ExerciseSubmitButton";
 
 const t = useTranslations(config.lang);
 
@@ -27,6 +26,7 @@ function InnerComponent({
   children,
 }: ExerciseBaseProps & { children: React.ReactNode }) {
   const [done, setDone] = useState(latestSubmission?.data?.done || false);
+  const [loading, setLoading] = useState(false);
 
   const { reloadData, setReloadData, setPoints, getTelemetry, setTelemetry } =
     useContext(ExerciseContext);
@@ -50,19 +50,23 @@ function InnerComponent({
   }, [reloadData]);
 
   const handleClick = () => {
+    setLoading(true);
     setTelemetry(100, { done: true }).then((telemetryData) => {
       setDone(telemetryData?.data?.done || false);
+      setLoading(false);
     });
   };
 
   return (
     <>
       {children}
-      <div className={Styles.markDoneButtonContainer}>
-        <Button onClick={handleClick} disabled={done}>
-          {t("exercise.mark-done")}
-        </Button>
-      </div>
+      <ExerciseSubmitButton
+        onClick={handleClick}
+        disabled={done}
+        loading={loading}
+      >
+        {t("exercise.mark-done")}
+      </ExerciseSubmitButton>
     </>
   );
 }

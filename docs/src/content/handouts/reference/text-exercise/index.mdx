@@ -1,5 +1,5 @@
 ---
-title: Text questions
+title: Text exercise
 ---
 
 You can also add exercises with text answers (single or multiple lines).
@@ -65,7 +65,7 @@ Text of the single line answer question.
 You can use [regular expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions) to validate student input. If you provide a `validation` attribute, the exercise will evaluate it as a regex and try to match to the student's answer.
 
 ```
-<TextExercise slug="with-regex" validation="[aA].+">
+<TextExercise slug="with-regex" validation="^[aA].+">
 Answer validated with a regex. Write a word that starts with the letter A.
 
   <Answer>
@@ -74,7 +74,7 @@ Answer validated with a regex. Write a word that starts with the letter A.
 </TextExercise>
 ```
 
-<TextExercise slug="with-regex" validation="[aA].+">
+<TextExercise slug="with-regex" validation="^[aA].+">
 Answer validated with a regex. Write a word that starts with the letter A.
 
   <Answer>

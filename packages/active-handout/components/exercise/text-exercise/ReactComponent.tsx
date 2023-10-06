@@ -28,6 +28,7 @@ function InnerComponent({
   inputType,
   multiline,
 }: TextExerciseProps) {
+  const [loading, setLoading] = useState(false);
   const [studentAnswer, setStudentAnswer] = useState(
     latestSubmission?.data?.studentAnswer || null
   );
@@ -61,6 +62,7 @@ function InnerComponent({
   };
 
   const handleClick = () => {
+    setLoading(true);
     let percentComplete = studentAnswer ? 100 : 0;
     if (
       validation &&
@@ -72,6 +74,7 @@ function InnerComponent({
     setTelemetry(percentComplete, { studentAnswer }).then((telemetryData) => {
       setStudentAnswer(telemetryData?.data?.studentAnswer || null);
       setPoints(telemetryData ? telemetryData.percentComplete : null);
+      setLoading(false);
     });
   };
 
@@ -92,6 +95,7 @@ function InnerComponent({
 
       <ExerciseSubmitButton
         onClick={handleClick}
+        loading={loading}
         disabled={!exerciseEnabled || !studentAnswer}
       />
     </>
