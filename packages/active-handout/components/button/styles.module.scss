@@ -20,10 +20,10 @@ $border-radius: 0.2em;
   border-radius: $border-radius;
   border: none;
 
-  background: var(--btn-background-color);
+  background-color: var(--btn-background-color);
   color: var(--btn-text-color);
 
-  transition: background 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
   cursor: pointer;
 
   &:not(:disabled) {
