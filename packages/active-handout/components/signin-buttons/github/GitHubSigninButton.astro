@@ -24,10 +24,10 @@ const t = useTranslations(config.lang);
   import { GithubAuthProvider } from "firebase/auth";
   import { signinToFirebaseWithProvider } from "../../../utils/client-auth";
 
-  const googleSignin = document.querySelector(
+  const githubSignin = document.querySelector(
     "#github-signin"
   ) as HTMLButtonElement;
-  googleSignin.addEventListener("click", async () => {
+  githubSignin?.addEventListener("click", async () => {
     await signinToFirebaseWithProvider(GithubAuthProvider);
   });
 </script>

@@ -1,5 +1,4 @@
 import {
-  AuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
   OAuthCredential,
@@ -9,6 +8,7 @@ import {
   linkWithCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
+  type AuthProvider,
 } from "firebase/auth";
 import type { FirebaseError } from "firebase/app";
 import { app } from "../firebase/client";
