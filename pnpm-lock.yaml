@@ -18,8 +18,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(astro@3.2.2)
       '@toshikurauchi/active-handout':
-        specifier: ^0.0.26
-        version: 0.0.26(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31)
+        specifier: ^0.0.27
+        version: 0.0.27(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31)
       astro:
         specifier: ^3.2.2
         version: 3.2.2
@@ -2021,8 +2021,8 @@ packages:
     dev: false
     optional: true
 
-  /@toshikurauchi/active-handout@0.0.26(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31):
-    resolution: {integrity: sha512-9wkVMjx07vbqQ12WFybTdZNYUhjQbZaAulT5MfdXoXxZWW5qVlmjakPWbIxRa5iyOd9B4l8LQkxc91jRxSIDVg==}
+  /@toshikurauchi/active-handout@0.0.27(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31):
+    resolution: {integrity: sha512-fKwqDMg3dp8juGVCBVt4/voopO7q/Yf8/PYAvHXJ87NWBwZhIqN/IclRwmhjWlOTExDzMJGawB4r/VpTLfa/Gg==}
     dependencies:
       '@astrojs/check': 0.2.0(typescript@5.2.2)
       '@astrojs/mdx': 1.1.1(astro@3.2.4)
@@ -2051,8 +2051,10 @@ packages:
       rehype: 13.0.1
       rehype-accessible-emojis: 0.3.2
       rehype-autolink-headings: 7.0.0
+      rehype-katex: 7.0.0
       rehype-slug: 6.0.0
       remark-emoji: 4.0.0
+      remark-math: 6.0.0
       sass: 1.69.2
       sharp: 0.32.6
       typescript: 5.2.2
