@@ -1,6 +1,8 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import emoji from "remark-emoji";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import AutoImport from "astro-auto-import";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -108,10 +110,11 @@ export default function ActiveHandoutIntegration(
 
           markdown: {
             syntaxHighlight: "prism",
-            remarkPlugins: [remarkInlinePrism, emoji],
+            remarkPlugins: [remarkInlinePrism, emoji, remarkMath],
             rehypePlugins: [
               rehypeAccessibleEmojis,
               rehypeSlug,
+              rehypeKatex,
               [
                 rehypeAutolinkHeadings,
                 {
