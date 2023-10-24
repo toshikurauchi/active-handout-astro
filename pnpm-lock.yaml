@@ -18,7 +18,7 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(astro@3.2.2)
       '@toshikurauchi/active-handout':
-        specifier: ^0.0.27
+        specifier: workspace:^
         version: link:../packages/active-handout
       astro:
         specifier: ^3.2.2

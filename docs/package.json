@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.2.0",
     "@astrojs/react": "^3.0.2",
     "@astrojs/vercel": "^5.0.1",
-    "@toshikurauchi/active-handout": "^0.0.27",
+    "@toshikurauchi/active-handout": "workspace:^",
     "astro": "^3.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
