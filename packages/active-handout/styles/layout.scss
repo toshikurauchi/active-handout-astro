@@ -31,6 +31,10 @@ ol {
   }
 }
 
+ul ul {
+  margin-bottom: 1.2em;
+}
+
 $link-icon-width: 0.8em;
 h1,
 h2,
@@ -59,4 +63,42 @@ h6 {
 img {
   max-width: 100%;
   height: auto;
+}
+
+table {
+  margin: 1em 0;
+  min-width: 100%;
+  border-spacing: 0;
+  border-radius: 0.2em;
+  border-collapse: separate;
+  overflow: hidden;
+  table-layout: fixed;
+  border: 1px solid var(--clr-text);
+  padding: 0;
+
+  .compact-table & {
+    min-width: auto;
+  }
+
+  .centered-table & {
+    margin-inline: auto;
+  }
+}
+
+thead {
+  border-bottom: 1px solid var(--clr-primary);
+  background-color: var(--clr-primary);
+  color: var(--clr-primary-contrast);
+}
+
+tr {
+  tbody &:hover {
+    color: var(--clr-primary);
+    background-color: var(--clr-primary-contrast);
+  }
+}
+
+td,
+th {
+  padding: 0.2em 0.5em;
 }
