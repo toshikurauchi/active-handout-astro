@@ -58,8 +58,15 @@ if (entry) {
 if (!title) {
   title = entry.data.title || headings[0]?.text || "";
 }
+const subtitle = entry.data.subtitle || "";
 ---
 
-<Page title={title} {template} {headings} {usesPythonRuntime}>
+<Page
+  title={title}
+  subtitle={subtitle}
+  {template}
+  {headings}
+  {usesPythonRuntime}
+>
   <Content />
 </Page>

@@ -17,11 +17,12 @@ import SetupPyScript from "../components/python-local-server/SetupPyScript.astro
 type Props = {
   headings?: MarkdownHeading[];
   title: string;
+  subtitle?: string;
   template: Handout["template"];
   usesPythonRuntime?: Handout["usesPythonRuntime"];
 };
 
-const { template, title, headings, usesPythonRuntime } = Astro.props;
+const { template, title, subtitle, headings, usesPythonRuntime } = Astro.props;
 const isSplash = template === "splash";
 ---
 
@@ -50,6 +51,7 @@ const isSplash = template === "splash";
           <>
             <Breadcrumbs />
             <h1>{title}</h1>
+            {subtitle && <h2 class="ah-subtitle">{subtitle}</h2>}
           </>
         )
       }
