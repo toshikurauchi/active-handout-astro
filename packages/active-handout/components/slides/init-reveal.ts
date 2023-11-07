@@ -1,7 +1,7 @@
 import Reveal from "reveal.js";
-import Markdown from "reveal.js/plugin/markdown/markdown";
-import Highlight from "reveal.js/plugin/highlight/highlight";
-import Math from "reveal.js/plugin/math/math";
+import Markdown from "reveal.js/plugin/markdown/markdown.esm";
+import Highlight from "reveal.js/plugin/highlight/highlight.esm";
+import Math from "reveal.js/plugin/math/math.esm";
 
 function flagToBool(flag: string | null | undefined): boolean {
   if (typeof flag === "undefined" || flag === "false" || flag === null)
