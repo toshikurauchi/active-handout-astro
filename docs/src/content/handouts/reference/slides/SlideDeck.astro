@@ -1,0 +1,26 @@
+---
+const equation = `
+<h2>The Lorenz Equations</h2>
+\\[\\begin{aligned}
+\\dot{x} &amp; = \\sigma(y-x) \\\\
+\\dot{y} &amp; = \\rho x - y - xz \\\\
+\\dot{z} &amp; = -\\beta z + xy
+\\end{aligned} \\]
+`;
+---
+
+<section set:html={equation} />
+<section>
+  <pre><code data-trim data-noescape class="language-python" data-line-numbers="1|2" data-ln-start-from="7">
+    def hello_world(a, b):
+        print("Hello, World!", a + b)
+  </code></pre>
+</section>
+<section>
+  <section data-markdown>
+    <textarea data-template> # Vertical Slide 1</textarea>
+  </section>
+  <section data-markdown>
+    <textarea data-template> # Vertical Slide 2</textarea>
+  </section>
+</section>

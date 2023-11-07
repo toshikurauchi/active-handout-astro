@@ -96,6 +96,11 @@ tr {
     color: var(--clr-primary);
     background-color: var(--clr-primary-contrast);
   }
+
+  .hljs tbody &:hover {
+    color: inherit;
+    background-color: inherit;
+  }
 }
 
 td,

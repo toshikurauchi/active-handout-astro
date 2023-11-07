@@ -32,13 +32,13 @@
   --clr-code-background: hsl(230, 1%, 98%);
 }
 
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
+:not(pre) > code[class*="language-"]:not(.hljs),
+pre[class*="language-"]:not(.hljs) {
   border: 1px solid hsl(230, 1%, 90%);
 }
 
-code[class*="language-"],
-pre[class*="language-"] {
+code[class*="language-"]:not(.hljs),
+pre[class*="language-"]:not(.hljs) {
   background: hsl(230, 1%, 98%);
   color: hsl(230, 8%, 24%);
   font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono",
@@ -59,22 +59,22 @@ pre[class*="language-"] {
 }
 
 /* Selection */
-code[class*="language-"]::-moz-selection,
-code[class*="language-"] *::-moz-selection,
-pre[class*="language-"] *::-moz-selection {
+code[class*="language-"]:not(.hljs)::-moz-selection,
+code[class*="language-"]:not(.hljs) *::-moz-selection,
+pre[class*="language-"]:not(.hljs) *::-moz-selection {
   background: hsl(230, 1%, 90%);
   color: inherit;
 }
 
-code[class*="language-"]::selection,
-code[class*="language-"] *::selection,
-pre[class*="language-"] *::selection {
+code[class*="language-"]:not(.hljs)::selection,
+code[class*="language-"]:not(.hljs) *::selection,
+pre[class*="language-"]:not(.hljs) *::selection {
   background: hsl(230, 1%, 90%);
   color: inherit;
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre[class*="language-"]:not(.hljs) {
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
@@ -82,7 +82,7 @@ pre[class*="language-"] {
 }
 
 /* Inline code */
-:not(pre) > code[class*="language-"] {
+:not(pre) > code[class*="language-"]:not(.hljs) {
   padding: 0.2em 0.3em;
   border-radius: 0.3em;
   white-space: normal;
@@ -475,13 +475,13 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 
   --clr-code-background: hsl(220, 13%, 18%);
 
-  :not(pre) > code[class*="language-"],
-  pre[class*="language-"] {
+  :not(pre) > code[class*="language-"]:not(.hljs),
+  pre[class*="language-"]:not(.hljs) {
     border: 1px solid hsl(220, 13%, 5%);
   }
 
-  code[class*="language-"],
-  pre[class*="language-"] {
+  code[class*="language-"]:not(.hljs),
+  pre[class*="language-"]:not(.hljs) {
     background: hsl(220, 13%, 18%);
     color: hsl(220, 14%, 71%);
     text-shadow: 0 1px rgba(0, 0, 0, 0.3);
@@ -503,24 +503,24 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   }
 
   /* Selection */
-  code[class*="language-"]::-moz-selection,
-  code[class*="language-"] *::-moz-selection,
-  pre[class*="language-"] *::-moz-selection {
+  code[class*="language-"]:not(.hljs)::-moz-selection,
+  code[class*="language-"]:not(.hljs) *::-moz-selection,
+  pre[class*="language-"]:not(.hljs) *::-moz-selection {
     background: hsl(220, 13%, 28%);
     color: inherit;
     text-shadow: none;
   }
 
-  code[class*="language-"]::selection,
-  code[class*="language-"] *::selection,
-  pre[class*="language-"] *::selection {
+  code[class*="language-"]:not(.hljs)::selection,
+  code[class*="language-"]:not(.hljs) *::selection,
+  pre[class*="language-"]:not(.hljs) *::selection {
     background: hsl(220, 13%, 28%);
     color: inherit;
     text-shadow: none;
   }
 
   /* Code blocks */
-  pre[class*="language-"] {
+  pre[class*="language-"]:not(.hljs) {
     padding: 1em;
     margin: 0.5em 0;
     overflow: auto;
@@ -528,7 +528,7 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   }
 
   /* Inline code */
-  :not(pre) > code[class*="language-"] {
+  :not(pre) > code[class*="language-"]:not(.hljs) {
     padding: 0.2em 0.3em;
     border-radius: 0.3em;
     white-space: normal;
@@ -536,8 +536,8 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 
   /* Print */
   @media print {
-    code[class*="language-"],
-    pre[class*="language-"] {
+    code[class*="language-"]:not(.hljs),
+    pre[class*="language-"]:not(.hljs) {
       text-shadow: none;
     }
   }

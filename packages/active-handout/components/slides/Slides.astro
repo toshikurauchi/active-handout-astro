@@ -1,0 +1,71 @@
+---
+import "reveal.js/dist/reveal.css";
+import "reveal.js/dist/theme/black.css";
+import "./highlightjs/atom-one-dark.css";
+
+interface Props {
+  small?: boolean;
+  hideControls?: boolean;
+  hideControlsTutorial?: boolean;
+  controlsLayout?: "edges" | "bottom-right";
+  controlsBackArrows?: "faded" | "hidden" | "visible";
+  progress?: boolean;
+  slideNumber?: boolean;
+  shuffle?: boolean;
+}
+
+const {
+  small,
+  hideControls,
+  hideControlsTutorial,
+  controlsLayout = "edges",
+  controlsBackArrows = "faded",
+  progress,
+  slideNumber,
+  shuffle,
+} = Astro.props;
+
+const containerClassList = ["ah-slide-container"];
+if (small) {
+  containerClassList.push("ah-slide-container--small");
+}
+---
+
+<div
+  class={containerClassList.join(" ")}
+  data-controls={!hideControls}
+  data-controls-tutorial={!hideControlsTutorial}
+  data-controls-layout={controlsLayout}
+  data-controls-back-arrows={controlsBackArrows}
+  data-progress={progress}
+  data-slide-number={slideNumber}
+  data-shuffle={shuffle}
+>
+  <div class="reveal">
+    <div class="slides">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  .ah-slide-container {
+    display: grid;
+    min-height: 20rem;
+    margin-block: 1.2em;
+    aspect-ratio: calc(960 / 700);
+
+    &--small {
+      max-width: 25rem;
+      min-height: auto;
+      margin-inline: auto;
+    }
+  }
+
+  .reveal pre code {
+    padding: 1rem;
+    border-radius: 0.2em;
+  }
+</style>
+
+<script src="./init-reveal.ts"></script>
