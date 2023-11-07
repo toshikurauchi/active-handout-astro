@@ -133,6 +133,7 @@ export default function ActiveHandoutIntegration(
             ssr: {
               noExternal: [
                 "@fontsource-variable/open-sans",
+                "@fontsource-source-sans-pro",
                 "@fontsource-variable/oswald",
                 "@fontsource/fira-mono",
               ],

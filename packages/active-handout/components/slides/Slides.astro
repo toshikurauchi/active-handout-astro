@@ -1,6 +1,4 @@
 ---
-import "./highlightjs/atom-one-dark.css";
-
 interface Props {
   small?: boolean;
   hideControls?: boolean;
@@ -45,6 +43,12 @@ if (small) {
     </div>
   </div>
 </div>
+
+<style is:global>
+  @import "reveal.js/dist/reveal.css";
+  @import "./theme/black.css";
+  @import "./highlightjs/atom-one-dark.css";
+</style>
 
 <style lang="scss">
   .ah-slide-container {
