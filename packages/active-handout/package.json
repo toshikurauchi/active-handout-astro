@@ -1,7 +1,7 @@
 {
   "name": "@toshikurauchi/active-handout",
   "type": "module",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "scripts": {},
   "keywords": [
     "astro",
