@@ -187,6 +187,12 @@ function activeHandoutI18nSchema() {
       "parsons.exception": z
         .string()
         .describe("String shown on answer box when an exception occurs"),
+
+      "ai.error": z
+        .string()
+        .describe(
+          "Error message shown when an error occurs in the AI text exercise"
+        ),
     })
     .partial();
 }

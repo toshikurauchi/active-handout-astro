@@ -1,0 +1,50 @@
+---
+import { buildExerciseContainerProps } from "../../server-telemetry";
+import ReactTextExercise from "../ReactComponent";
+import type { ExerciseContainerProps } from "../../props";
+
+const handoutPath = Astro.url.pathname;
+
+interface Props extends ExerciseContainerProps {
+  question: string;
+  expectedAnswer?: string;
+  multiline?: boolean;
+  extraPrompt?: string;
+}
+
+const exerciseType = "ai-text-exercise";
+
+const { question, expectedAnswer, multiline, extraPrompt } = Astro.props;
+
+if (!expectedAnswer && !extraPrompt) {
+  throw new Error(
+    "You must provide either an expected answer or an extra prompt."
+  );
+}
+
+const props = await buildExerciseContainerProps(
+  await Astro.slots.render("default"),
+  Astro.props,
+  Astro.locals,
+  handoutPath,
+  exerciseType,
+  [exerciseType],
+  () => ({
+    data: {
+      extraPrompt: extraPrompt || "",
+      expectedAnswer: expectedAnswer || "",
+      question,
+    },
+    extraProps: { multiline: !!multiline },
+  })
+);
+---
+
+<ReactTextExercise
+  {...props}
+  inputType="text"
+  exerciseType={exerciseType}
+  client:visible
+>
+  <slot />
+</ReactTextExercise>

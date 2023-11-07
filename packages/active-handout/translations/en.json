@@ -41,5 +41,6 @@
   "parsons.drop-here": "Drop lines here",
   "parsons.sort-lines": "Sort the lines below",
   "parsons.passing-tests": "Result: {passingTests}/{totalTests} tests passing ({percentComplete}%).",
-  "parsons.exception": "An exception occurred when running your code:"
+  "parsons.exception": "An exception occurred when running your code:",
+  "ai.error": "AI error, please try again."
 }

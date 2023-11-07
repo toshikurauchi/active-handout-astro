@@ -32,6 +32,9 @@ function InnerComponent({
   const [studentAnswer, setStudentAnswer] = useState(
     latestSubmission?.data?.studentAnswer || null
   );
+  const [feedback, setFeedback] = useState(
+    latestSubmission?.data?.feedback || null
+  );
 
   const {
     reloadData,
@@ -40,6 +43,7 @@ function InnerComponent({
     getTelemetry,
     setTelemetry,
     exerciseEnabled,
+    setExtraAnswerContent,
   } = useContext(ExerciseContext);
 
   useEffect(() => {
@@ -56,6 +60,11 @@ function InnerComponent({
       setReloadData(false);
     });
   }, [reloadData]);
+
+  useEffect(() => {
+    if (!feedback) return;
+    setExtraAnswerContent(feedback);
+  }, [feedback]);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStudentAnswer(event.target.value);
@@ -74,6 +83,7 @@ function InnerComponent({
     setTelemetry(percentComplete, { studentAnswer }).then((telemetryData) => {
       setStudentAnswer(telemetryData?.data?.studentAnswer || null);
       setPoints(telemetryData ? telemetryData.percentComplete : null);
+      setFeedback(telemetryData?.data?.feedback || "");
       setLoading(false);
     });
   };

@@ -41,5 +41,6 @@
   "parsons.drop-here": "Solte as linhas aqui",
   "parsons.sort-lines": "Ordene as linhas abaixo",
   "parsons.passing-tests": "Resultado: {passingTests}/{totalTests} testes passando ({percentComplete}%).",
-  "parsons.exception": "Ocorreu uma exceção ao executar seu código:"
+  "parsons.exception": "Ocorreu uma exceção ao executar seu código:",
+  "ai.error": "Erro na IA, por favor, tente novamente."
 }
