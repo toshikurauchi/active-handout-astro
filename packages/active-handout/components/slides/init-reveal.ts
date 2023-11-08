@@ -28,23 +28,24 @@ function getConfigFromDataset(container: HTMLElement) {
 }
 
 window.addEventListener("load", () => {
-  document
-    .querySelectorAll<HTMLElement>(".ah-slide-container")
-    .forEach((container, idx) => {
-      const revealContainer = container.querySelector(".reveal");
+  const slideContainers = document.querySelectorAll<HTMLElement>(
+    ".ah-slide-container"
+  );
 
-      if (!revealContainer) return;
+  slideContainers.forEach((container) => {
+    const revealContainer = container.querySelector(".reveal");
 
-      let deck = new Reveal(revealContainer, {
-        ...getConfigFromDataset(container),
-        embedded: true,
-        hash: idx === 0, // Will keep the hash of the first slide
-        respondToHashChanges: idx === 0, // Will respond to hash changes only for the first slide
-        width: 960,
-        height: 700,
-        keyboardCondition: "focused",
-        plugins: [Markdown, Highlight, Math.KaTeX, Notes],
-      });
-      deck.initialize();
+    if (!revealContainer) return;
+
+    let deck = new Reveal(revealContainer, {
+      ...getConfigFromDataset(container),
+      embedded: true,
+      hash: slideContainers.length === 1, // Only use hash if there is only one slide container
+      width: 960,
+      height: 700,
+      keyboardCondition: "focused",
+      plugins: [Markdown, Highlight, Math.KaTeX, Notes],
     });
+    deck.initialize();
+  });
 });
