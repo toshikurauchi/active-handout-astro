@@ -39,6 +39,7 @@ window.addEventListener("load", () => {
         ...getConfigFromDataset(container),
         embedded: true,
         hash: idx === 0, // Will keep the hash of the first slide
+        respondToHashChanges: idx === 0, // Will respond to hash changes only for the first slide
         width: 960,
         height: 700,
         keyboardCondition: "focused",
