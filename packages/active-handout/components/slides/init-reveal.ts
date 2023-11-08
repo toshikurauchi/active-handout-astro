@@ -2,6 +2,7 @@ import Reveal from "reveal.js";
 import Markdown from "reveal.js/plugin/markdown/markdown.esm";
 import Highlight from "reveal.js/plugin/highlight/highlight.esm";
 import Math from "reveal.js/plugin/math/math.esm";
+import Notes from "reveal.js/plugin/notes/notes.esm";
 
 function flagToBool(flag: string | null | undefined): boolean {
   if (typeof flag === "undefined" || flag === "false" || flag === null)
@@ -41,7 +42,7 @@ window.addEventListener("load", () => {
         width: 960,
         height: 700,
         keyboardCondition: "focused",
-        plugins: [Markdown, Highlight, Math.KaTeX],
+        plugins: [Markdown, Highlight, Math.KaTeX, Notes],
       });
       deck.initialize();
     });
