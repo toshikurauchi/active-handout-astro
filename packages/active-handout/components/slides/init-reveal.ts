@@ -30,7 +30,7 @@ function getConfigFromDataset(container: HTMLElement) {
 window.addEventListener("load", () => {
   document
     .querySelectorAll<HTMLElement>(".ah-slide-container")
-    .forEach((container) => {
+    .forEach((container, idx) => {
       const revealContainer = container.querySelector(".reveal");
 
       if (!revealContainer) return;
@@ -38,7 +38,7 @@ window.addEventListener("load", () => {
       let deck = new Reveal(revealContainer, {
         ...getConfigFromDataset(container),
         embedded: true,
-        hash: true,
+        hash: idx === 0, // Will keep the hash of the first slide
         width: 960,
         height: 700,
         keyboardCondition: "focused",
