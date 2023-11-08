@@ -2,6 +2,7 @@
 import { buildExerciseContainerProps } from "../../server-telemetry";
 import ReactTextExercise from "../ReactComponent";
 import type { ExerciseContainerProps } from "../../props";
+import openaiLogo from "../../../../assets/icon/openai.svg";
 
 const handoutPath = Astro.url.pathname;
 
@@ -46,5 +47,39 @@ const props = await buildExerciseContainerProps(
   exerciseType={exerciseType}
   client:visible
 >
+  <span class="powered-by" slot="answerTitleRight">
+    <img class="openai-logo" src={openaiLogo.src} alt="Copy to clipboard" />
+  </span>
   <slot />
 </ReactTextExercise>
+
+<style lang="scss">
+  .openai-logo {
+    opacity: 0.8;
+    height: 1em;
+
+    :global(.dark) & {
+      filter: invert(1);
+    }
+  }
+
+  .powered-by {
+    display: flex;
+    align-items: center;
+
+    &::before {
+      content: "Powered by OpenAI";
+      margin-right: 0.5em;
+      font-size: 0.8em;
+      opacity: 0;
+      color: var(--clr-text);
+      transform: translateX(2em);
+      transition: all 0.2s ease-in-out;
+    }
+
+    &:hover::before {
+      opacity: 0.5;
+      transform: translateX(0);
+    }
+  }
+</style>

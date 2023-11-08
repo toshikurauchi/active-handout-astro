@@ -15,6 +15,12 @@ async function promptAI(
   studentAnswer: string,
   extraPrompt?: string
 ) {
+  if (!OPENAI_API_KEY) {
+    throw new Error(
+      "OPENAI_API_KEY is not set. Please set it in .env or .env.local"
+    );
+  }
+
   const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
   let expectedAnswerPrompt = "";

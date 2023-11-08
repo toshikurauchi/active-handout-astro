@@ -58,6 +58,7 @@ export default function ExerciseContainer({
   latestSubmission,
   exerciseType,
   answerHTML,
+  answerTitleRight,
   allowsEditing,
   children,
 }: ExerciseBaseProps) {
@@ -179,6 +180,7 @@ export default function ExerciseContainer({
         <AnswerReact
           answerHTML={answerHTML || ""}
           extraAnswerContent={extraAnswerContent}
+          answerTitleRight={answerTitleRight}
           visible={status !== "unanswered"}
           status={status}
         />

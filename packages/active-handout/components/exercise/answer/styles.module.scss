@@ -21,6 +21,12 @@
     border: 1px solid var(--title-color);
     border-left: none;
     border-right: none;
+
+    &Right {
+      margin-left: auto;
+      display: flex;
+      align-items: flex-end;
+    }
   }
 
   &.correct {

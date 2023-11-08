@@ -13,6 +13,7 @@ export type ExerciseBaseProps = {
   registryKey: string;
   exerciseNumber: number;
   answerHTML?: string;
+  answerTitleRight?: React.ReactNode;
   baseHTML: string;
   latestSubmission?: TelemetryDataCache | null | undefined;
   children?: React.ReactNode;

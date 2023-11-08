@@ -9,6 +9,7 @@ const t = useTranslations(config.lang);
 type AnswerReactProps = {
   answerHTML: string;
   extraAnswerContent?: ReactNode;
+  answerTitleRight?: ReactNode;
   visible: boolean;
   status: Status;
 };
@@ -16,6 +17,7 @@ type AnswerReactProps = {
 export default function AnswerReact({
   answerHTML,
   extraAnswerContent,
+  answerTitleRight,
   visible,
   status,
 }: AnswerReactProps) {
@@ -24,7 +26,14 @@ export default function AnswerReact({
   const className = `${Styles.exerciseAnswer} ${classForStatus(status)}`.trim();
   return (
     <div className={className}>
-      <div className={Styles.exerciseAnswerTitle}>{t("msg.answer")}</div>
+      <div className={Styles.exerciseAnswerTitle}>
+        {t("msg.answer")}
+        {answerTitleRight && (
+          <span className={Styles.exerciseAnswerTitleRight}>
+            {answerTitleRight}
+          </span>
+        )}
+      </div>
       {answerHTML && <div dangerouslySetInnerHTML={{ __html: answerHTML }} />}
       {extraAnswerContent && <div>{extraAnswerContent}</div>}
     </div>
