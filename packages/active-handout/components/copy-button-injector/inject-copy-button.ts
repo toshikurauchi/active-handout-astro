@@ -1,11 +1,24 @@
-// https://clipboardjs.com/
-import ClipboardJS from "clipboard";
 import icon from "../../assets/icon/copy-icon.svg";
 
-function createCopyButton() {
+function createCopyButton(parent: HTMLElement, tooltip: HTMLElement) {
   const button = document.createElement("button");
   button.classList.add("code-clipboard-btn");
   button.innerHTML = `<img src="${icon.src}" alt="Copy to clipboard">`;
+
+  const codeElement = parent?.querySelector("code");
+  if (!parent || !codeElement) {
+    throw new Error("No code element found for clipboard button");
+  }
+  button.addEventListener("click", () => {
+    navigator.clipboard.writeText(codeElement.innerText);
+    if (tooltip) {
+      tooltip.classList.add("show");
+      setTimeout(() => {
+        tooltip.classList.remove("show");
+      }, 1000);
+    }
+  });
+
   return button;
 }
 
@@ -32,31 +45,11 @@ codeBlocks.forEach((codeBlock) => {
     return;
   }
 
-  preElement.insertBefore(createTooltip(), preElement.firstChild);
-  preElement.insertBefore(createCopyButton(), preElement.firstChild);
+  const tooltip = createTooltip();
+  preElement.insertBefore(tooltip, preElement.firstChild);
+  preElement.insertBefore(
+    createCopyButton(preElement, tooltip),
+    preElement.firstChild
+  );
   preElement.addEventListener("scroll", updateScrollOffset);
-});
-
-const clipboard = new ClipboardJS(".code-clipboard-btn", {
-  target: (copyButton: HTMLElement) => {
-    const parent = copyButton.parentElement;
-    const codeElement = parent?.querySelector("code");
-    if (!parent || !codeElement) {
-      throw new Error("No code element found for clipboard button");
-    }
-
-    return codeElement;
-  },
-});
-
-clipboard.on("success", function (e) {
-  const parent = e.trigger.parentElement;
-  const tooltip = parent?.querySelector(".code-clipboard-tooltip");
-  if (tooltip) {
-    tooltip.classList.add("show");
-    setTimeout(() => {
-      tooltip.classList.remove("show");
-    }, 1000);
-  }
-  e.clearSelection();
 });

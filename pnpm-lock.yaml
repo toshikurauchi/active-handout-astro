@@ -77,9 +77,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.31)
-      clipboard:
-        specifier: ^2.0.11
-        version: 2.0.11
       cssnano:
         specifier: ^6.0.1
         version: 6.0.1(postcss@8.4.31)
