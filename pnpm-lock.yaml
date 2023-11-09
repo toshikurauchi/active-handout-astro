@@ -18,8 +18,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(astro@3.2.2)
       '@toshikurauchi/active-handout':
-        specifier: ^0.0.38
-        version: 0.0.38(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31)
+        specifier: ^0.0.42
+        version: 0.0.42(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31)
       astro:
         specifier: ^3.2.2
         version: 3.2.2
@@ -2035,8 +2035,8 @@ packages:
     dev: false
     optional: true
 
-  /@toshikurauchi/active-handout@0.0.38(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31):
-    resolution: {integrity: sha512-u41+aHw0ocMv6J3/oC//OoUZ6VthJPA1svM9YAr6xP0luqT0ef9vVyn26F40I0Vxwi7o3YtKD9fgayy3G6ZBqQ==}
+  /@toshikurauchi/active-handout@0.0.42(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31):
+    resolution: {integrity: sha512-ptvQIIQfCqf39wEIp1gqfcuIRjOoI8F359DPDFuvUe94EfU2QQTcqaHrBjkBOsOJGdBKz2nL0LrZLS0yIpbAkA==}
     dependencies:
       '@astrojs/check': 0.2.0(typescript@5.2.2)
       '@astrojs/mdx': 1.1.1(astro@3.2.4)
@@ -2051,7 +2051,6 @@ packages:
       astro: 3.2.4(sass@1.69.2)
       astro-auto-import: 0.3.1(astro@3.2.4)
       autoprefixer: 10.4.16(postcss@8.4.31)
-      clipboard: 2.0.11
       cssnano: 6.0.1(postcss@8.4.31)
       estree-util-visit: 2.0.0
       firebase: 10.4.0
@@ -3215,14 +3214,6 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /clipboard@2.0.11:
-    resolution: {integrity: sha512-C+0bbOqkezLIsmWSvlsXS0Q0bmkugu7jcfMIACB+RDEntIzQIkdr148we28AfSloQLRdZlYL/QYyrq05j/3Faw==}
-    dependencies:
-      good-listener: 1.2.2
-      select: 1.1.2
-      tiny-emitter: 2.1.0
-    dev: false
-
   /cliui@6.0.0:
     resolution: {integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==}
     dependencies:
@@ -3905,10 +3896,6 @@ packages:
   /delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
-    dev: false
-
-  /delegate@3.2.0:
-    resolution: {integrity: sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==}
     dev: false
 
   /delegates@1.0.0:
@@ -4825,12 +4812,6 @@ packages:
       csstype: ^3.0.10
     dependencies:
       csstype: 3.1.2
-    dev: false
-
-  /good-listener@1.2.2:
-    resolution: {integrity: sha512-goW1b+d9q/HIwbVYZzZ6SsTr4IgE+WA44A0GmPIQstuOrgsFcT7VEJ48nmr9GaRtNu0XTKacFLGnBPAM6Afouw==}
-    dependencies:
-      delegate: 3.2.0
     dev: false
 
   /google-auth-library@8.9.0:
@@ -8339,10 +8320,6 @@ packages:
       kind-of: 6.0.3
     dev: false
 
-  /select@1.1.2:
-    resolution: {integrity: sha512-OwpTSOfy6xSs1+pwcNrv0RBMOzI39Lp3qQKUTPVVPRjCdNa5JH/oPRiqsesIskK8TVgmRiHwO4KXlV2Li9dANA==}
-    dev: false
-
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
@@ -8873,10 +8850,6 @@ packages:
   /text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: true
-
-  /tiny-emitter@2.1.0:
-    resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
-    dev: false
 
   /titleize@3.0.0:
     resolution: {integrity: sha512-KxVu8EYHDPBdUYdKZdKtU2aj2XfEx9AfjXxE/Aj0vT06w2icA09Vus1rh6eSu1y01akYg6BjIK/hxyLJINoMLQ==}
