@@ -1,6 +1,10 @@
 @use "sass:list";
 @use "sass:color";
 
+body {
+  counter-reset: admonition;
+}
+
 .admonition {
   --admonition-background-color: var(--clr-background, transparent);
   --admonition-title-background-color: var(--clr-background-secondary);
@@ -16,6 +20,14 @@
 
   @media print {
     page-break-inside: avoid;
+  }
+
+  &-with-counter {
+    counter-increment: admonition;
+
+    .admonition-title-title::after {
+      content: " " counter(admonition);
+    }
   }
 
   &-title {

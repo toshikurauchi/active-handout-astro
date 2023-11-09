@@ -50,7 +50,6 @@ export const ExerciseContext = createContext<{
 });
 
 export default function ExerciseContainer({
-  exerciseNumber,
   handoutPath,
   slug,
   registryKey,
@@ -123,7 +122,8 @@ export default function ExerciseContainer({
 
   return (
     <Admonition
-      title={`${t("exercise.title")} ${exerciseNumber}`}
+      title={`${t("exercise.title")}`}
+      hasCounter
       type={status === "unanswered" ? "exercise" : "quote"}
       renderTitleRight={() =>
         status === "unanswered" ? null : (

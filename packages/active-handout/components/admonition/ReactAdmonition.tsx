@@ -4,6 +4,7 @@ import Styles from "./styles.module.scss";
 
 type AdmonitionProps = BaseProps & {
   renderTitleRight?: () => React.ReactNode;
+  hasCounter?: boolean;
   children: React.ReactNode;
 };
 
@@ -13,11 +14,17 @@ export default function Admonition({
   collapsed,
   type = "default",
   renderTitleRight,
+  hasCounter,
   children,
 }: AdmonitionProps) {
-  const className = `${Styles.admonition} ${Styles[type]} ${
-    collapsible ? Styles["admonition-details"] : ""
-  }}`;
+  const classNames = [Styles.admonition, Styles[type]];
+  if (collapsible) {
+    classNames.push(Styles["admonition-details"]);
+  }
+  if (hasCounter) {
+    classNames.push(Styles["admonition-with-counter"]);
+  }
+  const className = classNames.join(" ");
 
   const rightIcon = renderTitleRight ? (
     <div className={Styles["title-right-container"]}>{renderTitleRight()}</div>
@@ -37,7 +44,8 @@ export default function Admonition({
     <div className={className}>
       {title && (
         <div className={Styles["admonition-title"]}>
-          {title} {rightIcon}
+          <span className={Styles["admonition-title-title"]}>{title}</span>{" "}
+          {rightIcon}
         </div>
       )}
       <div className={Styles["admonition-content"]}>{children}</div>
