@@ -17,18 +17,19 @@ const { entries, nested, headings } = Astro.props;
     entries.map((entry) => (
       <li>
         {!entry.children && (
-          <summary class="no-children">
-            <a
-              href={pathWithBase(entry.url || "")}
+          <summary>
+            <span
               class:list={[
+                "item-summary",
+                "no-children",
                 entry.isCurrent ? "current" : "",
                 entry.isCurrent && headings && headings.length > 0
                   ? "with-headings"
                   : "",
               ]}
             >
-              {entry.title}
-            </a>
+              <a href={pathWithBase(entry.url || "")}>{entry.title}</a>
+            </span>
             {entry.isCurrent && headings && headings.length > 0 && (
               <ul class="headings">
                 {headings.map((heading) => (
@@ -43,12 +44,11 @@ const { entries, nested, headings } = Astro.props;
         {entry.children && (
           <details open={hasCurrent(entry)}>
             <summary>
-              <a
-                href={pathWithBase(entry.url || "")}
-                class:list={[entry.isCurrent ? "current" : ""]}
+              <span
+                class:list={["item-summary", entry.isCurrent ? "current" : ""]}
               >
-                {entry.title}
-              </a>
+                <a href={pathWithBase(entry.url || "")}>{entry.title}</a>
+              </span>
             </summary>
             <Astro.self
               entries={entry.children}
@@ -64,9 +64,6 @@ const { entries, nested, headings } = Astro.props;
 
 <style lang="scss">
   summary {
-    display: grid;
-    grid-template-columns: min-content auto;
-    grid-template-rows: 1fr;
     list-style: none;
 
     &::marker,
@@ -74,34 +71,44 @@ const { entries, nested, headings } = Astro.props;
       display: none;
     }
 
-    &::before {
-      content: "▸";
+    .item-summary {
       display: grid;
-      place-items: center;
-      left: -1.5em;
-      color: var(--clr-text-light);
-      transition: transform 0.1s ease-in-out;
-      transform-origin: center center;
-      cursor: pointer;
-    }
+      grid-template-columns: auto min-content;
+      align-items: center;
+      border-radius: 0.5em;
+      padding: 0.2em 1rem;
 
-    &.no-children {
-      ul {
-        grid-area: 2 / 2 / 3 / 3;
+      &::after {
+        content: "▸";
+        display: grid;
+        place-items: center;
+        color: var(--clr-text);
+        transition: transform 0.1s ease-in-out;
+        transform-origin: center center;
+        cursor: pointer;
       }
 
-      &::before {
-        color: transparent;
+      &.no-children {
+        &::after {
+          color: transparent;
+        }
       }
-    }
 
-    a {
-      flex-grow: 1;
+      &.current {
+        font-weight: bold;
+        background-color: var(--clr-secondary);
+        padding-block: 0.5em;
+
+        &.with-headings {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
     }
   }
 
   details {
-    &[open] > summary::before {
+    &[open] > summary > .item-summary::after {
       transform: rotate(90deg);
     }
   }
@@ -118,7 +125,7 @@ const { entries, nested, headings } = Astro.props;
 
     &.headings {
       list-style: none;
-      background-color: #eee6;
+      background-color: #ddd6;
       padding: 0.5rem 1rem;
       margin-left: 0;
       border-radius: 0 0 0.5em 0.5em;
@@ -149,21 +156,8 @@ const { entries, nested, headings } = Astro.props;
   }
 
   a {
-    position: relative;
     text-decoration: none;
-    padding: 0.5em 1rem;
-    border-radius: 0.5em;
     line-height: 1.1;
-
-    &.current {
-      font-weight: bold;
-      background: var(--clr-secondary);
-
-      &.with-headings {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-    }
 
     &:hover {
       transform: scale(1.02);
@@ -172,7 +166,7 @@ const { entries, nested, headings } = Astro.props;
 
   @for $i from 1 through 6 {
     .heading-#{$i} {
-      margin-left: calc(0.5rem * #{max($i - 2, 0)});
+      margin-left: calc(1em * #{max($i - 2, 0)});
     }
   }
 </style>
