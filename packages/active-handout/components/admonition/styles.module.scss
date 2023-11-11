@@ -1,10 +1,6 @@
 @use "sass:list";
 @use "sass:color";
 
-body {
-  counter-reset: admonition;
-}
-
 .admonition {
   --admonition-background-color: var(--clr-background, transparent);
   --admonition-title-background-color: var(--clr-background-secondary);
