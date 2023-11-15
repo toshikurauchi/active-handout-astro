@@ -5,9 +5,9 @@ export async function loadExerciseOrError(url: URL) {
   const exerciseSlug = url.searchParams.get("exerciseSlug")?.toString();
   let data;
   try {
+    data = url.searchParams.get("data")?.toString();
     data = JSON.parse(url.searchParams.get("data")?.toString() || "{}");
   } catch (e) {
-    data = {};
   }
 
   if (!handoutPath || !exerciseSlug) {
