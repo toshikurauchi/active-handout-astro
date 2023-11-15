@@ -42,5 +42,7 @@
   "parsons.sort-lines": "Sort the lines below",
   "parsons.passing-tests": "Result: {passingTests}/{totalTests} tests passing ({percentComplete}%).",
   "parsons.exception": "An exception occurred when running your code:",
-  "ai.error": "AI error, please try again."
+  "ai.error": "AI error, please try again.",
+  "markdown-input.toggle-preview": "Preview",
+  "markdown-input.has-errors": "Your markdown has contains, please fix them before submitting."
 }

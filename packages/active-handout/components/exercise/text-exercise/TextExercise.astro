@@ -9,12 +9,13 @@ interface Props extends ExerciseContainerProps {
   exerciseType?: string;
   inputType?: string;
   multiline?: boolean;
+  markdown?: boolean;
   validation?: string;
 }
 
 const exerciseType = Astro.props.exerciseType || "text-exercise";
 
-const { multiline, validation } = Astro.props;
+const { multiline, markdown, validation } = Astro.props;
 
 const props = await buildExerciseContainerProps(
   await Astro.slots.render("default"),
@@ -25,7 +26,7 @@ const props = await buildExerciseContainerProps(
   [exerciseType],
   () => ({
     data: { validation: validation || "" },
-    extraProps: { multiline: !!multiline, validation },
+    extraProps: { multiline: !!multiline, markdown: !!markdown, validation },
   })
 );
 ---

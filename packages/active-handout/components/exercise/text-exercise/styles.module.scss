@@ -1,3 +1,19 @@
 .contentContainer {
   margin-bottom: 0.5em;
 }
+
+.markdownCheckboxContainer {
+  label > input {
+    margin-right: 0.5em;
+  }
+}
+
+.previewContainer {
+  border: 1px solid var(--clr-text-light);
+  border-radius: 0.2em;
+  padding: 0.2em 0.5em;
+}
+
+.hasErrors {
+  color: var(--clr-error);
+}

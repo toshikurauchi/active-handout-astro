@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@astrojs/check':
         specifier: ^0.2.0
-        version: 0.2.0(typescript@5.2.2)
+        version: 0.2.0(prettier-plugin-astro@0.12.0)(prettier@3.0.3)(typescript@5.2.2)
       '@astrojs/react':
         specifier: ^3.0.2
         version: 3.0.2(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)(vite@4.4.11)
@@ -19,7 +19,7 @@ importers:
         version: 5.0.1(astro@3.2.2)
       '@toshikurauchi/active-handout':
         specifier: ^0.0.44
-        version: 0.0.44(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31)
+        version: link:../packages/active-handout
       astro:
         specifier: ^3.2.2
         version: 3.2.2
@@ -122,18 +122,30 @@ importers:
       rehype-autolink-headings:
         specifier: ^7.0.0
         version: 7.0.0
+      rehype-document:
+        specifier: ^7.0.2
+        version: 7.0.2
       rehype-katex:
         specifier: ^7.0.0
         version: 7.0.0
       rehype-slug:
         specifier: ^6.0.0
         version: 6.0.0
+      rehype-stringify:
+        specifier: ^10.0.0
+        version: 10.0.0
       remark-emoji:
         specifier: ^4.0.0
         version: 4.0.0
       remark-math:
         specifier: ^6.0.0
         version: 6.0.0
+      remark-parse:
+        specifier: ^11.0.0
+        version: 11.0.0
+      remark-rehype:
+        specifier: ^11.0.0
+        version: 11.0.0
       reveal.js:
         specifier: ^5.0.1
         version: 5.0.1
@@ -146,6 +158,9 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
+      unified:
+        specifier: ^11.0.4
+        version: 11.0.4
       unist-util-visit:
         specifier: ^5.0.0
         version: 5.0.0
@@ -213,23 +228,6 @@ packages:
       - prettier-plugin-astro
     dev: false
 
-  /@astrojs/check@0.2.0(typescript@5.2.2):
-    resolution: {integrity: sha512-QS8TBRNrxBNEKm9hsP4xI+ao2XJ5JZfMZ1GpHqM7HCGPwWe5oWSPtDXGM8zutZ6kH3ilK0k1euqkzxrhcTP1Cg==}
-    hasBin: true
-    peerDependencies:
-      typescript: ^5.0.0
-    dependencies:
-      '@astrojs/language-server': 2.3.3(typescript@5.2.2)
-      chokidar: 3.5.3
-      fast-glob: 3.3.1
-      kleur: 4.1.5
-      typescript: 5.2.2
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - prettier
-      - prettier-plugin-astro
-    dev: false
-
   /@astrojs/compiler@1.5.7:
     resolution: {integrity: sha512-dFU7GAMbpTUGPkRoCoMQrGFlTe3qIiQMSOxIXp/nB1Do4My9uogjEmBHdR5Cwr4i6rc5/1R3Od9v8kU/pkHXGQ==}
     dev: false
@@ -276,40 +274,6 @@ packages:
       volar-service-emmet: 0.0.13(@volar/language-service@1.10.1)
       volar-service-html: 0.0.13(@volar/language-service@1.10.1)
       volar-service-prettier: 0.0.13(@volar/language-service@1.10.1)(prettier@3.0.3)
-      volar-service-typescript: 0.0.13(@volar/language-service@1.10.1)(@volar/typescript@1.10.1)
-      volar-service-typescript-twoslash-queries: 0.0.13(@volar/language-service@1.10.1)
-      vscode-html-languageservice: 5.1.0
-      vscode-uri: 3.0.7
-    transitivePeerDependencies:
-      - typescript
-    dev: false
-
-  /@astrojs/language-server@2.3.3(typescript@5.2.2):
-    resolution: {integrity: sha512-ObIjAdjKJFHsKCmaFHc6tbpomMkX1580UbxbgnCr6zEpIZuQobH/zlKwIaSDcmQOQtt8ICs921AYTM+kOg8p6w==}
-    hasBin: true
-    peerDependencies:
-      prettier: ^3.0.0
-      prettier-plugin-astro: '>=0.11.0'
-    peerDependenciesMeta:
-      prettier:
-        optional: true
-      prettier-plugin-astro:
-        optional: true
-    dependencies:
-      '@astrojs/compiler': 1.5.7
-      '@jridgewell/sourcemap-codec': 1.4.15
-      '@volar/kit': 1.10.1(typescript@5.2.2)
-      '@volar/language-core': 1.10.1
-      '@volar/language-server': 1.10.1
-      '@volar/language-service': 1.10.1
-      '@volar/source-map': 1.10.1
-      '@volar/typescript': 1.10.1
-      fast-glob: 3.3.1
-      muggle-string: 0.3.1
-      volar-service-css: 0.0.13(@volar/language-service@1.10.1)
-      volar-service-emmet: 0.0.13(@volar/language-service@1.10.1)
-      volar-service-html: 0.0.13(@volar/language-service@1.10.1)
-      volar-service-prettier: 0.0.13(@volar/language-service@1.10.1)
       volar-service-typescript: 0.0.13(@volar/language-service@1.10.1)(@volar/typescript@1.10.1)
       volar-service-typescript-twoslash-queries: 0.0.13(@volar/language-service@1.10.1)
       vscode-html-languageservice: 5.1.0
@@ -2034,65 +1998,6 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
-
-  /@toshikurauchi/active-handout@0.0.44(@types/react-dom@18.2.13)(@types/react@18.2.28)(csstype@3.1.2)(postcss@8.4.31):
-    resolution: {integrity: sha512-54qUrVQIlwuC7i0ICFjTpQXwT/IMe4/1+ua6VwKrAOzdiUr8YoNnlt0I+58k97yGofUlfyzXGC/WqGjt2ky5vg==}
-    dependencies:
-      '@astrojs/check': 0.2.0(typescript@5.2.2)
-      '@astrojs/mdx': 1.1.1(astro@3.2.4)
-      '@astrojs/prism': 3.0.0
-      '@astrojs/react': 3.0.3(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)(vite@4.4.11)
-      '@fontsource-variable/open-sans': 5.0.16
-      '@fontsource-variable/oswald': 5.0.15
-      '@fontsource/fira-mono': 5.0.8
-      '@fontsource/source-sans-pro': 5.0.8
-      '@shopify/draggable': 1.0.0-beta.12
-      '@webcomponents/template-shadowroot': 0.2.1
-      astro: 3.2.4(sass@1.69.2)
-      astro-auto-import: 0.3.1(astro@3.2.4)
-      autoprefixer: 10.4.16(postcss@8.4.31)
-      cssnano: 6.0.1(postcss@8.4.31)
-      estree-util-visit: 2.0.0
-      firebase: 10.4.0
-      firebase-admin: 11.11.0
-      hast-util-to-html: 9.0.0
-      hastscript: 8.0.0
-      mermaid: 10.5.0
-      openai: 4.16.1
-      qrcode: 1.5.3
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-hot-toast: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
-      rehype: 13.0.1
-      rehype-accessible-emojis: 0.3.2
-      rehype-autolink-headings: 7.0.0
-      rehype-katex: 7.0.0
-      rehype-slug: 6.0.0
-      remark-emoji: 4.0.0
-      remark-math: 6.0.0
-      reveal.js: 5.0.1
-      sass: 1.69.2
-      sharp: 0.32.6
-      typescript: 5.2.2
-      unist-util-visit: 5.0.0
-      vite: 4.4.11(sass@1.69.2)
-    transitivePeerDependencies:
-      - '@react-native-async-storage/async-storage'
-      - '@types/node'
-      - '@types/react'
-      - '@types/react-dom'
-      - csstype
-      - encoding
-      - less
-      - lightningcss
-      - postcss
-      - prettier
-      - prettier-plugin-astro
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: false
 
   /@trysound/sax@0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -7957,8 +7862,17 @@ packages:
       '@ungap/structured-clone': 1.2.0
       hast-util-heading-rank: 3.0.0
       hast-util-is-element: 3.0.0
-      unified: 11.0.3
+      unified: 11.0.4
       unist-util-visit: 5.0.0
+    dev: false
+
+  /rehype-document@7.0.2:
+    resolution: {integrity: sha512-7ih+zNlNNB5GwEdtd/h6FG1GEMb9xlJpIFovgoSMPVYJ8zernXyZ9cOsHCv6T2iHLgwy8ZgeIoH/8GGcbZmFww==}
+    dependencies:
+      '@types/hast': 3.0.1
+      hastscript: 8.0.0
+      unified: 11.0.4
+      vfile: 6.0.1
     dev: false
 
   /rehype-katex@7.0.0:
@@ -7987,7 +7901,7 @@ packages:
     dependencies:
       '@types/hast': 3.0.1
       hast-util-from-html: 2.0.1
-      unified: 11.0.3
+      unified: 11.0.4
     dev: false
 
   /rehype-raw@6.1.1:
@@ -8013,7 +7927,7 @@ packages:
     dependencies:
       '@types/hast': 3.0.1
       hast-util-to-html: 9.0.0
-      unified: 11.0.3
+      unified: 11.0.4
     dev: false
 
   /rehype-stringify@9.0.4:
@@ -8039,7 +7953,7 @@ packages:
       '@types/hast': 3.0.1
       rehype-parse: 9.0.0
       rehype-stringify: 10.0.0
-      unified: 11.0.3
+      unified: 11.0.4
     dev: false
 
   /remark-emoji@4.0.0:
@@ -8068,7 +7982,7 @@ packages:
       '@types/mdast': 4.0.1
       mdast-util-math: 3.0.0
       micromark-extension-math: 3.0.0
-      unified: 11.0.3
+      unified: 11.0.4
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -8092,6 +8006,17 @@ packages:
       - supports-color
     dev: false
 
+  /remark-parse@11.0.0:
+    resolution: {integrity: sha512-FCxlKLNGknS5ba/1lmpYijMUzX2esxW5xQqjWxw2eHFfS2MSdaHVINFmhjo+qN1WhZhNimq0dZATN9pH0IDrpA==}
+    dependencies:
+      '@types/mdast': 4.0.1
+      mdast-util-from-markdown: 2.0.0
+      micromark-util-types: 2.0.0
+      unified: 11.0.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /remark-rehype@10.1.0:
     resolution: {integrity: sha512-EFmR5zppdBp0WQeDVZ/b66CWJipB2q2VLNFMabzDSGR66Z2fQii83G5gTBbgGEnEEA0QRussvrFHxk1HWGJskw==}
     dependencies:
@@ -8099,6 +8024,16 @@ packages:
       '@types/mdast': 3.0.13
       mdast-util-to-hast: 12.3.0
       unified: 10.1.2
+    dev: false
+
+  /remark-rehype@11.0.0:
+    resolution: {integrity: sha512-vx8x2MDMcxuE4lBmQ46zYUDfcFMmvg80WYX+UNLeG6ixjdCCLcw1lrgAukwBTuOFsS78eoAedHGn9sNM0w7TPw==}
+    dependencies:
+      '@types/hast': 3.0.1
+      '@types/mdast': 4.0.1
+      mdast-util-to-hast: 13.0.2
+      unified: 11.0.4
+      vfile: 6.0.1
     dev: false
 
   /remark-smartypants@2.0.0:
@@ -9024,8 +8959,8 @@ packages:
       vfile: 5.3.7
     dev: false
 
-  /unified@11.0.3:
-    resolution: {integrity: sha512-jlCV402P+YDcFcB2VcN/n8JasOddqIiaxv118wNBoZXEhOn+lYG7BR4Bfg2BwxvlK58dwbuH2w7GX2esAjL6Mg==}
+  /unified@11.0.4:
+    resolution: {integrity: sha512-apMPnyLjAX+ty4OrNap7yumyVAMlKx5IWU2wlzzUdYJO9A8f1p9m/gywF/GM2ZDFcjQPrx59Mc90KwmxsoklxQ==}
     dependencies:
       '@types/unist': 3.0.0
       bail: 2.0.2
@@ -9334,20 +9269,6 @@ packages:
       '@volar/language-service': 1.10.1
       vscode-html-languageservice: 5.1.0
       vscode-uri: 3.0.7
-    dev: false
-
-  /volar-service-prettier@0.0.13(@volar/language-service@1.10.1):
-    resolution: {integrity: sha512-4V/v+oNXyoC4QRNCY6JDAD4BvVatuswyH8o7flgO/XHDRIG+WwGo8Avsbmq4TLktjBGFUa4Gb9aK9+RkznEEZQ==}
-    peerDependencies:
-      '@volar/language-service': ~1.10.0
-      prettier: ^2.2 || ^3.0
-    peerDependenciesMeta:
-      '@volar/language-service':
-        optional: true
-      prettier:
-        optional: true
-    dependencies:
-      '@volar/language-service': 1.10.1
     dev: false
 
   /volar-service-prettier@0.0.13(@volar/language-service@1.10.1)(prettier@3.0.3):

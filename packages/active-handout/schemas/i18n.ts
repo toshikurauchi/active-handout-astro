@@ -193,6 +193,14 @@ function activeHandoutI18nSchema() {
         .describe(
           "Error message shown when an error occurs in the AI text exercise"
         ),
+
+      "markdown-input.toggle-preview": z
+        .string()
+        .describe("Text shown on the button to toggle the Markdown preview"),
+
+      "markdown-input.has-errors": z
+        .string()
+        .describe("Text shown when the Markdown preview has errors"),
     })
     .partial();
 }

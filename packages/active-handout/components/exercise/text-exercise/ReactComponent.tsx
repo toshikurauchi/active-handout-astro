@@ -6,10 +6,12 @@ import type { ExerciseBaseProps } from "../props";
 import Styles from "./styles.module.scss";
 import FormInput from "../../form-input/ReactFormInput";
 import ExerciseSubmitButton from "../submit-button/ExerciseSubmitButton";
+import MarkdownInput from "./MarkdownInput";
 
 type TextExerciseProps = ExerciseBaseProps & {
   inputType?: string | undefined;
   multiline: boolean;
+  markdown: boolean;
   validation?: string | undefined;
 };
 
@@ -27,6 +29,7 @@ function InnerComponent({
   validation,
   inputType,
   multiline,
+  markdown,
 }: TextExerciseProps) {
   const [loading, setLoading] = useState(false);
   const [studentAnswer, setStudentAnswer] = useState(
@@ -94,14 +97,22 @@ function InnerComponent({
         className={Styles.contentContainer}
         dangerouslySetInnerHTML={{ __html: baseHTML }}
       ></div>
-      <FormInput
-        type={inputType || "text"}
-        multiline={!!multiline}
-        minLines={3} // Will be ignored if single line, so we're good
-        onChange={handleTextChange}
-        value={studentAnswer || ""}
-        disabled={!exerciseEnabled}
-      ></FormInput>
+      {markdown ? (
+        <MarkdownInput
+          disabled={!exerciseEnabled}
+          onChange={handleTextChange}
+          value={studentAnswer || ""}
+        />
+      ) : (
+        <FormInput
+          type={inputType || "text"}
+          multiline={!!multiline}
+          minLines={3} // Will be ignored if single line, so we're good
+          onChange={handleTextChange}
+          value={studentAnswer || ""}
+          disabled={!exerciseEnabled}
+        ></FormInput>
+      )}
 
       <ExerciseSubmitButton
         onClick={handleClick}
