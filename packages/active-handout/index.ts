@@ -133,10 +133,8 @@ export default function ActiveHandoutIntegration(
           vite: {
             plugins: [vitePluginActiveHandoutUserConfig(userConfig)],
             optimizeDeps: {
-              exclude: ["virtual:active-handout/user-config"],
-            },
-            ssr: {
-              external: [
+              exclude: [
+                "virtual:active-handout/user-config",
                 "unified",
                 "remark-parse",
                 "remark-rehype",
@@ -145,6 +143,8 @@ export default function ActiveHandoutIntegration(
                 "rehype-stringify",
                 "remark-math",
               ],
+            },
+            ssr: {
               noExternal: [
                 "@fontsource-variable/open-sans",
                 "@fontsource-source-sans-pro",
