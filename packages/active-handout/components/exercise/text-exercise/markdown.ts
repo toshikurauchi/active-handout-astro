@@ -1,19 +1,9 @@
-import { rehype } from "rehype";
-import rehypeParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeDocument from "rehype-document";
-import rehypeKatex from "rehype-katex";
-import rehypeStringify from "rehype-stringify";
-import remarkMath from "remark-math";
+import { marked } from "marked";
+import markedKatex from "marked-katex-extension";
 
 export function renderMarkdown(markdown: string): string {
-  return rehype()
-    .use(rehypeParse)
-    .use(remarkMath)
-    .use(remarkRehype)
-    .use(rehypeDocument)
-    .use(rehypeKatex)
-    .use(rehypeStringify)
-    .processSync(markdown)
-    .toString();
+  marked.use(markedKatex({ throwOnError: false }));
+  return marked.parse(
+    markdown.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "")
+  );
 }
