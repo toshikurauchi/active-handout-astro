@@ -3,7 +3,12 @@ import { getExercise } from "../../../db/exercise/queries";
 export async function loadExerciseOrError(url: URL) {
   const handoutPath = url.searchParams.get("handoutPath")?.toString();
   const exerciseSlug = url.searchParams.get("exerciseSlug")?.toString();
-  const data = JSON.parse(url.searchParams.get("data")?.toString() || "{}");
+  let data;
+  try {
+    data = JSON.parse(url.searchParams.get("data")?.toString() || "{}");
+  } catch (e) {
+    data = {};
+  }
 
   if (!handoutPath || !exerciseSlug) {
     return {
