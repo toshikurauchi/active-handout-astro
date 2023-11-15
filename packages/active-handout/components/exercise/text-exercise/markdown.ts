@@ -1,4 +1,4 @@
-import { unified } from "unified";
+import { rehype } from "rehype";
 import rehypeParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeDocument from "rehype-document";
@@ -7,7 +7,7 @@ import rehypeStringify from "rehype-stringify";
 import remarkMath from "remark-math";
 
 export function renderMarkdown(markdown: string): string {
-  return unified()
+  return rehype()
     .use(rehypeParse)
     .use(remarkMath)
     .use(remarkRehype)

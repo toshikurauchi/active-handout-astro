@@ -135,13 +135,6 @@ export default function ActiveHandoutIntegration(
             optimizeDeps: {
               exclude: [
                 "virtual:active-handout/user-config",
-                "unified",
-                "remark-parse",
-                "remark-rehype",
-                "rehype-document",
-                "rehype-katex",
-                "rehype-stringify",
-                "remark-math",
               ],
             },
             ssr: {
