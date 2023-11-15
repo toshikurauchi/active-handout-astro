@@ -1,14 +1,15 @@
 import { getExercise } from "../../../db/exercise/queries";
 
-export async function loadExerciseOrError(url: URL) {
-  const handoutPath = url.searchParams.get("handoutPath")?.toString();
-  const exerciseSlug = url.searchParams.get("exerciseSlug")?.toString();
-  let data;
-  try {
-    data = url.searchParams.get("data")?.toString();
-    data = JSON.parse(url.searchParams.get("data")?.toString() || "{}");
-  } catch (e) {
-  }
+type Params = {
+  handoutPath?: string;
+  exerciseSlug?: string;
+  data?: any;
+}
+
+export async function loadExerciseOrError<T>(params: Params) {
+  const handoutPath = params.handoutPath?.toString();
+  const exerciseSlug = params.exerciseSlug?.toString();
+  const data: T = (params.data || {}) as T;
 
   if (!handoutPath || !exerciseSlug) {
     return {

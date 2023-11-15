@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
 import { loadExerciseOrError } from "./utils";
 
-export const GET: APIRoute = async ({ url }) => {
-  const { data, exercise, response } = await loadExerciseOrError(url);
+export const POST: APIRoute = async ({ request }) => {
+  const { data, exercise, response } = await loadExerciseOrError<{studentAnswer: string, totalTests: number, passingTests: number, exception: string}>(await request.json());
   if (response) {
     return response;
   }

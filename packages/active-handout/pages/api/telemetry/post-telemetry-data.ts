@@ -30,13 +30,18 @@ export const POST: APIRoute = async ({ request, locals, url }) => {
   /* Auto grade */
   const result = await fetch(
     new URL(
-      `/api/auto-grade/${
-        exercise.type
-      }?handoutPath=${handoutPath}&exerciseSlug=${exerciseSlug}&data=${JSON.stringify(
-        data
-      )}`,
+      `/api/auto-grade/${exercise.type}`,
       url.origin
-    ).href
+    ).href,
+    {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        handoutPath,
+        exerciseSlug,
+        data,
+      }),
+    }
   )
     .then((res) => {
       return res.json();
