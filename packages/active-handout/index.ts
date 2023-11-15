@@ -136,6 +136,15 @@ export default function ActiveHandoutIntegration(
               exclude: ["virtual:active-handout/user-config"],
             },
             ssr: {
+              external: [
+                "unified",
+                "remark-parse",
+                "remark-rehype",
+                "rehype-document",
+                "rehype-katex",
+                "rehype-stringify",
+                "remark-math",
+              ],
               noExternal: [
                 "@fontsource-variable/open-sans",
                 "@fontsource-source-sans-pro",
