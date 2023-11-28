@@ -1,7 +1,7 @@
 {
   "name": "@toshikurauchi/active-handout",
   "type": "module",
-  "version": "0.0.54",
+  "version": "0.0.55",
   "scripts": {},
   "keywords": [
     "astro",
@@ -26,7 +26,8 @@
     "./schema": "./schema.ts",
     "./types": "./types.ts",
     "./index.astro": "./index.astro",
-    "./404.astro": "./404.astro"
+    "./404.astro": "./404.astro",
+    "./utils/*": "./utils/*"
   },
   "dependencies": {
     "@astrojs/check": "^0.2.0",
