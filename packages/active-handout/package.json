@@ -18,6 +18,7 @@
   "exports": {
     ".": "./index.ts",
     "./middleware/*": "./middleware/*",
+    "./layout/*": "./layout/*",
     "./pages/*": "./pages/*",
     "./react/*": "./react/*",
     "./firebase/*": "./firebase/*",
