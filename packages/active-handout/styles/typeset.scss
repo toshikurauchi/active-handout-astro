@@ -119,9 +119,3 @@ ol ol ol ol {
 pre code[class*="language-"] {
   white-space: pre-wrap;
 }
-
-p > .katex:only-child {
-  display: block;
-  min-width: 100%;
-  text-align: center;
-}
