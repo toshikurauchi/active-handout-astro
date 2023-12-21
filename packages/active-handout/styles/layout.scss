@@ -31,8 +31,13 @@ ol {
   }
 }
 
-ul ul {
-  margin-bottom: 1.2em;
+ol,
+ul {
+  ol,
+  ul {
+    margin-top: 0.4em;
+    margin-bottom: 1.2em;
+  }
 }
 
 $link-icon-width: 0.8em;
