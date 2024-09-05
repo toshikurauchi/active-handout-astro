@@ -25,7 +25,7 @@ export default function ActiveHandoutIntegration(
   if (!parsedConfig.success) {
     throw new Error(
       "Invalid config passed to active-handout integration\n" +
-        parsedConfig.error.issues.map((i) => i.message).join("\n")
+      parsedConfig.error.issues.map((i) => i.message).join("\n")
     );
   }
 
@@ -37,71 +37,71 @@ export default function ActiveHandoutIntegration(
       "astro:config:setup": ({ injectRoute, updateConfig }) => {
         injectRoute({
           pattern: "404",
-          entryPoint: "@toshikurauchi/active-handout/pages/404.astro",
+          entrypoint: "@toshikurauchi/active-handout/pages/404.astro",
         });
         injectRoute({
           pattern: "[...slug]",
-          entryPoint: "@toshikurauchi/active-handout/pages/index.astro",
+          entrypoint: "@toshikurauchi/active-handout/pages/index.astro",
         });
 
         if (userConfig.auth) {
           injectRoute({
             pattern: "api/auth/signin",
-            entryPoint:
+            entrypoint:
               "@toshikurauchi/active-handout/pages/api/auth/signin.ts",
           });
           injectRoute({
             pattern: "api/auth/signout",
-            entryPoint:
+            entrypoint:
               "@toshikurauchi/active-handout/pages/api/auth/signout.ts",
           });
           injectRoute({
             pattern: "api/auth/register",
-            entryPoint:
+            entrypoint:
               "@toshikurauchi/active-handout/pages/api/auth/register.ts",
           });
           injectRoute({
             pattern: "api/auth/profile",
-            entryPoint:
+            entrypoint:
               "@toshikurauchi/active-handout/pages/api/auth/profile.ts",
           });
           injectRoute({
             pattern: "register",
-            entryPoint: "@toshikurauchi/active-handout/pages/register.astro",
+            entrypoint: "@toshikurauchi/active-handout/pages/register.astro",
           });
           injectRoute({
             pattern: "signin",
-            entryPoint: "@toshikurauchi/active-handout/pages/signin.astro",
+            entrypoint: "@toshikurauchi/active-handout/pages/signin.astro",
           });
           injectRoute({
             pattern: "profile",
-            entryPoint: "@toshikurauchi/active-handout/pages/profile.astro",
+            entrypoint: "@toshikurauchi/active-handout/pages/profile.astro",
           });
 
           if (userConfig.telemetry) {
             injectRoute({
               pattern: "api/telemetry",
-              entryPoint:
+              entrypoint:
                 "@toshikurauchi/active-handout/pages/api/telemetry/index.ts",
             });
             injectRoute({
               pattern: "api/auto-grade/multiple-choice",
-              entryPoint:
+              entrypoint:
                 "@toshikurauchi/active-handout/pages/api/auto-grade/multiple-choice.ts",
             });
             injectRoute({
               pattern: "api/auto-grade/parsons-problem",
-              entryPoint:
+              entrypoint:
                 "@toshikurauchi/active-handout/pages/api/auto-grade/parsons-problem.ts",
             });
             injectRoute({
               pattern: "api/auto-grade/text-exercise",
-              entryPoint:
+              entrypoint:
                 "@toshikurauchi/active-handout/pages/api/auto-grade/text-exercise.ts",
             });
             injectRoute({
               pattern: "api/auto-grade/ai-text-exercise",
-              entryPoint:
+              entrypoint:
                 "@toshikurauchi/active-handout/pages/api/auto-grade/ai-text-exercise.ts",
             });
           }

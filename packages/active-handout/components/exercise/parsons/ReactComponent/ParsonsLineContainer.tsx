@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, type ReactNode } from "react";
-import { DragStartEvent, Plugins, Sortable } from "@shopify/draggable";
+import * as draggable from "@shopify/draggable";
 import Styles from "./styles.module.scss";
 import { Classes } from "./draggable-types";
 import ParsonsLine from "./ParsonsLine";
@@ -29,7 +29,7 @@ export default function ParsonsLineContainer({
   singleColumn,
   disabled,
 }: ParsonsLineContainerProps) {
-  const sortable = useRef<Sortable | null>(null);
+  const sortable = useRef<draggable.Sortable | null>(null);
   const availableLinesList = useRef<HTMLUListElement>(null);
   const selectedLinesList = useRef<HTMLUListElement>(null);
   const [currentContainer, setCurrentContainer] =
@@ -98,16 +98,16 @@ export default function ParsonsLineContainer({
       if (availableLinesList.current) {
         containers.push(availableLinesList.current);
       }
-      sortable.current = new Sortable(containers, {
+      sortable.current = new draggable.Sortable(containers, {
         draggable: `.${Classes.draggable}`,
         handle: `.${Classes.draggableHandle}`,
         mirror: {
           constrainDimensions: true,
         },
-        plugins: [Plugins.ResizeMirror],
+        plugins: [draggable.Plugins.ResizeMirror],
       });
 
-      sortable.current.on("drag:start", (event: DragStartEvent) => {
+      sortable.current.on("drag:start", (event: draggable.DragStartEvent) => {
         const container = event.sourceContainer.closest<HTMLDivElement>(
           `.${Styles.parsonsBlockContainer}`
         );

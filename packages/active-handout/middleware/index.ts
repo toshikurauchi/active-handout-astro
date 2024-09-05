@@ -1,5 +1,5 @@
 import config from "virtual:active-handout/user-config";
-import { sequence } from "astro/middleware";
+import { sequence } from "astro:middleware";
 import exerciseMiddleware from "./exercise-middleware";
 import authMiddleware from "./auth-middleware";
 
