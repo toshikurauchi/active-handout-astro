@@ -77,3 +77,12 @@ service firebase.storage {
   }
 }
 ```
+
+## Publishing on npm
+
+Run
+
+```
+pnpm version patch
+pnpm publish --access public
+```
