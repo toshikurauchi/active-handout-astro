@@ -11,7 +11,7 @@ import MarkdownInput from "./MarkdownInput";
 type TextExerciseProps = ExerciseBaseProps & {
   inputType?: string | undefined;
   multiline: boolean;
-  markdown: boolean;
+  markdown?: boolean;
   validation?: string | undefined;
 };
 

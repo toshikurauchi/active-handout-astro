@@ -26,14 +26,16 @@ export default function AnswerReact({
   const className = `${Styles.exerciseAnswer} ${classForStatus(status)}`.trim();
   return (
     <div className={className}>
-      <div className={Styles.exerciseAnswerTitle}>
-        {t("msg.answer")}
-        {answerTitleRight && (
-          <span className={Styles.exerciseAnswerTitleRight}>
-            {answerTitleRight}
-          </span>
-        )}
-      </div>
+      {!answerHTML && (
+        <div className={Styles.exerciseAnswerTitle}>
+          {t("msg.answer")}
+          {answerTitleRight && (
+            <span className={Styles.exerciseAnswerTitleRight}>
+              {answerTitleRight}
+            </span>
+          )}
+        </div>
+      )}
       {answerHTML && <div dangerouslySetInnerHTML={{ __html: answerHTML }} />}
       {extraAnswerContent && <div>{extraAnswerContent}</div>}
     </div>

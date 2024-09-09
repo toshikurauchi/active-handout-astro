@@ -9,10 +9,6 @@
   }
 
   .code-clipboard-btn {
-    @media print {
-      display: none;
-    }
-
     --scroll-offset: 0px;
 
     background-color: transparent;
@@ -22,6 +18,10 @@
     right: calc($right-offset - var(--scroll-offset, 0));
     cursor: pointer;
     opacity: 0.1;
+
+    @media print {
+      display: none;
+    }
 
     &:hover {
       opacity: 1;
