@@ -131,6 +131,13 @@ export default function ActiveHandoutIntegration(
             ],
           },
           vite: {
+            css: {
+              preprocessorOptions: {
+                scss: {
+                  api: "modern",
+                }
+              }
+            },
             plugins: [vitePluginActiveHandoutUserConfig(userConfig)],
             optimizeDeps: {
               exclude: [

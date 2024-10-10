@@ -1,13 +1,11 @@
-import OpenAI from "openai";
 import type { APIRoute } from "astro";
-import { loadExerciseOrError } from "./utils";
-import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+
 import config from "virtual:active-handout/user-config";
 import { useTranslations } from "../../../utils/translations";
+import { createChatModel } from "./chat-model";
+import { loadExerciseOrError } from "./utils";
 
 const t = useTranslations(config.lang);
-
-const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY;
 
 async function promptAI(
   question: string,
@@ -15,13 +13,7 @@ async function promptAI(
   studentAnswer: string,
   extraPrompt?: string
 ) {
-  if (!OPENAI_API_KEY) {
-    throw new Error(
-      "OPENAI_API_KEY is not set. Please set it in .env or .env.local"
-    );
-  }
-
-  const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+  const model = createChatModel();
 
   let expectedAnswerPrompt = "";
   if (expectedAnswer) {
@@ -33,26 +25,14 @@ async function promptAI(
     systemPrompt += ` ${extraPrompt}`;
   }
 
-  const messages: ChatCompletionMessageParam[] = [
-    {
-      role: "system",
-      content: systemPrompt,
-    },
-    {
-      role: "user",
-      content: studentAnswer || "",
-    },
-  ];
+  model.addMessage("system", systemPrompt);
+  model.addMessage("user", studentAnswer || "");
 
-  return await openai.chat.completions.create({
-    messages,
-    model: "gpt-3.5-turbo-1106",
-    response_format: { type: "json_object" },
-  });
+  return await model.completeChat();
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const { data, exercise, response } = await loadExerciseOrError<{studentAnswer: string}>(await request.json());
+  const { data, exercise, response } = await loadExerciseOrError<{ studentAnswer: string }>(await request.json());
   if (response) {
     return response;
   }

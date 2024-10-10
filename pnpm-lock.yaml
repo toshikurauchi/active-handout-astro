@@ -56,6 +56,9 @@ importers:
       '@astrojs/react':
         specifier: ^3.6.2
         version: 3.6.2(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.4.3(@types/node@22.5.4)(sass@1.78.0))
+      '@azure/openai':
+        specifier: 2.0.0-beta.1
+        version: 2.0.0-beta.1
       '@fontsource-variable/open-sans':
         specifier: ^5.0.30
         version: 5.0.31
@@ -274,6 +277,10 @@ packages:
 
   '@astrojs/yaml2ts@0.2.1':
     resolution: {integrity: sha512-CBaNwDQJz20E5WxzQh4thLVfhB3JEEGz72wRA+oJp6fQR37QLAqXZJU0mHC+yqMOQ6oj0GfRPJrz6hjf+zm6zA==}
+
+  '@azure/openai@2.0.0-beta.1':
+    resolution: {integrity: sha512-SMcGMbhv8gYiTvmv2aKlkDAW0sI5pjGW5KyC94DTAYgpZS7eK+B1WpCfuJLzVaLxbYZXYWTsmd+dCsS4rXJ9+w==}
+    engines: {node: '>=18.0.0'}
 
   '@babel/code-frame@7.24.7':
     resolution: {integrity: sha512-BcYH1CVJBO9tvyIZ2jVeXgSIMvGZ2FDRvDdOIVQyuklNKSsx+eppDEBq/g47Ayw+RqNFE+URvOShmf+f/qwAlA==}
@@ -4614,6 +4621,10 @@ snapshots:
   '@astrojs/yaml2ts@0.2.1':
     dependencies:
       yaml: 2.5.1
+
+  '@azure/openai@2.0.0-beta.1':
+    dependencies:
+      tslib: 2.7.0
 
   '@babel/code-frame@7.24.7':
     dependencies:

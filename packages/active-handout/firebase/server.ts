@@ -1,12 +1,15 @@
-import config from "virtual:active-handout/user-config";
 import * as admin from "firebase-admin";
 import {
-  initializeApp,
   cert,
   getApp,
+  initializeApp,
+  type App,
 } from "firebase-admin/app";
-import { getDatabase } from "firebase-admin/database";
+import { getDatabase, type Database } from "firebase-admin/database";
 import { getStorage as getAdminStorage } from "firebase-admin/storage";
+import config from "virtual:active-handout/user-config";
+
+throw new Error(JSON.stringify(import.meta.env.FIREBASE_PRIVATE_KEY_ID));
 
 const serviceAccount = {
   type: "service_account",
@@ -21,7 +24,7 @@ const serviceAccount = {
   client_x509_cert_url: import.meta.env.FIREBASE_CLIENT_CERT_URL,
 };
 
-let app: admin.App | undefined;
+let app: App | undefined;
 if (config.auth) {
   const missingVars = [];
   if (!serviceAccount.project_id)
@@ -46,20 +49,20 @@ if (config.auth) {
     );
   }
 
-  try {
-    if (config.auth) {
-      app = initializeApp({
-        credential: cert(serviceAccount as admin.ServiceAccount),
-        databaseURL: import.meta.env.PUBLIC_FIREBASE_DATABASE_URL,
-        storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
-      });
-    }
-  } catch (e) {
-    app = getApp();
+  // try {
+  if (config.auth) {
+    app = initializeApp({
+      credential: cert(serviceAccount as admin.ServiceAccount),
+      databaseURL: import.meta.env.PUBLIC_FIREBASE_DATABASE_URL,
+      storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
+    });
   }
+  // } catch (e) {
+  //   app = getApp();
+  // }
 }
 
-let db: admin.Database | undefined;
+let db: Database | undefined;
 
 function getDB() {
   if (!db) {
