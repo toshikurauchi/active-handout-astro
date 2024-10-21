@@ -9,8 +9,6 @@ import { getDatabase, type Database } from "firebase-admin/database";
 import { getStorage as getAdminStorage } from "firebase-admin/storage";
 import config from "virtual:active-handout/user-config";
 
-throw new Error(JSON.stringify(import.meta.env.FIREBASE_PRIVATE_KEY_ID));
-
 const serviceAccount = {
   type: "service_account",
   project_id: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
@@ -49,17 +47,17 @@ if (config.auth) {
     );
   }
 
-  // try {
-  if (config.auth) {
-    app = initializeApp({
-      credential: cert(serviceAccount as admin.ServiceAccount),
-      databaseURL: import.meta.env.PUBLIC_FIREBASE_DATABASE_URL,
-      storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
-    });
+  try {
+    if (config.auth) {
+      app = initializeApp({
+        credential: cert(serviceAccount as admin.ServiceAccount),
+        databaseURL: import.meta.env.PUBLIC_FIREBASE_DATABASE_URL,
+        storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
+      });
+    }
+  } catch (e) {
+    app = getApp();
   }
-  // } catch (e) {
-  //   app = getApp();
-  // }
 }
 
 let db: Database | undefined;

@@ -1,4 +1,4 @@
-import { DecodedIdToken, getAuth } from "firebase-admin/auth";
+import { type DecodedIdToken, getAuth } from "firebase-admin/auth";
 import { app } from "../../../firebase/server";
 
 export async function extractUserFromRequest(

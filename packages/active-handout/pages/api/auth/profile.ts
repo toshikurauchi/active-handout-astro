@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { DecodedIdToken, getAuth } from "firebase-admin/auth";
+import { type DecodedIdToken, getAuth } from "firebase-admin/auth";
 import { app, getStorage } from "../../../firebase/server";
 import {
   getUserFromCookie,

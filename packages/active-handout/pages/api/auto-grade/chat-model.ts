@@ -37,6 +37,7 @@ class AzureAPI extends ChatModel {
     return await this.client.chat.completions.create({
       messages: this.messages,
       model: "",
+      response_format: { type: "json_object" },
     });
   }
 }
@@ -62,8 +63,10 @@ class OpenAIAPI extends ChatModel {
 
 export const createChatModel = () => {
   if (OPENAI_API_KEY && OPENAI_MODEL) {
+    console.log("Using OpenAI API");
     return new OpenAIAPI();
   } else if (AZURE_API_KEY && AZURE_API_VERSION && AZURE_ENDPOINT && AZURE_DEPLOYMENT_NAME) {
+    console.log("Using Azure API");
     return new AzureAPI();
   }
 
